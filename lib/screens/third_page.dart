@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
+import 'package:my_first_riverpod/widgets/buttons_container.dart';
+import 'package:my_first_riverpod/widgets/timer_text_widget.dart';
 
 class ThirdScreen extends ConsumerWidget {
   const ThirdScreen({Key? key}) : super(key: key);
@@ -18,25 +20,10 @@ class ThirdScreen extends ConsumerWidget {
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return Column(
-                children: [
-                  Text(
-                    car.name.toString(),
-                    style: Theme.of(context).textTheme.headline4,
-                  ),
-                  // Text(
-                  //   car.speed.toString(),
-                  //   style: Theme.of(context).textTheme.headline4,
-                  // ),
-                  // Text(
-                  //   car.doors.toString(),
-                  //   style: Theme.of(context).textTheme.headline4,
-                  // ),
-                  Slider(
-                    onChanged: (value) {
-                      ref.read(carProvider.notifier).doors(value);
-                    },
-                    value: car.doors!.toDouble(),
-                  ),
+                children: const [
+                  TimerTextWidget(),
+                  SizedBox(height: 20),
+                  ButtonsContainer(),
                 ],
               );
             },
