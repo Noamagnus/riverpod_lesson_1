@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/providers/providers.dart';
+import 'package:my_first_riverpod/StateNotifiers/providers.dart';
 import 'package:my_first_riverpod/screens/first_page.dart';
 import 'package:my_first_riverpod/screens/second_page.dart';
 import 'package:my_first_riverpod/screens/third_page.dart';

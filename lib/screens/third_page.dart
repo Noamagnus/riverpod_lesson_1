@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/providers/providers.dart';
+import 'package:my_first_riverpod/StateNotifiers/providers.dart';
 import 'package:my_first_riverpod/widgets/buttons_container.dart';
 import 'package:my_first_riverpod/widgets/timer_text_widget.dart';
 
