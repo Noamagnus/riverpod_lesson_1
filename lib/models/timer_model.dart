@@ -1,5 +1,6 @@
 class TimerModel {
   final String timeLeft;
+  // final int initialDuration;
   final ButtonState buttonState;
 
   const TimerModel(this.timeLeft, this.buttonState);

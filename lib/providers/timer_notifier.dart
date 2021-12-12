@@ -4,17 +4,16 @@ import 'package:my_first_riverpod/models/timer_model.dart';
 import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-
-
-class TimerNotifier extends StateNotifier<TimerModel> {
-  // String initial;
-  TimerNotifier() : super(_initialState);
-
-  static const int _initialDuration = 10;
+class FakeTimerStateNotifier extends StateNotifier<TimerModel> {
+  int intruder;
+  FakeTimerStateNotifier(this.intruder) : super(_initialState);
+  // static const int _initialDuration = 10;
   static final _initialState = TimerModel(
-    _durationString(_initialDuration),
+    _durationString(10),
     ButtonState.initial,
   );
+ 
+  get initialDuration => intruder;
 
   final Ticker _ticker = Ticker();
   StreamSubscription<int>? _tickerSubscription;
@@ -56,7 +55,7 @@ class TimerNotifier extends StateNotifier<TimerModel> {
       state = TimerModel(state.timeLeft, ButtonState.finished);
     });
 
-    state = TimerModel(_durationString(_initialDuration), ButtonState.started);
+    state = TimerModel(_durationString(intruder), ButtonState.started);
   }
 
   void pause() {
@@ -79,6 +78,16 @@ class Ticker {
   }
 }
 
-final timerProvider = StateNotifierProvider<TimerNotifier, TimerModel>(
-  (ref) => TimerNotifier(),
+final timerProvider = StateNotifierProvider<FakeTimerStateNotifier, TimerModel>(
+  (ref) => FakeTimerStateNotifier(1),
 );
+
+class TimerModel {
+  final String timeLeft;
+  // final int initialDuration;
+  final ButtonState buttonState;
+
+  const TimerModel(this.timeLeft, this.buttonState);
+}
+
+enum ButtonState { initial, started, paused, finished }

@@ -21,17 +21,7 @@ class MyHomePage extends ConsumerWidget {
         ),
         body: renderPage(currentIndex) ,
         // body: currentIndex == 0 ? FirstScreen() : SecondScreen(),
-        floatingActionButton: Consumer(
-          builder: (context, ref, child) {
-            return FloatingActionButton(
-              onPressed: () {
-                ref.read(counterNotifierProvider.notifier).increment();
-              },
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            );
-          },
-        ),
+       
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           onTap: (index) {

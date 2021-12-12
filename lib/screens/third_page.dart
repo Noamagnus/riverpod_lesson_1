@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/StateNotifiers/providers.dart';
+import 'package:my_first_riverpod/StateNotifiers/timer_notifier.dart';
+import 'package:my_first_riverpod/providers/exercise_notifier.dart';
 import 'package:my_first_riverpod/widgets/buttons_container.dart';
 import 'package:my_first_riverpod/widgets/timer_text_widget.dart';
 
@@ -20,10 +22,27 @@ class ThirdScreen extends ConsumerWidget {
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return Column(
-                children: const [
-                  TimerTextWidget(),
-                  SizedBox(height: 20),
-                  ButtonsContainer(),
+                children: [
+                  const TimerTextWidget(),
+                  const SizedBox(height: 20),
+                  const ButtonsContainer(),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TextButton(
+                        child: const Text('Initial 5'),
+                        onPressed: () => ref.read(timerProvider.notifier).start(5),
+                      ),
+                      TextButton(
+                        child: const Text('Exercise Notifier'),
+                        onPressed: () => ref.read(exerciseStateNotifierProvider.notifier).startExersicse(),
+                        
+                      ),
+                    ],
+                  )
                 ],
               );
             },

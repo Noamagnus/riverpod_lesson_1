@@ -38,7 +38,7 @@ class StartButton extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     return FloatingActionButton(
       onPressed: () {
-        ref.read(timerProvider.notifier).start();
+        ref.read(timerProvider.notifier).start(5);
       },
       child: const Icon(Icons.play_arrow),
     );

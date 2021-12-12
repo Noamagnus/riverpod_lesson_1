@@ -37,6 +37,16 @@ class SecondScreen extends ConsumerWidget {
                     },
                     value: car.doors!.toDouble(),
                   ),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      ref.read(counterNotifierProvider.notifier).increment();
+                    },
+                    tooltip: 'Increment',
+                    child: const Icon(Icons.add),
+                  )
                 ],
               );
             },
