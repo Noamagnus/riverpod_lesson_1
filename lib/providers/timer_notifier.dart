@@ -1,19 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/timer_model.dart';
 
 import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 
-class FakeTimerStateNotifier extends StateNotifier<TimerModel> {
-  int intruder;
-  FakeTimerStateNotifier(this.intruder) : super(_initialState);
+final timerProvider = StateNotifierProvider<TimerNotifier, TimerModel>(
+  (ref) {
+    final exercise = ref.watch(exerciseNotifierProvider);
+    return TimerNotifier(ref, exercise);
+  },
+);
+
+class TimerNotifier extends StateNotifier<TimerModel> {
+  // String initial;
+  TimerNotifier(this.ref, Exercise exercise)
+      : super(TimerModel(
+          _durationString(exercise.hangingTime),
+          ButtonState.initial,
+        ));
+  Ref ref;
+
   // static const int _initialDuration = 10;
-  static final _initialState = TimerModel(
-    _durationString(10),
-    ButtonState.initial,
-  );
- 
-  get initialDuration => intruder;
+  // static final _initialState = TimerModel(
+  //   _durationString(_initialDuration),
+  //   ButtonState.initial,
+  // );
 
   final Ticker _ticker = Ticker();
   StreamSubscription<int>? _tickerSubscription;
@@ -43,7 +57,6 @@ class FakeTimerStateNotifier extends StateNotifier<TimerModel> {
     state = TimerModel(state.timeLeft, ButtonState.started);
   }
 
-//! try swapping state with _tickerSubscription and see what's gonna happen
   void _startTimer(int intruder) {
     _tickerSubscription?.cancel();
 
@@ -53,9 +66,11 @@ class FakeTimerStateNotifier extends StateNotifier<TimerModel> {
 
     _tickerSubscription?.onDone(() {
       state = TimerModel(state.timeLeft, ButtonState.finished);
+      ref.read(exerciseStateNotifierProvider.notifier).startExersicse();
     });
 
-    state = TimerModel(_durationString(intruder), ButtonState.started);
+    state = TimerModel(
+        _durationString(ref.read(exerciseNotifierProvider).hangingTime), ButtonState.started);
   }
 
   void pause() {
@@ -65,7 +80,11 @@ class FakeTimerStateNotifier extends StateNotifier<TimerModel> {
 
   void reset() {
     _tickerSubscription?.cancel();
-    state = _initialState;
+    final exercise = ref.read(exerciseNotifierProvider);
+    state = TimerModel(
+      _durationString(exercise.hangingTime),
+      ButtonState.initial,
+    );
   }
 }
 
@@ -77,17 +96,3 @@ class Ticker {
     ).take(ticks);
   }
 }
-
-final timerProvider = StateNotifierProvider<FakeTimerStateNotifier, TimerModel>(
-  (ref) => FakeTimerStateNotifier(1),
-);
-
-class TimerModel {
-  final String timeLeft;
-  // final int initialDuration;
-  final ButtonState buttonState;
-
-  const TimerModel(this.timeLeft, this.buttonState);
-}
-
-enum ButtonState { initial, started, paused, finished }
