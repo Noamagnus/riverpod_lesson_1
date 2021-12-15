@@ -11,10 +11,10 @@ final exerciseNotifierProvider = StateNotifierProvider<ExerciseNotifier, Exercis
 class ExerciseNotifier extends StateNotifier<Exercise> {
   ExerciseNotifier()
       : super(const Exercise(
-          hangingTime: 8,
-          restingTime: 7,
+          hangingTime: 7,
+          restingTime: 3,
           
-          reps: 2,
+          reps: 3 ,
           exerciseState: ExerciseState.initial,
         ));
 

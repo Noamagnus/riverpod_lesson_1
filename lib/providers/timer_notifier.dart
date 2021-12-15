@@ -20,6 +20,8 @@ class TimerNotifier extends StateNotifier<TimerModel> {
       : super(TimerModel(
           _durationString(exercise.hangingTime),
           TimerState.initial,
+          TimerExerciseState.hangTime,
+          exercise.reps,
         ));
   Exercise exercise;
 
@@ -27,11 +29,9 @@ class TimerNotifier extends StateNotifier<TimerModel> {
   StreamSubscription<int>? _tickerSubscription;
 //! This method transforms int to String
   static String _durationString(int duration) {
-    
-      final minutes = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
-      final seconds = (duration % 60).floor().toString().padLeft(2, '0');
-      return '$minutes:$seconds';
-    
+    final minutes = ((duration / 60) % 60).floor().toString().padLeft(2, '0');
+    final seconds = (duration % 60).floor().toString().padLeft(2, '0');
+    return '$minutes:$seconds';
   }
 
   @override
@@ -50,33 +50,82 @@ class TimerNotifier extends StateNotifier<TimerModel> {
 
   void _restartTimer() {
     _tickerSubscription?.resume();
-    state = TimerModel(state.timeLeft, TimerState.started);
+    if (state.timerExerciseState == TimerExerciseState.hangTime) {
+      state =
+          TimerModel(state.timeLeft, TimerState.started, TimerExerciseState.hangTime, state.reps);
+    } else if (state.timerExerciseState == TimerExerciseState.restTime) {
+      state =
+          TimerModel(state.timeLeft, TimerState.started, TimerExerciseState.restTime, state.reps);
+    }
   }
 
   void _startTimer() {
     _tickerSubscription?.cancel();
 
-    _tickerSubscription = _ticker.tickerClassStream(ticks: exercise.hangingTime).listen((duration) {
-      state = TimerModel(_durationString(duration), TimerState.started);
-    });
+    if (state.timerExerciseState == TimerExerciseState.hangTime) {
+      _tickerSubscription =
+          _ticker.tickerClassStream(ticks: exercise.hangingTime).listen((duration) {
+        state = TimerModel(
+            _durationString(duration), TimerState.started, TimerExerciseState.hangTime, state.reps);
+      });
+    } else if (state.timerExerciseState == TimerExerciseState.restTime) {
+      _tickerSubscription =
+          _ticker.tickerClassStream(ticks: exercise.restingTime).listen((duration) {
+        state = TimerModel(
+            _durationString(duration), TimerState.started, TimerExerciseState.restTime, state.reps);
+      });
+    }
 
     _tickerSubscription?.onDone(() {
-      state = TimerModel(state.timeLeft, TimerState.finished);
+      if (state.timerExerciseState == TimerExerciseState.hangTime) {
+        state = TimerModel(
+            state.timeLeft, TimerState.finished, TimerExerciseState.restTime, state.reps);
+        _startTimer();
+        return;
+        print('onDone');
+      }
+
+      if (state.timerExerciseState == TimerExerciseState.restTime) {
+        state = TimerModel(
+            state.timeLeft, TimerState.finished, TimerExerciseState.hangTime, state.reps - 1);
+        if (state.reps > 0) {
+          _startTimer();
+        } else {
+          return;
+        }
+      }
     });
-//! this is changed
-    state = TimerModel(state.timeLeft, TimerState.started);
+
+    if (state.timerExerciseState == TimerExerciseState.hangTime) {
+      state =
+          TimerModel(state.timeLeft, TimerState.started, TimerExerciseState.hangTime, state.reps);
+    } else if (state.timerExerciseState == TimerExerciseState.hangTime) {
+      state =
+          TimerModel(state.timeLeft, TimerState.started, TimerExerciseState.restTime, state.reps);
+    }
+    // state = TimerModel(state.timeLeft, TimerState.started,TimerExerciseState.hangTime);
   }
 
   void pause() {
     _tickerSubscription?.pause();
-    state = TimerModel(state.timeLeft, TimerState.paused);
+    if (state.timerExerciseState == TimerExerciseState.hangTime) {
+      state =
+          TimerModel(state.timeLeft, TimerState.paused, TimerExerciseState.hangTime, state.reps);
+    } else if (state.timerExerciseState == TimerExerciseState.hangTime) {
+      state =
+          TimerModel(state.timeLeft, TimerState.paused, TimerExerciseState.restTime, state.reps);
+    }
+
+    // state = TimerModel(state.timeLeft, TimerState.paused,TimerExerciseState.hangTime);
   }
-//! And this is changed
+
   void reset() {
     _tickerSubscription?.cancel();
     state = TimerModel(
       _durationString(exercise.hangingTime),
       TimerState.initial,
+      TimerExerciseState.hangTime,
+      exercise.reps,
     );
   }
 }

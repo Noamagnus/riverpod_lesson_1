@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_first_riverpod/models/timer_model.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/providers/timer_notifier.dart';
@@ -11,13 +12,21 @@ class ThirdScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final car = ref.watch(carProvider);
+    final timerState = ref.watch(timerProvider);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          const Text(
-            'Car name:',
+          Column(
+            children: [
+              Text('Reps ${timerState.reps}'),
+              if (timerState.timerExerciseState == TimerExerciseState.hangTime) ...[
+                const Text('Hanging Time')
+              ],
+              if (timerState.timerExerciseState == TimerExerciseState.restTime) ...[
+                const Text('Resting Time'),
+              ]
+            ],
           ),
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
@@ -34,13 +43,12 @@ class ThirdScreen extends ConsumerWidget {
                     children: [
                       TextButton(
                         child: const Text('Initial 5'),
-                        onPressed: (){},
+                        onPressed: () {},
                         // onPressed: () => ref.read(timerProvider.notifier).start(5),
                       ),
                       TextButton(
                         child: const Text('Exercise Notifier'),
                         onPressed: () => ref.read(timerProvider.notifier).start(),
-                        
                       ),
                     ],
                   )
