@@ -1,9 +1,9 @@
 class TimerModel {
-  final String timeLeft;
+  final String? timeLeft;
   // final int initialDuration;
-  final ButtonState buttonState;
+  final TimerState buttonState;
 
   const TimerModel(this.timeLeft, this.buttonState);
 }
 
-enum ButtonState { initial, started, paused, finished }
+enum TimerState { initial, started, paused, finished }

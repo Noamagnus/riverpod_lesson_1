@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/timer_notifier.dart';
 import 'package:my_first_riverpod/models/timer_model.dart';
 
@@ -11,20 +12,20 @@ class ButtonsContainer extends HookConsumerWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (state.buttonState == ButtonState.initial) ...[
+        if (state.buttonState == TimerState.initial) ...[
           const StartButton(),
         ],
-        if (state.buttonState == ButtonState.started) ...[
+        if (state.buttonState == TimerState.started) ...[
           const PauseButton(),
           const SizedBox(width: 20),
           const ResetButton(),
         ],
-        if (state.buttonState == ButtonState.paused) ...[
+        if (state.buttonState == TimerState.paused) ...[
           const StartButton(),
           const SizedBox(width: 20),
           const ResetButton(),
         ],
-        if (state.buttonState == ButtonState.finished) ...[
+        if (state.buttonState == TimerState.finished) ...[
           const ResetButton(),
         ],
       ],
@@ -38,7 +39,8 @@ class StartButton extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     return FloatingActionButton(
       onPressed: () {
-        ref.read(timerProvider.notifier).start(5);
+        
+        ref.read(timerProvider.notifier).start();
       },
       child: const Icon(Icons.play_arrow),
     );

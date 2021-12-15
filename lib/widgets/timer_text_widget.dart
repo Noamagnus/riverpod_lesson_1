@@ -9,7 +9,7 @@ class TimerTextWidget extends HookConsumerWidget {
   Widget build(BuildContext context, ref) {
     final timeLeft = ref.watch(timerProvider);
     return Text(
-      timeLeft.timeLeft,
+      timeLeft.timeLeft??'Jebi ga',
       style: Theme.of(context).textTheme.headline2,
     );
   }

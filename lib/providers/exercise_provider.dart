@@ -1,40 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
-
-final exerciseNotifierProvider =
-    StateNotifierProvider<ExerciseNotifier, Exercise>((ref) => ExerciseNotifier());
 
 
-// final exerciseProvider = StateProvider<Exercise>((ref) {
-//   return const Exercise(
-//     hangingTime: 7,
-//     restingTime: 3,
-//     reps: 3,
-//   );
-// });
+enum ExerciseState { initial, hanging, resting, finished }
 
-final exerciseStateNotifierProvider =
-    StateNotifierProvider<ExerciseStateProvider, ExerciseState>((ref) {
-  return ExerciseStateProvider(
-      ref,
-      const Exercise(
-        reps: 3,
-        hangingTime: 7,
-        restingTime: 3,
-      ));
+final exerciseNotifierProvider = StateNotifierProvider<ExerciseNotifier, Exercise>((ref) {
+  return ExerciseNotifier();
 });
 
 class ExerciseNotifier extends StateNotifier<Exercise> {
   ExerciseNotifier()
       : super(const Exercise(
-          hangingTime: 7,
-          restingTime: 3,
-          reps: 3,
+          hangingTime: 8,
+          restingTime: 7,
+          
+          reps: 2,
+          exerciseState: ExerciseState.initial,
         ));
 
+  // TimerModel timerModel;
+
   void setHanginTime(int value) {
-    state= state.copyWith(hangingTime: value);
+    state = state.copyWith(hangingTime: value);
   }
 
   void setRestingTime(int value) {
@@ -44,4 +31,26 @@ class ExerciseNotifier extends StateNotifier<Exercise> {
   void setNumberOfReps(int value) {
     state = state.copyWith(reps: value);
   }
+
+
+  // void startExersicse() {
+  //   if (state.reps > 1) {
+  //     if (state.exerciseState == ExerciseState.initial) {
+  //      timerModel.
+  //       state = state.copyWith(exerciseState: ExerciseState.hanging);
+  //     } else if (state.exerciseState == ExerciseState.hanging) {
+       
+  //       state = state.copyWith(exerciseState: ExerciseState.resting);
+  //       state = state.copyWith(reps: state.reps - 1);
+  //     }
+  //   } else {
+  //     state = state.copyWith(exerciseState: ExerciseState.finished);
+  //   }
+  // }
+  // void pauseExercise(){
+
+  // }
+  // void resetExercise(){
+
+  // }
 }

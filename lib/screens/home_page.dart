@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
-import 'package:my_first_riverpod/screens/first_page.dart';
-import 'package:my_first_riverpod/screens/second_page.dart';
-import 'package:my_first_riverpod/screens/third_page.dart';
+import 'package:my_first_riverpod/screens/screen_two.dart';
+import 'package:my_first_riverpod/screens/screen_one.dart';
+import 'package:my_first_riverpod/screens/screen_three.dart';
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
