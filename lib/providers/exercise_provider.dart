@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
+import 'package:uuid/uuid.dart';
 
-
+Uuid uuid = const Uuid();
 enum ExerciseState { initial, hanging, resting, finished }
 
 final exerciseNotifierProvider = StateNotifierProvider<ExerciseNotifier, Exercise>((ref) {
@@ -10,15 +11,18 @@ final exerciseNotifierProvider = StateNotifierProvider<ExerciseNotifier, Exercis
 
 class ExerciseNotifier extends StateNotifier<Exercise> {
   ExerciseNotifier()
-      : super(const Exercise(
+      : super(Exercise(
+          uuid: uuid.v4(),
           hangingTime: 7,
           restingTime: 3,
-          
-          reps: 3 ,
+          reps: 3,
           exerciseState: ExerciseState.initial,
         ));
 
   // TimerModel timerModel;
+  void selectExerciseFromList(Exercise exercise) {
+    state = exercise;
+  }
 
   void setHanginTime(int value) {
     state = state.copyWith(hangingTime: value);
@@ -32,14 +36,13 @@ class ExerciseNotifier extends StateNotifier<Exercise> {
     state = state.copyWith(reps: value);
   }
 
-
   // void startExersicse() {
   //   if (state.reps > 1) {
   //     if (state.exerciseState == ExerciseState.initial) {
   //      timerModel.
   //       state = state.copyWith(exerciseState: ExerciseState.hanging);
   //     } else if (state.exerciseState == ExerciseState.hanging) {
-       
+
   //       state = state.copyWith(exerciseState: ExerciseState.resting);
   //       state = state.copyWith(reps: state.reps - 1);
   //     }

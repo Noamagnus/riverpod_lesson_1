@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
+import 'package:my_first_riverpod/screens/exercise_list.dart';
 import 'package:my_first_riverpod/screens/screen_two.dart';
 import 'package:my_first_riverpod/screens/screen_one.dart';
 import 'package:my_first_riverpod/screens/screen_three.dart';
@@ -23,6 +24,7 @@ class MyHomePage extends ConsumerWidget {
         // body: currentIndex == 0 ? FirstScreen() : SecondScreen(),
        
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           onTap: (index) {
             ref.watch(bottomNavigationBarProvider.notifier).setIndex(index);
@@ -31,6 +33,7 @@ class MyHomePage extends ConsumerWidget {
             BottomNavigationBarItem(label: 'ScreenOne', icon: Icon(Icons.home)),
             BottomNavigationBarItem(label: 'ScreenTwo', icon: Icon(Icons.home)),
             BottomNavigationBarItem(label: 'ScreenThree', icon: Icon(Icons.countertops)),
+            BottomNavigationBarItem(label: 'Exercise List', icon: Icon(Icons.sports)),
           ],
         ));
   }
@@ -42,6 +45,8 @@ Widget renderPage(int index){
       return const SecondScreen();
     case 2:
     return const ThirdScreen();
+    case 3:
+    return const ExerciseListScreen();
     default:
     return const FirstScreen();
   }

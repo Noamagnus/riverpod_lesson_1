@@ -13,45 +13,40 @@ class ThirdScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final timerState = ref.watch(timerProvider);
+    final exercise = ref.watch(exerciseNotifierProvider);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Column(
             children: [
+              Text(
+                  'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
+              const SizedBox(
+                height: 10,
+              ),
               Text('Reps ${timerState.reps}'),
               if (timerState.timerExerciseState == TimerExerciseState.hangTime) ...[
                 const Text('Hanging Time')
               ],
               if (timerState.timerExerciseState == TimerExerciseState.restTime) ...[
                 const Text('Resting Time'),
-              ]
+              ],
+              const SizedBox(
+                height: 10,
+              ),
             ],
           ),
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
               return Column(
-                children: [
-                  const TimerTextWidget(),
-                  const SizedBox(height: 20),
-                  const ButtonsContainer(),
-                  const SizedBox(
+                children: const [
+                  TimerTextWidget(),
+                  SizedBox(height: 20),
+                  ButtonsContainer(),
+                  SizedBox(
                     height: 100,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      TextButton(
-                        child: const Text('Initial 5'),
-                        onPressed: () {},
-                        // onPressed: () => ref.read(timerProvider.notifier).start(5),
-                      ),
-                      TextButton(
-                        child: const Text('Exercise Notifier'),
-                        onPressed: () => ref.read(timerProvider.notifier).start(),
-                      ),
-                    ],
-                  )
                 ],
               );
             },

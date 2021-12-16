@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_first_riverpod/providers/exercise_list_notifier.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
-import 'package:my_first_riverpod/providers/timer_notifier.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class SecondScreen extends HookConsumerWidget {
@@ -49,10 +48,9 @@ class SecondScreen extends HookConsumerWidget {
                                 },
                               ),
                               actions: [
-                               
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 )
                               ],
                             );
@@ -97,10 +95,9 @@ class SecondScreen extends HookConsumerWidget {
                                 },
                               ),
                               actions: [
-                              
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 )
                               ],
                             );
@@ -125,7 +122,7 @@ class SecondScreen extends HookConsumerWidget {
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     onPressed: () {
-                       showDialog(
+                      showDialog(
                           context: context,
                           builder: (BuildContext context) {
                             // final _value = ref.watch(exerciseProvider).hangingTime;
@@ -145,10 +142,9 @@ class SecondScreen extends HookConsumerWidget {
                                 },
                               ),
                               actions: [
-                              
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 )
                               ],
                             );
@@ -162,6 +158,8 @@ class SecondScreen extends HookConsumerWidget {
                 ],
               ),
             ),
+            Text(exercise.uuid),
+            SizedBox(height: 20,),
             Text(
               car.name.toString(),
               style: Theme.of(context).textTheme.headline4,
@@ -185,7 +183,11 @@ class SecondScreen extends HookConsumerWidget {
             ),
             FloatingActionButton(
               onPressed: () {
-                ref.read(counterNotifierProvider.notifier).increment();
+                ref.read(exerciseListProvider.notifier).addExercise(exercise);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text('Exercise Added'),
+                  duration: Duration(milliseconds: 400),
+                ));
               },
               tooltip: 'Increment',
               child: const Icon(Icons.add),

@@ -78,11 +78,10 @@ class TimerNotifier extends StateNotifier<TimerModel> {
 
     _tickerSubscription?.onDone(() {
       if (state.timerExerciseState == TimerExerciseState.hangTime) {
-        state = TimerModel(
-            state.timeLeft, TimerState.finished, TimerExerciseState.restTime, state.reps);
+        state =
+            TimerModel(state.timeLeft, TimerState.started, TimerExerciseState.restTime, state.reps);
         _startTimer();
         return;
-        print('onDone');
       }
 
       if (state.timerExerciseState == TimerExerciseState.restTime) {
@@ -103,7 +102,6 @@ class TimerNotifier extends StateNotifier<TimerModel> {
       state =
           TimerModel(state.timeLeft, TimerState.started, TimerExerciseState.restTime, state.reps);
     }
-    // state = TimerModel(state.timeLeft, TimerState.started,TimerExerciseState.hangTime);
   }
 
   void pause() {
@@ -115,8 +113,6 @@ class TimerNotifier extends StateNotifier<TimerModel> {
       state =
           TimerModel(state.timeLeft, TimerState.paused, TimerExerciseState.restTime, state.reps);
     }
-
-    // state = TimerModel(state.timeLeft, TimerState.paused,TimerExerciseState.hangTime);
   }
 
   void reset() {
