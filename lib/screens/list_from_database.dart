@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
@@ -71,17 +73,39 @@ class ListFromDatabase extends ConsumerWidget {
                     ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
                     // ref.read()
                   },
-                  child: ListTile(
-                    title: Text(
-                        'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
-                    subtitle: Text(exercise.uuid),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        ref.read(exerciseDAOProvider).deleteExercise(exercise);
-                        // await ref.read(exerciseDAOProvider).getAllExercise();
-                      },
-                    ),
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                            'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [Text(exercise.uuid)],
+                        ),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            ref.read(exerciseDAOProvider).deleteExercise(exercise);
+                            // await ref.read(exerciseDAOProvider).getAllExercise();
+                          },
+                        ),
+                      ),
+                      if(exercise.imageUrl!=null)...[
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: SizedBox(
+                          height: 200,
+                          width: double.infinity,
+                          child: Image.file(
+                            File(exercise.imageUrl!),
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                      ),
+                        )
+                      ],
+                      
+                    ],
                   ),
                 );
               },

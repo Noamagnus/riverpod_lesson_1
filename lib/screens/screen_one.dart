@@ -171,7 +171,7 @@ class SecondScreen extends HookConsumerWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               onPressed: () {
-                ref.read(imagePickerProvider).takePicture();
+                ref.read(exerciseNotifierProvider.notifier).takePicture();
                 //todo call add picture function
               },
             ),

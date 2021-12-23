@@ -34,7 +34,6 @@ class ImagePickerHelper {
 //! This is path of temporary cross-platform file
     final String pickedImageFile = imageFile.path;
 
-    //  File? _storedImage = File(pickedImageFile);
 
 //!This is giving us device specific directory where we can store our files
     final Directory appDir = await syspaths.getApplicationDocumentsDirectory();
