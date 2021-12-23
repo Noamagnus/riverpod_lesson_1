@@ -37,7 +37,6 @@ class BottomNavigationNotifier extends StateNotifier<BottomNavigationModel> {
   BottomNavigationNotifier() : super(BottomNavigationModel());
 
   void setIndex(int newIndex) {
-    print(newIndex);
     final newState = state.copyWith(index: newIndex);
     state = newState;
   }

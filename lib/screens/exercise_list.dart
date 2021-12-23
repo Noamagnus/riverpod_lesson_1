@@ -21,7 +21,13 @@ class ExerciseListScreen extends ConsumerWidget {
           child: ListTile(
             title: Text(
                 'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
-            subtitle: Text(exercise.uuid),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(exercise.uuid),
+                Text(exercise.imageUrl ?? 'Nema slike'),
+              ],
+            ),
           ),
         );
       },

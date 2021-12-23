@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_first_riverpod/helpers/image_picker.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -6,11 +7,11 @@ Uuid uuid = const Uuid();
 enum ExerciseState { initial, hanging, resting, finished }
 
 final exerciseNotifierProvider = StateNotifierProvider<ExerciseNotifier, Exercise>((ref) {
-  return ExerciseNotifier();
+  return ExerciseNotifier(ref);
 });
 
 class ExerciseNotifier extends StateNotifier<Exercise> {
-  ExerciseNotifier()
+  ExerciseNotifier(this.ref)
       : super(Exercise(
           uuid: uuid.v4(),
           hangingTime: 7,
@@ -18,7 +19,7 @@ class ExerciseNotifier extends StateNotifier<Exercise> {
           reps: 3,
           exerciseState: ExerciseState.initial,
         ));
-
+  Ref ref;
   // TimerModel timerModel;
   void selectExerciseFromList(Exercise exercise) {
     state = exercise;
@@ -34,6 +35,11 @@ class ExerciseNotifier extends StateNotifier<Exercise> {
 
   void setNumberOfReps(int value) {
     state = state.copyWith(reps: value);
+  }
+
+  void takePicture() async {
+    final exerciseImageUrl = await ref.read(imagePickerProvider).takePicture();
+    state = state.copyWith(imageUrl: exerciseImageUrl);
   }
 
   // void startExersicse() {

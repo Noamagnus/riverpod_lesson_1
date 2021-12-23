@@ -35,6 +35,7 @@ class ThirdScreen extends ConsumerWidget {
               const SizedBox(
                 height: 10,
               ),
+              Text(exercise.imageUrl??'NO url')
             ],
           ),
           Consumer(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/screens/exercise_list.dart';
+import 'package:my_first_riverpod/screens/list_from_database.dart';
 import 'package:my_first_riverpod/screens/screen_two.dart';
 import 'package:my_first_riverpod/screens/screen_one.dart';
 import 'package:my_first_riverpod/screens/screen_three.dart';
@@ -48,7 +49,7 @@ Widget renderPage(int index){
     case 3:
     return const ExerciseListScreen();
     default:
-    return const FirstScreen();
+    return const ListFromDatabase();
   }
 
 }

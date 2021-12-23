@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_first_riverpod/helpers/image_picker.dart';
 import 'package:my_first_riverpod/providers/exercise_list_notifier.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
+import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
+import 'package:my_first_riverpod/repositiries/transfer.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class SecondScreen extends HookConsumerWidget {
@@ -10,8 +13,8 @@ class SecondScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final car = ref.watch(carProvider);
     final exercise = ref.watch(exerciseNotifierProvider);
+
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -159,31 +162,26 @@ class SecondScreen extends HookConsumerWidget {
               ),
             ),
             Text(exercise.uuid),
-            SizedBox(height: 20,),
-            Text(
-              car.name.toString(),
-              style: Theme.of(context).textTheme.headline4,
+            const SizedBox(
+              height: 20,
             ),
-            Text(
-              car.speed.toString(),
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Text(
-              car.doors.toString(),
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Slider(
-              onChanged: (value) {
-                ref.read(carProvider.notifier).doors(value);
+            TextButton(
+              child: Text(
+                'Take Picture',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              onPressed: () {
+                ref.read(imagePickerProvider).takePicture();
+                //todo call add picture function
               },
-              value: car.doors!.toDouble(),
             ),
             const SizedBox(
-              height: 100,
+              height: 20,
             ),
             FloatingActionButton(
               onPressed: () {
                 ref.read(exerciseListProvider.notifier).addExercise(exercise);
+                ref.read(exerciseDAOProvider).saveExercise(exercise);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Exercise Added'),
                   duration: Duration(milliseconds: 400),
@@ -198,3 +196,12 @@ class SecondScreen extends HookConsumerWidget {
     );
   }
 }
+
+// final car = ref.watch(carProvider);
+
+// Slider(
+//   onChanged: (value) {
+//     ref.read(carProvider.notifier).doors(value);
+//   },
+//   value: car.doors!.toDouble(),
+// ),

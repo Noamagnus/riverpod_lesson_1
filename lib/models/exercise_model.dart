@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'exercise_model.freezed.dart';
@@ -6,15 +8,32 @@ part 'exercise_model.g.dart';
 @freezed
 class Exercise with _$Exercise {
   const Exercise._();
-  const factory Exercise(
-    {required String uuid,
+  const factory Exercise({
+     int? id,
+    required String uuid,
     required int hangingTime,
     required int restingTime,
     required int reps,
-    required ExerciseState exerciseState,}
-  ) = _Exercise;
+    required ExerciseState exerciseState,
+    String? imageUrl,
+  }) = _Exercise;
   factory Exercise.fromJson(Map<String, dynamic> json) => _$ExerciseFromJson(json);
 }
+
+// class FileConverter implements JsonConverter{
+//   @override
+//   fromJson(json) {
+//     // TODO: implement fromJson
+//     throw UnimplementedError();
+//   }
+
+//   @override
+//   toJson(object) {
+//     // TODO: implement toJson
+//     throw UnimplementedError();
+//   }
+//  }
+
 
 // class Exercise {
 //   final String uuid;
