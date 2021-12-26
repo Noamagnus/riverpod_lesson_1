@@ -28,7 +28,8 @@ class _$ExerciseTearOff {
       required int restingTime,
       required int reps,
       required ExerciseState exerciseState,
-      String? imageUrl}) {
+      String? imageUrl,
+      bool displayDetails = true}) {
     return _Exercise(
       id: id,
       uuid: uuid,
@@ -37,6 +38,7 @@ class _$ExerciseTearOff {
       reps: reps,
       exerciseState: exerciseState,
       imageUrl: imageUrl,
+      displayDetails: displayDetails,
     );
   }
 
@@ -57,6 +59,7 @@ mixin _$Exercise {
   int get reps => throw _privateConstructorUsedError;
   ExerciseState get exerciseState => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
+  bool get displayDetails => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,7 +78,8 @@ abstract class $ExerciseCopyWith<$Res> {
       int restingTime,
       int reps,
       ExerciseState exerciseState,
-      String? imageUrl});
+      String? imageUrl,
+      bool displayDetails});
 }
 
 /// @nodoc
@@ -95,6 +99,7 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
     Object? reps = freezed,
     Object? exerciseState = freezed,
     Object? imageUrl = freezed,
+    Object? displayDetails = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -125,6 +130,10 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      displayDetails: displayDetails == freezed
+          ? _value.displayDetails
+          : displayDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -141,7 +150,8 @@ abstract class _$ExerciseCopyWith<$Res> implements $ExerciseCopyWith<$Res> {
       int restingTime,
       int reps,
       ExerciseState exerciseState,
-      String? imageUrl});
+      String? imageUrl,
+      bool displayDetails});
 }
 
 /// @nodoc
@@ -162,6 +172,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
     Object? reps = freezed,
     Object? exerciseState = freezed,
     Object? imageUrl = freezed,
+    Object? displayDetails = freezed,
   }) {
     return _then(_Exercise(
       id: id == freezed
@@ -192,6 +203,10 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      displayDetails: displayDetails == freezed
+          ? _value.displayDetails
+          : displayDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -206,7 +221,8 @@ class _$_Exercise extends _Exercise {
       required this.restingTime,
       required this.reps,
       required this.exerciseState,
-      this.imageUrl})
+      this.imageUrl,
+      this.displayDetails = true})
       : super._();
 
   factory _$_Exercise.fromJson(Map<String, dynamic> json) =>
@@ -226,10 +242,13 @@ class _$_Exercise extends _Exercise {
   final ExerciseState exerciseState;
   @override
   final String? imageUrl;
+  @JsonKey()
+  @override
+  final bool displayDetails;
 
   @override
   String toString() {
-    return 'Exercise(id: $id, uuid: $uuid, hangingTime: $hangingTime, restingTime: $restingTime, reps: $reps, exerciseState: $exerciseState, imageUrl: $imageUrl)';
+    return 'Exercise(id: $id, uuid: $uuid, hangingTime: $hangingTime, restingTime: $restingTime, reps: $reps, exerciseState: $exerciseState, imageUrl: $imageUrl, displayDetails: $displayDetails)';
   }
 
   @override
@@ -246,7 +265,9 @@ class _$_Exercise extends _Exercise {
             const DeepCollectionEquality().equals(other.reps, reps) &&
             const DeepCollectionEquality()
                 .equals(other.exerciseState, exerciseState) &&
-            const DeepCollectionEquality().equals(other.imageUrl, imageUrl));
+            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
+            const DeepCollectionEquality()
+                .equals(other.displayDetails, displayDetails));
   }
 
   @override
@@ -258,7 +279,8 @@ class _$_Exercise extends _Exercise {
       const DeepCollectionEquality().hash(restingTime),
       const DeepCollectionEquality().hash(reps),
       const DeepCollectionEquality().hash(exerciseState),
-      const DeepCollectionEquality().hash(imageUrl));
+      const DeepCollectionEquality().hash(imageUrl),
+      const DeepCollectionEquality().hash(displayDetails));
 
   @JsonKey(ignore: true)
   @override
@@ -279,7 +301,8 @@ abstract class _Exercise extends Exercise {
       required int restingTime,
       required int reps,
       required ExerciseState exerciseState,
-      String? imageUrl}) = _$_Exercise;
+      String? imageUrl,
+      bool displayDetails}) = _$_Exercise;
   const _Exercise._() : super._();
 
   factory _Exercise.fromJson(Map<String, dynamic> json) = _$_Exercise.fromJson;
@@ -298,6 +321,8 @@ abstract class _Exercise extends Exercise {
   ExerciseState get exerciseState;
   @override
   String? get imageUrl;
+  @override
+  bool get displayDetails;
   @override
   @JsonKey(ignore: true)
   _$ExerciseCopyWith<_Exercise> get copyWith =>

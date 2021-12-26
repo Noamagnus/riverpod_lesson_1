@@ -4,7 +4,7 @@ import 'package:my_first_riverpod/models/timer_model.dart';
 
 import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 
 final timerProvider = StateNotifierProvider<TimerNotifier, TimerModel>((ref) {
   final exercise = ref.watch(exerciseNotifierProvider);

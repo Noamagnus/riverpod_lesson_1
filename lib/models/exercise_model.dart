@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'exercise_model.freezed.dart';
 part 'exercise_model.g.dart';
@@ -16,6 +16,7 @@ class Exercise with _$Exercise {
     required int reps,
     required ExerciseState exerciseState,
     String? imageUrl,
+    @Default(true) bool displayDetails,
   }) = _Exercise;
   factory Exercise.fromJson(Map<String, dynamic> json) => _$ExerciseFromJson(json);
 }

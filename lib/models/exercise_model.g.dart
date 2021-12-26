@@ -14,6 +14,7 @@ _$_Exercise _$$_ExerciseFromJson(Map<String, dynamic> json) => _$_Exercise(
       reps: json['reps'] as int,
       exerciseState: $enumDecode(_$ExerciseStateEnumMap, json['exerciseState']),
       imageUrl: json['imageUrl'] as String?,
+      displayDetails: json['displayDetails'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$_ExerciseToJson(_$_Exercise instance) =>
@@ -25,6 +26,7 @@ Map<String, dynamic> _$$_ExerciseToJson(_$_Exercise instance) =>
       'reps': instance.reps,
       'exerciseState': _$ExerciseStateEnumMap[instance.exerciseState],
       'imageUrl': instance.imageUrl,
+      'displayDetails': instance.displayDetails,
     };
 
 const _$ExerciseStateEnumMap = {

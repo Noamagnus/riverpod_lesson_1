@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/timer_model.dart';
-import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/providers/timer_notifier.dart';
 import 'package:my_first_riverpod/widgets/buttons_container.dart';
@@ -35,7 +35,11 @@ class ThirdScreen extends ConsumerWidget {
               const SizedBox(
                 height: 10,
               ),
-              Text(exercise.imageUrl??'NO url')
+              Text(exercise.imageUrl??'NO url'),
+               const SizedBox(
+                height: 10,
+              ),
+              Text(exercise.displayDetails.toString())
             ],
           ),
           Consumer(

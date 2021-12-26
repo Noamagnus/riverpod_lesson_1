@@ -6,12 +6,12 @@ import 'package:uuid/uuid.dart';
 Uuid uuid = const Uuid();
 enum ExerciseState { initial, hanging, resting, finished }
 
-final exerciseNotifierProvider = StateNotifierProvider<ExerciseNotifier, Exercise>((ref) {
-  return ExerciseNotifier(ref);
+final exerciseNotifierProvider = StateNotifierProvider<ExerciseStateNotifier, Exercise>((ref) {
+  return ExerciseStateNotifier(ref);
 });
 
-class ExerciseNotifier extends StateNotifier<Exercise> {
-  ExerciseNotifier(this.ref)
+class ExerciseStateNotifier extends StateNotifier<Exercise> {
+  ExerciseStateNotifier(this.ref)
       : super(Exercise(
           uuid: uuid.v4(),
           hangingTime: 7,
@@ -19,8 +19,8 @@ class ExerciseNotifier extends StateNotifier<Exercise> {
           reps: 3,
           exerciseState: ExerciseState.initial,
         ));
-  Ref ref;
-  // TimerModel timerModel;
+  Ref ref; //! to be able to read imagePickerProvider
+
   void selectExerciseFromList(Exercise exercise) {
     state = exercise;
   }
@@ -40,6 +40,10 @@ class ExerciseNotifier extends StateNotifier<Exercise> {
   void takePicture() async {
     final exerciseImageUrl = await ref.read(imagePickerProvider).takePicture();
     state = state.copyWith(imageUrl: exerciseImageUrl);
+  }
+
+   void showDetails() {
+    state=state.copyWith(displayDetails: !state.displayDetails);
   }
 
   // void startExersicse() {

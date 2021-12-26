@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:uuid/uuid.dart';
 
 final exerciseListProvider = StateNotifierProvider<ExerciseListNotifier, List<Exercise>>((ref) {

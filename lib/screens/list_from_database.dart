@@ -4,50 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/providers/exercise_list_notifier.dart';
-import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/transfer.dart';
 
 class ListFromDatabase extends ConsumerWidget {
   const ListFromDatabase({Key? key}) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context, ref) {
-//     final exerciseList = ref.watch(futureDAOProvider);
-//      return exerciseList.when(
-//       data: (list) {
-//         return ListView.builder(
-//           itemCount: list.length,
-//           itemBuilder: (BuildContext context, int index) {
-//             final exercise = list[index];
-//             return InkWell(
-//               onTap: () {
-//                 ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
-//                 // ref.read()
-//               },
-//               child: ListTile(
-//                 title: Text(
-//                     'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
-//                 subtitle: Text(exercise.uuid),
-//               ),
-//             );
-//           },
-//         );
-//       },
-//       loading: () {
-//         return const Center(child: CircularProgressIndicator());
-//       },
-//       error: (Object error, StackTrace? stackTrace) {
-//         return Text('$error');
-//       },
-
-//     );
-//   }
-// }
-
   @override
   Widget build(BuildContext context, ref) {
     print('build run');
     final exerciseList = ref.watch(exerciseDAOProvider).getAllExercises2();
+    final exerciseNotifier = ref.watch(exerciseNotifierProvider);
 
     return StreamBuilder(
       stream: exerciseList,
@@ -76,35 +44,47 @@ class ListFromDatabase extends ConsumerWidget {
                   child: Column(
                     children: [
                       ListTile(
+                        key: Key('$index'),
                         title: Text(
                             'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [Text(exercise.uuid)],
                         ),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {
-                            ref.read(exerciseDAOProvider).deleteExercise(exercise);
-                            // await ref.read(exerciseDAOProvider).getAllExercise();
-                          },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                ref.read(exerciseDAOProvider).deleteExercise(exercise);
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.expand_more),
+                              onPressed: () {
+                                print(exerciseNotifier.displayDetails);
+                                ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                
+                              },
+                            ),
+                          ],
                         ),
                       ),
-                      if(exercise.imageUrl!=null)...[
+                      if (exercise.imageUrl != null && exerciseNotifier.displayDetails) ...[
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: SizedBox(
-                          height: 200,
-                          width: double.infinity,
-                          child: Image.file(
-                            File(exercise.imageUrl!),
-                            fit: BoxFit.cover,
+                            height: 200,
                             width: double.infinity,
+                            child: Image.file(
+                              File(exercise.imageUrl!),
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
                           ),
-                      ),
                         )
                       ],
-                      
                     ],
                   ),
                 );
