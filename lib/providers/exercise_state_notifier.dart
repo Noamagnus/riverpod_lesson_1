@@ -45,6 +45,9 @@ class ExerciseStateNotifier extends StateNotifier<Exercise> {
    void showDetails() {
     state=state.copyWith(displayDetails: !state.displayDetails);
   }
+   
+   
+  
 
   // void startExersicse() {
   //   if (state.reps > 1) {

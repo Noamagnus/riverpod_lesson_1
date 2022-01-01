@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
-import 'package:my_first_riverpod/screens/exercise_list.dart';
+import 'package:my_first_riverpod/screens/create_workout_screen.dart';
+import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
 import 'package:my_first_riverpod/screens/list_from_database.dart';
-import 'package:my_first_riverpod/screens/screen_two.dart';
-import 'package:my_first_riverpod/screens/screen_one.dart';
-import 'package:my_first_riverpod/screens/screen_three.dart';
+import 'package:my_first_riverpod/screens/exercise_screen.dart';
+import 'package:my_first_riverpod/screens/action_screen.dart';
 
 class MyHomePage extends ConsumerWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -31,10 +31,11 @@ class MyHomePage extends ConsumerWidget {
             ref.watch(bottomNavigationBarProvider.notifier).setIndex(index);
           },
           items: const [
-            BottomNavigationBarItem(label: 'ScreenOne', icon: Icon(Icons.home)),
-            BottomNavigationBarItem(label: 'ScreenTwo', icon: Icon(Icons.home)),
-            BottomNavigationBarItem(label: 'ScreenThree', icon: Icon(Icons.countertops)),
-            BottomNavigationBarItem(label: 'Exercise List', icon: Icon(Icons.sports)),
+            BottomNavigationBarItem(label: 'Exercise', icon: Icon(Icons.home)),
+            BottomNavigationBarItem(label: 'Exercises', icon: Icon(Icons.home)),
+            BottomNavigationBarItem(label: 'Action', icon: Icon(Icons.countertops)),
+            BottomNavigationBarItem(label: 'Workout', icon: Icon(Icons.sports)),
+            BottomNavigationBarItem(label: 'Create Wrk', icon: Icon(Icons.sports)),
           ],
         ));
   }
@@ -42,14 +43,16 @@ class MyHomePage extends ConsumerWidget {
 
 Widget renderPage(int index){
   switch (index) {
-    case 0:
-      return const SecondScreen();
+    case 1:
+      return const ExerciseListScreen();
     case 2:
-    return const ThirdScreen();
+    return const ActionScreen();
     case 3:
-    return const ExerciseListScreen();
-    default:
     return const ListFromDatabase();
+    case 4:
+    return const CreateWorkoutScreen();
+    default:
+    return const ExerciseScreen();
   }
 
 }

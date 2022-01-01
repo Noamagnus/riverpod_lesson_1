@@ -22,7 +22,7 @@ class _$ExerciseTearOff {
   const _$ExerciseTearOff();
 
   _Exercise call(
-      {int? id,
+      {String? name,
       required String uuid,
       required int hangingTime,
       required int restingTime,
@@ -31,7 +31,7 @@ class _$ExerciseTearOff {
       String? imageUrl,
       bool displayDetails = true}) {
     return _Exercise(
-      id: id,
+      name: name,
       uuid: uuid,
       hangingTime: hangingTime,
       restingTime: restingTime,
@@ -52,7 +52,7 @@ const $Exercise = _$ExerciseTearOff();
 
 /// @nodoc
 mixin _$Exercise {
-  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
   int get hangingTime => throw _privateConstructorUsedError;
   int get restingTime => throw _privateConstructorUsedError;
@@ -72,7 +72,7 @@ abstract class $ExerciseCopyWith<$Res> {
   factory $ExerciseCopyWith(Exercise value, $Res Function(Exercise) then) =
       _$ExerciseCopyWithImpl<$Res>;
   $Res call(
-      {int? id,
+      {String? name,
       String uuid,
       int hangingTime,
       int restingTime,
@@ -92,7 +92,7 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? name = freezed,
     Object? uuid = freezed,
     Object? hangingTime = freezed,
     Object? restingTime = freezed,
@@ -102,10 +102,10 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
     Object? displayDetails = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ abstract class _$ExerciseCopyWith<$Res> implements $ExerciseCopyWith<$Res> {
       __$ExerciseCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int? id,
+      {String? name,
       String uuid,
       int hangingTime,
       int restingTime,
@@ -165,7 +165,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? name = freezed,
     Object? uuid = freezed,
     Object? hangingTime = freezed,
     Object? restingTime = freezed,
@@ -175,10 +175,10 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
     Object? displayDetails = freezed,
   }) {
     return _then(_Exercise(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String?,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -215,7 +215,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Exercise extends _Exercise {
   const _$_Exercise(
-      {this.id,
+      {this.name,
       required this.uuid,
       required this.hangingTime,
       required this.restingTime,
@@ -229,7 +229,7 @@ class _$_Exercise extends _Exercise {
       _$$_ExerciseFromJson(json);
 
   @override
-  final int? id;
+  final String? name;
   @override
   final String uuid;
   @override
@@ -248,7 +248,7 @@ class _$_Exercise extends _Exercise {
 
   @override
   String toString() {
-    return 'Exercise(id: $id, uuid: $uuid, hangingTime: $hangingTime, restingTime: $restingTime, reps: $reps, exerciseState: $exerciseState, imageUrl: $imageUrl, displayDetails: $displayDetails)';
+    return 'Exercise(name: $name, uuid: $uuid, hangingTime: $hangingTime, restingTime: $restingTime, reps: $reps, exerciseState: $exerciseState, imageUrl: $imageUrl, displayDetails: $displayDetails)';
   }
 
   @override
@@ -256,7 +256,7 @@ class _$_Exercise extends _Exercise {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Exercise &&
-            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.uuid, uuid) &&
             const DeepCollectionEquality()
                 .equals(other.hangingTime, hangingTime) &&
@@ -273,7 +273,7 @@ class _$_Exercise extends _Exercise {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(uuid),
       const DeepCollectionEquality().hash(hangingTime),
       const DeepCollectionEquality().hash(restingTime),
@@ -295,7 +295,7 @@ class _$_Exercise extends _Exercise {
 
 abstract class _Exercise extends Exercise {
   const factory _Exercise(
-      {int? id,
+      {String? name,
       required String uuid,
       required int hangingTime,
       required int restingTime,
@@ -308,7 +308,7 @@ abstract class _Exercise extends Exercise {
   factory _Exercise.fromJson(Map<String, dynamic> json) = _$_Exercise.fromJson;
 
   @override
-  int? get id;
+  String? get name;
   @override
   String get uuid;
   @override

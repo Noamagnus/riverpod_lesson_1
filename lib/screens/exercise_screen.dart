@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/helpers/image_picker.dart';
-import 'package:my_first_riverpod/providers/exercise_list_notifier.dart';
 import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
-import 'package:my_first_riverpod/repositiries/transfer.dart';
+import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class SecondScreen extends HookConsumerWidget {
-  const SecondScreen({Key? key}) : super(key: key);
+class ExerciseScreen extends HookConsumerWidget {
+  const ExerciseScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -180,14 +179,13 @@ class SecondScreen extends HookConsumerWidget {
             ),
             FloatingActionButton(
               onPressed: () {
-                ref.read(exerciseListProvider.notifier).addExercise(exercise);
                 ref.read(exerciseDAOProvider).saveExercise(exercise);
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text('Exercise Added'),
                   duration: Duration(milliseconds: 400),
                 ));
               },
-              tooltip: 'Increment',
+              tooltip: 'Add Exercise',
               child: const Icon(Icons.add),
             ),
           ],

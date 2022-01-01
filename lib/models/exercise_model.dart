@@ -8,8 +8,8 @@ part 'exercise_model.g.dart';
 @freezed
 class Exercise with _$Exercise {
   const Exercise._();
-  const factory Exercise({
-     int? id,
+  const factory Exercise({ 
+    String? name,   
     required String uuid,
     required int hangingTime,
     required int restingTime,

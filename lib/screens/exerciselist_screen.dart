@@ -7,15 +7,15 @@ import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 
-class ListFromDatabase extends ConsumerWidget {
-  const ListFromDatabase({Key? key}) : super(key: key);
+class ExerciseListScreen extends ConsumerWidget {
+  const ExerciseListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
     print('build run');
     final exerciseList = ref.watch(exerciseDAOProvider).getAllExercises2();
     final exerciseNotifier = ref.watch(exerciseNotifierProvider);
-  
+    
 
     return StreamBuilder(
       stream: exerciseList,
@@ -31,12 +31,18 @@ class ListFromDatabase extends ConsumerWidget {
           } else if (snapshot.hasData) {
             final List<Exercise> list = snapshot.data;
 
-            return ListView.builder(
+            return ReorderableListView.builder(
+              onReorder: (int oldIndex, int newIndex) {
+                ref.read(exerciseDAOProvider).onReorder(
+                      oldIndex,
+                      newIndex,
+                    );
+              },
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index) {
                 final exercise = list[index];
-                print(exercise);
                 return InkWell(
+                  key: Key('$index'),
                   onTap: () {
                     ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
                     // ref.read()
@@ -44,12 +50,11 @@ class ListFromDatabase extends ConsumerWidget {
                   child: Column(
                     children: [
                       ListTile(
-                        key: Key('$index'),
                         title: Text(
                             'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [Text(exercise.uuid)],
+                          children: [Text('${exercise.uuid} index $index')],
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -65,7 +70,6 @@ class ListFromDatabase extends ConsumerWidget {
                               onPressed: () {
                                 print(exerciseNotifier.displayDetails);
                                 ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                
                               },
                             ),
                           ],
@@ -103,66 +107,3 @@ class ListFromDatabase extends ConsumerWidget {
 
 
 
-//   @override
-//   Widget build(BuildContext context, ref) {
-//     print('build run');
-//     final exerciseList = ref.watch(exerciseDAOProvider).getAllExercises2();
-
-//     return FutureBuilder(
-//       future: exerciseList,
-//       // initialData: InitialData,
-//       builder: (BuildContext context, AsyncSnapshot snapshot) {
-//         if (snapshot.connectionState == ConnectionState.done) {
-//           final list = snapshot.data as List<Exercise>;
-//           return ListView.builder(
-//             itemCount: list.length,
-//             itemBuilder: (BuildContext context, int index) {
-//               final exercise = list[index];
-//               print(exercise);
-//               return InkWell(
-//                 onTap: () {
-//                   ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
-//                   // ref.read()
-//                 },
-//                 child: ListTile(
-//                   title: Text(
-//                       'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
-//                   subtitle: Text(exercise.uuid),
-//                   trailing: IconButton(
-//                     icon: Icon(Icons.delete),
-//                     onPressed: () {
-//                       ref.read(exerciseDAOProvider).deleteExercise(exercise);
-//                       // await ref.read(exerciseDAOProvider).getAllExercise();
-//                     },
-//                   ),
-//                 ),
-//               );
-//             },
-//           );
-//         } else if (snapshot.connectionState == ConnectionState.waiting) {
-//           return const Center(child: const CircularProgressIndicator());
-//         } else {
-//           return const Text('ne znam bato');
-//         }
-//       },
-//     );
-//   }
-// }
-
-// ListView.builder(
-//       itemCount: exerciseList.length,
-//       itemBuilder: (BuildContext context, int index) {
-//         final exercise = exerciseList[index];
-//         return InkWell(
-//           onTap: () {
-//             ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
-//             // ref.read()
-//           },
-//           child: ListTile(
-//             title: Text(
-//                 'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
-//             subtitle: Text(exercise.uuid),
-//           ),
-//         );
-//       },
-//     );
