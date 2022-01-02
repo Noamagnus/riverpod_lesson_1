@@ -24,11 +24,11 @@ class WorkoutDAO {
     this._db,
   );
   Future<void> saveWorkout(Workout workout) async {
-    final newExercise = workout.copyWith(uuid: _uuid.v4());
-    await _store.add(_db.instance, newExercise.toJson());
+    final newWorkout = workout.copyWith(uuid: _uuid.v4());
+    await _store.add(_db.instance, newWorkout.toJson());
   }
 
-  Stream<List<Workout>> getAllExercisesFromWorkout() {
+  Stream<List<Workout>> getAllWorkouts() {
     var _finder = Finder(sortOrders: [SortOrder(Field.key)]);
     return _store
         .query(finder: _finder)
@@ -49,7 +49,10 @@ class WorkoutDAO {
     await _store.update(_db.instance, workout.toJson(), finder: finder);
   }
 
-  Future<void> onReorder(int oldIndex, int newIndex,) async {
+  Future<void> onReorder(
+    int oldIndex,
+    int newIndex,
+  ) async {
     var _finder = Finder(sortOrders: [SortOrder(Field.key)]);
     final recordSnapshot = await _store.find(_db.instance, finder: _finder);
     var listFromDatabase = recordSnapshot.map((snapshot) {
@@ -63,5 +66,4 @@ class WorkoutDAO {
     await _store.delete(_db.instance);
     await _store.addAll(_db.instance, listOfMaps);
   }
-
 }

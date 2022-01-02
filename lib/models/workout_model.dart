@@ -1,3 +1,4 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -7,6 +8,7 @@ part 'workout_model.g.dart';
 @freezed
 class Workout with _$Workout {
   const Workout._();
+  @JsonSerializable(explicitToJson: true)
   const factory Workout({
     String? name,
     required String uuid,

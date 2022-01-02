@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
+import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
+import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 
 class ListFromDatabase extends ConsumerWidget {
   const ListFromDatabase({Key? key}) : super(key: key);
@@ -13,12 +15,12 @@ class ListFromDatabase extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     print('build run');
-    final exerciseList = ref.watch(exerciseDAOProvider).getAllExercises2();
+    final workoutList = ref.watch(workoutDAOProvider).getAllWorkouts();
     final exerciseNotifier = ref.watch(exerciseNotifierProvider);
   
 
     return StreamBuilder(
-      stream: exerciseList,
+      stream: workoutList,
       initialData: const [],
       // initialData: InitialData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -29,16 +31,15 @@ class ListFromDatabase extends ConsumerWidget {
           if (snapshot.hasError) {
             return Text(snapshot.error.toString());
           } else if (snapshot.hasData) {
-            final List<Exercise> list = snapshot.data;
+            final List<Workout> list = snapshot.data;
 
             return ListView.builder(
               itemCount: list.length,
               itemBuilder: (BuildContext context, int index) {
-                final exercise = list[index];
-                print(exercise);
+                final workout = list[index];
                 return InkWell(
                   onTap: () {
-                    ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
+                    // ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(workout);
                     // ref.read()
                   },
                   child: Column(
@@ -46,10 +47,10 @@ class ListFromDatabase extends ConsumerWidget {
                       ListTile(
                         key: Key('$index'),
                         title: Text(
-                            'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'),
+                            'Hanging ${workout.dificultyLevel}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [Text(exercise.uuid)],
+                          children: [Text(workout.uuid)],
                         ),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
@@ -57,13 +58,12 @@ class ListFromDatabase extends ConsumerWidget {
                             IconButton(
                               icon: Icon(Icons.delete),
                               onPressed: () {
-                                ref.read(exerciseDAOProvider).deleteExercise(exercise);
+                                ref.read(workoutDAOProvider).deleteWorkout(workout);
                               },
                             ),
                             IconButton(
                               icon: Icon(Icons.expand_more),
                               onPressed: () {
-                                print(exerciseNotifier.displayDetails);
                                 ref.read(exerciseNotifierProvider.notifier).showDetails();
                                 
                               },
@@ -71,18 +71,13 @@ class ListFromDatabase extends ConsumerWidget {
                           ],
                         ),
                       ),
-                      if (exercise.imageUrl != null && exerciseNotifier.displayDetails) ...[
+                      if ( exerciseNotifier.displayDetails) ...[
                         Padding(
                           padding: const EdgeInsets.all(16.0),
-                          child: SizedBox(
-                            height: 200,
-                            width: double.infinity,
-                            child: Image.file(
-                              File(exercise.imageUrl!),
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                            ),
-                          ),
+                          child: Column(children: workout.exercises.map((exercise)=>Text(
+                              'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'
+                            )).toList(),)
+                          
                         )
                       ],
                     ],

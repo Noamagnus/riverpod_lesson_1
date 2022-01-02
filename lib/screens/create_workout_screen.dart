@@ -19,29 +19,47 @@ class CreateWorkoutScreen extends ConsumerWidget {
     final workout = ref.watch(workoutNotifierProvider);
 
     return Scaffold(
-      body: ReorderableListView.builder(
-        onReorder: (int oldIndex, int newIndex) {},
-        itemCount: workout.exercises.length,
-        itemBuilder: (BuildContext context, int index) {
-          final exercise = workout.exercises[index];
-          return ListTile(
-            title: Text(exercise.name ?? 'No name'),
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Text('Add Exrcise'),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                // final _value = ref.watch(exerciseProvider).hangingTime;
-                return const Dialog(
-                  child: AddExerciseWidget(),
-                );
-              });
-        },
-      ),
-    );
+        body: ReorderableListView.builder(
+          onReorder: (int oldIndex, int newIndex) {},
+          itemCount: workout.exercises.length,
+          itemBuilder: (BuildContext context, int index) {
+            final exercise = workout.exercises[index];
+            return ListTile(
+              key: ValueKey(index),
+              title: Text(
+                '$index Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}',
+              ),
+              subtitle: Text(exercise.uuid),
+            );
+          },
+        ),
+        floatingActionButton: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            FloatingActionButton.extended(
+              label: const Text('Add Exercise'),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      // final _value = ref.watch(exerciseProvider).hangingTime;
+                      return const Dialog(
+                        child: AddExerciseWidget(),
+                      );
+                    });
+              },
+            ),
+            FloatingActionButton.extended(
+              label: const Text('Save'),
+              onPressed: () {
+                ref.read(workoutDAOProvider).saveWorkout(workout);
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Workout Saved to DB'),
+                    duration: Duration(milliseconds: 400),
+                  ));
+              },
+            )
+          ],
+        ));
   }
 }

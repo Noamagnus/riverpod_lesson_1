@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -172,31 +173,25 @@ class AddExerciseWidget extends ConsumerWidget {
           const SizedBox(
             height: 20,
           ),
-          // FloatingActionButton(
-          //   onPressed: () {
-          //     ref.read(exerciseDAOProvider).saveExercise(exercise);
-          //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          //       content: Text('Exercise Added'),
-          //       duration: Duration(milliseconds: 400),
-          //     ));
-          //   },
-          //   tooltip: 'Add Exercise',
-          //   child: const Icon(Icons.add),
-          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               TextButton(
                 onPressed: () {
-                  
+                  ref.read(workoutNotifierProvider.notifier).addExercise(exercise);
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Exercise Added'),
+                    duration: Duration(milliseconds: 400),
+                  ));
                 },
-                child: Text('Add'),
+                child: const Text('Add'),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
             ],
           )

@@ -166,7 +166,8 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_Workout extends _Workout {
   const _$_Workout(
       {this.name,

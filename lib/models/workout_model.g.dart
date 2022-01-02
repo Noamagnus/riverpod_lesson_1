@@ -21,7 +21,7 @@ Map<String, dynamic> _$$_WorkoutToJson(_$_Workout instance) =>
     <String, dynamic>{
       'name': instance.name,
       'uuid': instance.uuid,
-      'exercises': instance.exercises,
+      'exercises': instance.exercises.map((e) => e.toJson()).toList(),
       'description': instance.description,
       'dificultyLevel': instance.dificultyLevel,
     };

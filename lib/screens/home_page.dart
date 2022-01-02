@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/screens/create_workout_screen.dart';
 import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
-import 'package:my_first_riverpod/screens/list_from_database.dart';
+import 'package:my_first_riverpod/screens/workoutslist_from_database.dart';
 import 'package:my_first_riverpod/screens/exercise_screen.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
 
