@@ -9,8 +9,8 @@ import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 
-class ListFromDatabase extends ConsumerWidget {
-  const ListFromDatabase({Key? key}) : super(key: key);
+class WorkoutListScreen extends ConsumerWidget {
+  const WorkoutListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {

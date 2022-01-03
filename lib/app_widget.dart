@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/screens/home_page.dart';
+import 'package:my_first_riverpod/widgets/navigation_bar_widget.dart';
 
 final initializationProvider = FutureProvider((ref) async {
   await ref.read(sembastProvider).init();
@@ -18,7 +19,8 @@ class AppWidget extends ConsumerWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Riverpod'),
+      home: const NavigationBarWidget(),
+      // home: const MyHomePage(title: 'Riverpod'),
     );
   }
 }
