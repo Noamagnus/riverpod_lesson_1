@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
@@ -47,6 +48,12 @@ class WorkoutDAO {
   Future<void> updateWorkout(Workout workout) async {
     final finder = Finder(filter: Filter.byKey(workout.uuid)); //old code
     await _store.update(_db.instance, workout.toJson(), finder: finder);
+  }
+
+  Future<void> toggleDetails(Workout workout) async {
+    final finder = Finder(filter: Filter.equals('uuid', workout.uuid));
+    final newWorkout = workout.copyWith(showDetails: !workout.showDetails);
+    await _store.update(_db.instance, newWorkout.toJson(), finder: finder);
   }
 
   Future<void> onReorder(

@@ -23,12 +23,14 @@ class _$WorkoutTearOff {
 
   _Workout call(
       {String? name,
+      bool showDetails = false,
       required String uuid,
       List<Exercise> exercises = const [],
       String? description,
       int dificultyLevel = 1}) {
     return _Workout(
       name: name,
+      showDetails: showDetails,
       uuid: uuid,
       exercises: exercises,
       description: description,
@@ -47,6 +49,7 @@ const $Workout = _$WorkoutTearOff();
 /// @nodoc
 mixin _$Workout {
   String? get name => throw _privateConstructorUsedError;
+  bool get showDetails => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
   List<Exercise> get exercises => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -63,6 +66,7 @@ abstract class $WorkoutCopyWith<$Res> {
       _$WorkoutCopyWithImpl<$Res>;
   $Res call(
       {String? name,
+      bool showDetails,
       String uuid,
       List<Exercise> exercises,
       String? description,
@@ -80,6 +84,7 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
+    Object? showDetails = freezed,
     Object? uuid = freezed,
     Object? exercises = freezed,
     Object? description = freezed,
@@ -90,6 +95,10 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      showDetails: showDetails == freezed
+          ? _value.showDetails
+          : showDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -117,6 +126,7 @@ abstract class _$WorkoutCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
   @override
   $Res call(
       {String? name,
+      bool showDetails,
       String uuid,
       List<Exercise> exercises,
       String? description,
@@ -135,6 +145,7 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
+    Object? showDetails = freezed,
     Object? uuid = freezed,
     Object? exercises = freezed,
     Object? description = freezed,
@@ -145,6 +156,10 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      showDetails: showDetails == freezed
+          ? _value.showDetails
+          : showDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -171,6 +186,7 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
 class _$_Workout extends _Workout {
   const _$_Workout(
       {this.name,
+      this.showDetails = false,
       required this.uuid,
       this.exercises = const [],
       this.description,
@@ -182,6 +198,9 @@ class _$_Workout extends _Workout {
 
   @override
   final String? name;
+  @JsonKey()
+  @override
+  final bool showDetails;
   @override
   final String uuid;
   @JsonKey()
@@ -195,7 +214,7 @@ class _$_Workout extends _Workout {
 
   @override
   String toString() {
-    return 'Workout(name: $name, uuid: $uuid, exercises: $exercises, description: $description, dificultyLevel: $dificultyLevel)';
+    return 'Workout(name: $name, showDetails: $showDetails, uuid: $uuid, exercises: $exercises, description: $description, dificultyLevel: $dificultyLevel)';
   }
 
   @override
@@ -204,6 +223,8 @@ class _$_Workout extends _Workout {
         (other.runtimeType == runtimeType &&
             other is _Workout &&
             const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.showDetails, showDetails) &&
             const DeepCollectionEquality().equals(other.uuid, uuid) &&
             const DeepCollectionEquality().equals(other.exercises, exercises) &&
             const DeepCollectionEquality()
@@ -216,6 +237,7 @@ class _$_Workout extends _Workout {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(showDetails),
       const DeepCollectionEquality().hash(uuid),
       const DeepCollectionEquality().hash(exercises),
       const DeepCollectionEquality().hash(description),
@@ -235,6 +257,7 @@ class _$_Workout extends _Workout {
 abstract class _Workout extends Workout {
   const factory _Workout(
       {String? name,
+      bool showDetails,
       required String uuid,
       List<Exercise> exercises,
       String? description,
@@ -245,6 +268,8 @@ abstract class _Workout extends Workout {
 
   @override
   String? get name;
+  @override
+  bool get showDetails;
   @override
   String get uuid;
   @override

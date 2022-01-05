@@ -11,6 +11,7 @@ class Workout with _$Workout {
   @JsonSerializable(explicitToJson: true)
   const factory Workout({
     String? name,
+    @Default(false)bool showDetails,
     required String uuid,
     @Default([]) List<Exercise> exercises,
     String? description,

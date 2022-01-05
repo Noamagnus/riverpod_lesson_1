@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
+import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 import 'package:my_first_riverpod/screens/add_workout_screen.dart';
@@ -58,7 +60,7 @@ class WorkoutListScreen extends ConsumerWidget {
                       children: [
                         ListTile(
                           key: Key('$index'),
-                          title: Text('Hanging ${workout.dificultyLevel}'),
+                          title: Text('Hanging ${workout.dificultyLevel} showDetails ${workout.showDetails}'),
                           subtitle: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [Text(workout.uuid)],
@@ -67,21 +69,22 @@ class WorkoutListScreen extends ConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                icon: const Icon(Icons.delete),
+                                icon: const FaIcon(FontAwesomeIcons.play),
                                 onPressed: () {
-                                  ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                  // ref.read(workoutDAOProvider).deleteWorkout(workout);
                                 },
                               ),
                               IconButton(
-                                icon: const Icon(Icons.expand_more),
+                                icon: const FaIcon(FontAwesomeIcons.ellipsisV),
                                 onPressed: () {
-                                  ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                  // ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                  ref.read(workoutDAOProvider).toggleDetails(workout);
                                 },
                               ),
                             ],
                           ),
                         ),
-                        if (exerciseNotifier.displayDetails) ...[
+                        if (workout.showDetails) ...[
                           Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
