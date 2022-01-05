@@ -8,6 +8,7 @@ import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
+import 'package:my_first_riverpod/screens/add_workout_screen.dart';
 
 class WorkoutListScreen extends ConsumerWidget {
   const WorkoutListScreen({Key? key}) : super(key: key);
@@ -17,81 +18,103 @@ class WorkoutListScreen extends ConsumerWidget {
     print('build run');
     final workoutList = ref.watch(workoutDAOProvider).getAllWorkouts();
     final exerciseNotifier = ref.watch(exerciseNotifierProvider);
-  
 
-    return StreamBuilder(
-      stream: workoutList,
-      initialData: const [],
-      // initialData: InitialData,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const CircularProgressIndicator();
-        } else if (snapshot.connectionState == ConnectionState.waiting ||
-            snapshot.connectionState == ConnectionState.active) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          } else if (snapshot.hasData) {
-            final List<Workout> list = snapshot.data;
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Workouts'),
+        centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {},
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      backgroundColor: Colors.grey.shade300,
+      body: StreamBuilder(
+        stream: workoutList,
+        initialData: const [],
+        // initialData: InitialData,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const CircularProgressIndicator();
+          } else if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasError) {
+              return Text(snapshot.error.toString());
+            } else if (snapshot.hasData) {
+              final List<Workout> list = snapshot.data;
 
-            return ListView.builder(
-              itemCount: list.length,
-              itemBuilder: (BuildContext context, int index) {
-                final workout = list[index];
-                return InkWell(
-                  onTap: () {
-                    // ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(workout);
-                    // ref.read()
-                  },
-                  child: Column(
-                    children: [
-                      ListTile(
-                        key: Key('$index'),
-                        title: Text(
-                            'Hanging ${workout.dificultyLevel}'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [Text(workout.uuid)],
+              return ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final workout = list[index];
+                  return InkWell(
+                    onTap: () {
+                      // ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(workout);
+                      // ref.read()
+                    },
+                    child: Column(
+                      children: [
+                        ListTile(
+                          key: Key('$index'),
+                          title: Text('Hanging ${workout.dificultyLevel}'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [Text(workout.uuid)],
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.expand_more),
+                                onPressed: () {
+                                  ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                ref.read(workoutDAOProvider).deleteWorkout(workout);
-                              },
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.expand_more),
-                              onPressed: () {
-                                ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      if ( exerciseNotifier.displayDetails) ...[
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(children: workout.exercises.map((exercise)=>Text(
-                              'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'
-                            )).toList(),)
-                          
-                        )
+                        if (exerciseNotifier.displayDetails) ...[
+                          Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                children: workout.exercises
+                                    .map((exercise) => Text(
+                                        'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'))
+                                    .toList(),
+                              ))
+                        ],
                       ],
-                    ],
-                  ),
-                );
-              },
-            );
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Text('no data');
+            }
           } else {
-            return Text('no data');
+            return const Text('ne znam bato');
           }
-        } else {
-          return const Text('ne znam bato');
-        }
-      },
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        heroTag: 'btn1',
+        label: const Text('Add Workout'),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CreateWorkoutScreen(),
+            ),
+          );
+        },
+      ),
     );
   }
 }

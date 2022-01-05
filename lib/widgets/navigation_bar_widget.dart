@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_first_riverpod/screens/analytics.dart';
+import 'package:my_first_riverpod/screens/calendar_screen.dart';
 import 'package:my_first_riverpod/screens/exercise_screen.dart';
+import 'package:my_first_riverpod/screens/home_screen.dart';
 import 'package:my_first_riverpod/screens/workouts_screen.dart';
 
 class NavigationBarWidget extends StatefulWidget {
@@ -13,22 +16,15 @@ class NavigationBarWidget extends StatefulWidget {
 class _NavigationBarWidgetState extends State<NavigationBarWidget> {
   int index = 0;
   final screens = [
-    ExerciseScreen(),
-    WorkoutListScreen(),
-    
+    const HomeScreen(),
+    const WorkoutListScreen(),
+    const CalendarScreen(),
+    const AnalyticsScreen(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-      ),
-      body: Image.network(
-        'https://placekitten.com/200/300',
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-      ),
+      body: screens[index],
       bottomNavigationBar: NavigationBarTheme(
         data: NavigationBarThemeData(
           height: 60, //Lower than default

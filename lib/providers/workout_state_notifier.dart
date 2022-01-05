@@ -7,7 +7,7 @@ import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 import 'package:uuid/uuid.dart';
 
 Uuid uuid = const Uuid();
-final workoutNotifierProvider = StateNotifierProvider<WorkoutStateNotifier, Workout>((ref) {
+final workoutNotifierProvider = StateNotifierProvider.autoDispose<WorkoutStateNotifier, Workout>((ref) {
   return WorkoutStateNotifier();
 });
 

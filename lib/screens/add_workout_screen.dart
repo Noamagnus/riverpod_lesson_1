@@ -37,6 +37,7 @@ class CreateWorkoutScreen extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             FloatingActionButton.extended(
+              heroTag: 'btn2',
               label: const Text('Add Exercise'),
               onPressed: () {
                 showDialog(
@@ -50,6 +51,7 @@ class CreateWorkoutScreen extends ConsumerWidget {
               },
             ),
             FloatingActionButton.extended(
+              heroTag: 'btn3',
               label: const Text('Save'),
               onPressed: () {
                 ref.read(workoutDAOProvider).saveWorkout(workout);
