@@ -6,17 +6,17 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
 
-final timerProvider = StateNotifierProvider<TimerNotifier, TimerModel>((ref) {
+final timerProvider = StateNotifierProvider<TimerStateNotifier, TimerModel>((ref) {
   final exercise = ref.watch(exerciseNotifierProvider);
-  return TimerNotifier(exercise);
+  return TimerStateNotifier(exercise);
 });
 
-//!TimerNotifier is managing state of the TimerModel
+//!TimerStateNotifier is managing state of the TimerModel
 //!Timer should not think of a exercise state ist should only think of
 //!a hanging/resting parameters from Exercise
-class TimerNotifier extends StateNotifier<TimerModel> {
+class TimerStateNotifier extends StateNotifier<TimerModel> {
   // String initial;
-  TimerNotifier(this.exercise)
+  TimerStateNotifier(this.exercise)
       : super(TimerModel(
           _durationString(exercise.hangingTime),
           TimerState.initial,
