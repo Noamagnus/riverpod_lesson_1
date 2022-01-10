@@ -50,7 +50,7 @@ Widget renderPage(int index){
     case 2:
     return const ActionScreen();
     case 3:
-    return const WorkoutListScreen();
+    return const WorkoutsListScreen();
     case 4:
     return const CreateWorkoutScreen();
     default:

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
+import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/repositiries/sambased.dart';
 import 'package:sembast/sembast.dart';
@@ -43,6 +44,13 @@ class ExerciseDAO {
     print('deleteExercise fired');
     final finder = Finder(filter: Filter.equals('uuid', exercise.uuid));
     await _store.delete(_db.instance, finder: finder);
+  }
+
+  //Changes only displayDetails property
+  Future<void> toggleDetails(Exercise exercise) async {
+    final finder = Finder(filter: Filter.equals('uuid', exercise.uuid));
+    final newExercise = exercise.copyWith(displayDetails: !exercise.displayDetails);
+    await _store.update(_db.instance, newExercise.toJson(), finder: finder);
   }
 
   Future<void> updateExercise(Exercise exercise) async {

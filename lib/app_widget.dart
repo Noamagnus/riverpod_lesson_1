@@ -23,7 +23,8 @@ class AppWidget extends ConsumerWidget {
       theme:  ThemeData(
         primaryColor: kColorWhite,
         accentColor: kColorDarkBlue,
-        textTheme: screenWidth < 500 ? kTextThemeDefault : kTextThemeSmall,
+         textTheme: kTextThemeLarge 
+        // textTheme: screenWidth < 500 ? kTextThemeDefault : kTextThemeSmall,
       ),
       home: const NavigationBarWidget(),
       // home: const MyHomePage(title: 'Riverpod'),

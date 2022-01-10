@@ -6,14 +6,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
+import 'package:my_first_riverpod/screens/action_screen.dart';
 import 'package:my_first_riverpod/screens/add_workout_screen.dart';
+import 'package:my_first_riverpod/widgets/border_box.dart';
 
-class WorkoutListScreen extends ConsumerWidget {
-  const WorkoutListScreen({Key? key}) : super(key: key);
+class WorkoutsListScreen extends ConsumerWidget {
+  const WorkoutsListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
@@ -56,45 +59,60 @@ class WorkoutListScreen extends ConsumerWidget {
                       // ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(workout);
                       // ref.read()
                     },
-                    child: Column(
-                      children: [
-                        ListTile(
-                          key: Key('$index'),
-                          title: Text('Hanging ${workout.dificultyLevel} showDetails ${workout.showDetails}'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [Text(workout.uuid)],
+                    child: BorderBox(
+                      child: Column(
+                        children: [
+                          ListTile(
+                            key: Key('$index'),
+                            title: Text(
+                                'Hanging ${workout.dificultyLevel} showDetails ${workout.showDetails}'),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [Text('')],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const FaIcon(FontAwesomeIcons.play),
+                                  onPressed: () {
+                                    ref
+                                        .read(selectedWorkoutNotifierProvider.notifier)
+                                        .selectWorkoutFromList(workout);
+                                    // ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => const ActionScreen()));
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const FaIcon(FontAwesomeIcons.trash),
+                                  onPressed: () {
+                                    ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const FaIcon(FontAwesomeIcons.ellipsisV),
+                                  onPressed: () {
+                                    // ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                    ref.read(workoutDAOProvider).toggleDetails(workout);
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                icon: const FaIcon(FontAwesomeIcons.play),
-                                onPressed: () {
-                                  // ref.read(workoutDAOProvider).deleteWorkout(workout);
-                                },
-                              ),
-                              IconButton(
-                                icon: const FaIcon(FontAwesomeIcons.ellipsisV),
-                                onPressed: () {
-                                  // ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                  ref.read(workoutDAOProvider).toggleDetails(workout);
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        if (workout.showDetails) ...[
-                          Padding(
+                          if (workout.showDetails) ...[
+                            Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Column(
                                 children: workout.exercises
                                     .map((exercise) => Text(
                                         'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'))
                                     .toList(),
-                              ))
+                              ),
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   );
                 },

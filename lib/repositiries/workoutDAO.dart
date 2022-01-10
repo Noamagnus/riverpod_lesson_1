@@ -40,6 +40,7 @@ class WorkoutDAO {
             }).toList());
   }
 
+
   Future<void> deleteWorkout(Workout workout) async {
     final finder = Finder(filter: Filter.equals('uuid', workout.uuid));
     await _store.delete(_db.instance, finder: finder);
@@ -48,6 +49,12 @@ class WorkoutDAO {
   Future<void> updateWorkout(Workout workout) async {
     final finder = Finder(filter: Filter.byKey(workout.uuid)); //old code
     await _store.update(_db.instance, workout.toJson(), finder: finder);
+  }
+  //!Not sure if this is right
+  Future<void> getWorkout(Workout workout) async {
+    final finder = Finder(filter: Filter.byKey(workout.uuid)); //old code
+    var records = await _store.findFirst(_db.instance, finder: finder);
+
   }
 
   Future<void> toggleDetails(Workout workout) async {

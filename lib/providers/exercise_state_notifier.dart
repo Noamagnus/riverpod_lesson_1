@@ -24,6 +24,9 @@ class ExerciseStateNotifier extends StateNotifier<Exercise> {
   void selectExerciseFromList(Exercise exercise) {
     state = exercise;
   }
+  void setName(String value) {
+    state= state.copyWith(name: value);
+  }
 
   void setHanginTime(int value) {
     state = state.copyWith(hangingTime: value);
