@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/timer_model.dart';
-import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
 import 'package:my_first_riverpod/providers/timer_state_notifier.dart';

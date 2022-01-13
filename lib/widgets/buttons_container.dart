@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:my_first_riverpod/providers/timer_state_notifier.dart';
 import 'package:my_first_riverpod/models/timer_model.dart';
 

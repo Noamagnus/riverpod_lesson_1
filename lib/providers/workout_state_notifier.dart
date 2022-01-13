@@ -3,7 +3,7 @@ import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:uuid/uuid.dart';
 
 //! This provider and notifirer is used when creatig workout
@@ -23,6 +23,10 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
 
   void selectWorkoutFromList(Workout workout) {
     state = workout;
+  }
+
+  void setName(String value) {
+    state = state.copyWith(name: value);
   }
 
   Workout startWorkout(Workout workout) {

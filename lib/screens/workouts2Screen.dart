@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_first_riverpod/models/workout2_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
+import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
@@ -64,7 +66,7 @@ class _WorkoutsListScreen2State extends State<WorkoutsListScreen2>
         appBar: AppBar(title: Text('Fabulous FAB Animation')),
         body: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final workoutList = ref.watch(workoutDAOProvider).getAllWorkouts();
+            final workoutList = ref.watch(workout2DAOProvider).getAllWorkouts();
             return StreamBuilder(
               stream: workoutList,
               initialData: const [],
@@ -77,7 +79,7 @@ class _WorkoutsListScreen2State extends State<WorkoutsListScreen2>
                   if (snapshot.hasError) {
                     return Text(snapshot.error.toString());
                   } else if (snapshot.hasData) {
-                    final List<Workout> list = snapshot.data;
+                    final List<Workout2> list = snapshot.data;
 
                     return ListView.builder(
                       itemCount: list.length,
@@ -95,20 +97,18 @@ class _WorkoutsListScreen2State extends State<WorkoutsListScreen2>
                                 ListTile(
                                   key: Key('$index'),
                                   title: Text(
-                                      'Hanging ${workout.dificultyLevel} showDetails ${workout.showDetails}'),
-                                  subtitle: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [Text('')],
-                                  ),
+                                      ' ${workout.name} '),
+                                  subtitle: Text(
+                                      'Name ${workout.name} showDetails ${workout.showDetails}'),
                                   trailing: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
                                         icon: const FaIcon(FontAwesomeIcons.play),
                                         onPressed: () {
-                                          ref
-                                              .read(selectedWorkoutNotifierProvider.notifier)
-                                              .selectWorkoutFromList(workout);
+                                          // ref
+                                          //     .read(selectedWorkoutNotifierProvider.notifier)
+                                          //     .selectWorkoutFromList(workout);
                                           // ref.read(workoutDAOProvider).deleteWorkout(workout);
                                           Navigator.of(context).push(MaterialPageRoute(
                                               builder: (context) => const ActionScreen()));
@@ -117,14 +117,14 @@ class _WorkoutsListScreen2State extends State<WorkoutsListScreen2>
                                       IconButton(
                                         icon: const FaIcon(FontAwesomeIcons.trash),
                                         onPressed: () {
-                                          ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                          ref.read(workout2DAOProvider).deleteWorkout(workout);
                                         },
                                       ),
                                       IconButton(
                                         icon: const FaIcon(FontAwesomeIcons.ellipsisV),
                                         onPressed: () {
                                           // ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                          ref.read(workoutDAOProvider).toggleDetails(workout);
+                                          ref.read(workout2DAOProvider).toggleDetails(workout);
                                         },
                                       ),
                                     ],
@@ -134,9 +134,9 @@ class _WorkoutsListScreen2State extends State<WorkoutsListScreen2>
                                   Padding(
                                     padding: const EdgeInsets.all(16.0),
                                     child: Column(
-                                      children: workout.exercises
-                                          .map((exercise) => Text(
-                                              'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'))
+                                      children: workout.workoutItems
+                                          .map((workoutItem) => Text(
+                                              'Hanging ${workoutItem.exercise?.hangingTime} Resting ${workoutItem.exercise?.restingTime} Reps ${workoutItem.exercise?.reps}'))
                                           .toList(),
                                     ),
                                   ),

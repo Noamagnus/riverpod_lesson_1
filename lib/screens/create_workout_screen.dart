@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
@@ -40,7 +40,28 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
           }
           return true;
         },
-        child: const ReordableList(),
+        child: SafeArea(
+          child: Column(
+            children: [
+              Text('Create Workout Screen'),
+             Consumer(builder: (BuildContext context, WidgetRef ref, Widget? child) { 
+               return  Padding(
+                 padding: const EdgeInsets.all(16.0),
+                 child: TextField(
+                  
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Workout Name',
+                  ),
+                  onChanged: (value) {
+                    ref.watch(workoutNotifierProvider.notifier).setName(value);
+                  }),
+               );
+              },),
+
+              Expanded(child: const ReordableList()),
+            ],
+          ),
+        ),
       ),
       floatingActionButton: isFabVisible
           ? Consumer(
@@ -65,7 +86,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                     ),
                     FloatingActionButton.extended(
                       heroTag: 'btn3',
-                      label: const Text('Save'),
+                      label: const Text('Save Workout'),
                       onPressed: () {
                         ref.read(workoutDAOProvider).saveWorkout(workout);
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

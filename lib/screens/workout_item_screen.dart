@@ -2,21 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_first_riverpod/models/workout2_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
+import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
+import 'package:my_first_riverpod/screens/create_wokout2_screen.dart';
 import 'package:my_first_riverpod/screens/create_workout_screen.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 
-class WorkoutsListScreen3 extends StatefulWidget {
-  WorkoutsListScreen3({Key? key}) : super(key: key);
+class WorkoutsListWithItems extends StatefulWidget {
+  WorkoutsListWithItems({Key? key}) : super(key: key);
 
   @override
-  _WorkoutsListScreen3State createState() => _WorkoutsListScreen3State();
+  _WorkoutsListWithItemsState createState() => _WorkoutsListWithItemsState();
 }
 
-class _WorkoutsListScreen3State extends State<WorkoutsListScreen3> {
+class _WorkoutsListWithItemsState extends State<WorkoutsListWithItems> {
   bool isFabVisible = true;
 
   @override
@@ -29,7 +32,7 @@ class _WorkoutsListScreen3State extends State<WorkoutsListScreen3> {
           const SliverAppBar(
             floating: true,
             snap: true,
-            title: Text('Workouts'),
+            title: Text('Workouts2'),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -54,11 +57,11 @@ class _WorkoutsListScreen3State extends State<WorkoutsListScreen3> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: isFabVisible
           ? FloatingActionButton.extended(
-              label: const Text('Add Workout'),
+              label: const Text('Add Workout2'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const CreateWorkoutScreen(),
+                    builder: (context) => const CreateWorkout2Screen(),
                   ),
                 );
               },
@@ -74,7 +77,7 @@ class WorkoutsList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final workoutList = ref.watch(workoutDAOProvider).getAllWorkouts();
+        final workoutList = ref.watch(workout2DAOProvider).getAllWorkouts();
         return StreamBuilder(
           stream: workoutList,
           initialData: const [],
@@ -87,7 +90,7 @@ class WorkoutsList extends HookConsumerWidget {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
               } else if (snapshot.hasData) {
-                final List<Workout> list = snapshot.data;
+                final List<Workout2> list = snapshot.data;
 
                 return ListView.builder(
                   itemCount: list.length,
@@ -103,17 +106,16 @@ class WorkoutsList extends HookConsumerWidget {
                           children: [
                             ListTile(
                               key: Key('$index'),
-                              title: Text(workout.name??'No name'),
-                              
+                              title: Text(workout.name ?? 'No name'),
                               trailing: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   IconButton(
                                     icon: const FaIcon(FontAwesomeIcons.play),
                                     onPressed: () {
-                                      ref
-                                          .read(selectedWorkoutNotifierProvider.notifier)
-                                          .selectWorkoutFromList(workout);
+                                      // ref
+                                      // .read(selectedWorkoutNotifierProvider.notifier)
+                                      // .selectWorkoutFromList(workout);
                                       // ref.read(workoutDAOProvider).deleteWorkout(workout);
                                       Navigator.of(context).push(MaterialPageRoute(
                                           builder: (context) => const ActionScreen()));
@@ -122,14 +124,14 @@ class WorkoutsList extends HookConsumerWidget {
                                   IconButton(
                                     icon: const FaIcon(FontAwesomeIcons.trash),
                                     onPressed: () {
-                                      ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                      ref.read(workout2DAOProvider).deleteWorkout(workout);
                                     },
                                   ),
                                   IconButton(
                                     icon: const FaIcon(FontAwesomeIcons.ellipsisV),
                                     onPressed: () {
                                       // ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                      ref.read(workoutDAOProvider).toggleDetails(workout);
+                                      ref.read(workout2DAOProvider).toggleDetails(workout);
                                     },
                                   ),
                                 ],
@@ -139,9 +141,11 @@ class WorkoutsList extends HookConsumerWidget {
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
-                                  children: workout.exercises
-                                      .map((exercise) => Text(
-                                          'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'))
+                                  children: workout.workoutItems
+                                      .map(
+                                        (woroutItem) => Text(
+                                            'Hanging ${woroutItem.exercise?.hangingTime} Resting ${woroutItem.exercise?.restingTime} Reps ${woroutItem.exercise?.reps}'),
+                                      )
                                       .toList(),
                                 ),
                               ),

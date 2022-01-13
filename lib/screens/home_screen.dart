@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
+import 'package:my_first_riverpod/screens/test_screen.dart';
+import 'package:my_first_riverpod/screens/workout_item_screen.dart';
 import 'package:my_first_riverpod/screens/workouts_screen.dart';
-import 'package:my_first_riverpod/screens/workouts_screen2.dart';
+import 'package:my_first_riverpod/screens/workouts2Screen.dart';
 import 'package:my_first_riverpod/screens/workouts_screen3.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
@@ -31,57 +33,74 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.grey.shade300,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            BorderBox(
-              height: 250,
-              child: Icon(Icons.person),
-            ),
-            addVerticalSpace(10),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => WorkoutsListScreen(),
-                ));
-              },
-              child: BorderBox(
-                // padding: EdgeInsets.all(16),
-                child: Text(
-                  'Workouts',
-                  style: themeData.textTheme.headline1,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const BorderBox(
+                height: 250,
+                child: Icon(Icons.person),
+              ),
+              addVerticalSpace(10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WorkoutsListWithItems(),
+                  ));
+                },
+                child: BorderBox(
+                  // padding: EdgeInsets.all(16),
+                  child: Text(
+                    'Workouts(Items List)',
+                    style: themeData.textTheme.headline1,
+                  ),
                 ),
               ),
-            ),
-            addVerticalSpace(10),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => WorkoutsListScreen3(),
-                ));
-              },
-              child: BorderBox(
-                // padding: EdgeInsets.all(16),
-                child: Text(
-                  'Workouts2',
-                  style: themeData.textTheme.headline1,
+              addVerticalSpace(10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TestScreen(),
+                  ));
+                },
+                child: BorderBox(
+                  // padding: EdgeInsets.all(16),
+                  child: Text(
+                    'Test',
+                    style: themeData.textTheme.headline1,
+                  ),
                 ),
               ),
-            ),
-            addVerticalSpace(10),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => ExerciseListScreen()));
-              },
-              child: BorderBox(
-                // padding: EdgeInsets.all(16),
-                child: Text(
-                  'Exercises',
-                  style: themeData.textTheme.headline1,
+              addVerticalSpace(10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WorkoutsListScreen3(),
+                  ));
+                },
+                child: BorderBox(
+                  // padding: EdgeInsets.all(16),
+                  child: Text(
+                    'Workouts',
+                    style: themeData.textTheme.headline1,
+                  ),
                 ),
               ),
-            ),
-          ],
+              addVerticalSpace(10),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => const ExerciseListScreen()));
+                },
+                child: BorderBox(
+                  // padding: EdgeInsets.all(16),
+                  child: Text(
+                    'Exercises',
+                    style: themeData.textTheme.headline1,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

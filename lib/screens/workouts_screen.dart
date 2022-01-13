@@ -5,18 +5,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/exercise_state_notifier.dart';
+import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
 import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
-import 'package:my_first_riverpod/screens/add_workout_screen.dart';
+import 'package:my_first_riverpod/screens/create_workout_screen.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 
-class WorkoutsListScreen extends ConsumerWidget {
-  const WorkoutsListScreen({Key? key}) : super(key: key);
+class WorkoutsScreen extends ConsumerWidget {
+  const WorkoutsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {

@@ -17,7 +17,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
   int index = 0;
   final screens = [
     const HomeScreen(),
-    const WorkoutsListScreen(),
+    const WorkoutsScreen(),
     const CalendarScreen(),
     const AnalyticsScreen(),
   ];

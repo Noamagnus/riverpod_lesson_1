@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/providers.dart';
-import 'package:my_first_riverpod/screens/add_workout_screen.dart';
+import 'package:my_first_riverpod/screens/create_workout_screen.dart';
 import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
 import 'package:my_first_riverpod/widgets/navigation_bar_widget.dart';
 import 'package:my_first_riverpod/screens/workouts_screen.dart';
@@ -50,7 +50,7 @@ Widget renderPage(int index){
     case 2:
     return const ActionScreen();
     case 3:
-    return const WorkoutsListScreen();
+    return const WorkoutsScreen();
     case 4:
     return const CreateWorkoutScreen();
     default:

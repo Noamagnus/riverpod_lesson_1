@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
+import 'package:my_first_riverpod/providers/workout2StateNotifier.dart';
+import 'package:my_first_riverpod/providers/workoutItemNotifier.dart';
 import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/custom_button_widget.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class AddExerciseScreen extends ConsumerWidget {
-  AddExerciseScreen({Key? key}) : super(key: key);
+class AddExerciseDialog extends ConsumerWidget {
+  AddExerciseDialog({Key? key}) : super(key: key);
   final controller = TextEditingController();
 
   @override
@@ -67,8 +69,11 @@ class AddExerciseScreen extends ConsumerWidget {
         FloatingActionButton.extended(
           label: const Text('Add Exercise'),
           onPressed: () {
-            print(exercise);
-            ref.read(workoutNotifierProvider.notifier).addExercise(exercise);
+            //todo here I only save exercise to workoutItemNotifier but im not saving it
+            //figure out how to save it to Workout2notifier
+            ref.read(workoutItemNotifierProvider.notifier).setExercise(exercise);
+            final item = ref.read(workoutItemNotifierProvider.notifier).getWorkoutItem();
+            ref.read(workout2NotifierProvider.notifier).addWorkoutItem(item);
             Navigator.of(context).pop();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Exercise Added'),
