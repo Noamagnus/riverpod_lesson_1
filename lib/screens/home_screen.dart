@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
 import 'package:my_first_riverpod/screens/test_screen.dart';
-import 'package:my_first_riverpod/screens/workout2ListScreen.dart';
-import 'package:my_first_riverpod/screens/workouts_screen.dart';
-import 'package:my_first_riverpod/screens/workouts2Screen.dart';
-import 'package:my_first_riverpod/screens/workouts_screen3.dart';
+import 'package:my_first_riverpod/screens/workoutListScreen.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
-import 'package:my_first_riverpod/utils/constants.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -49,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                 child: BorderBox(
                   // padding: EdgeInsets.all(16),
                   child: Text(
-                    'Workouts(Items List)',
+                    'Workouts',
                     style: themeData.textTheme.headline1,
                   ),
                 ),
@@ -69,21 +65,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              addVerticalSpace(10),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => WorkoutsListScreen3(),
-                  ));
-                },
-                child: BorderBox(
-                  // padding: EdgeInsets.all(16),
-                  child: Text(
-                    'Workouts',
-                    style: themeData.textTheme.headline1,
-                  ),
-                ),
-              ),
+            
               addVerticalSpace(10),
               GestureDetector(
                 onTap: () {

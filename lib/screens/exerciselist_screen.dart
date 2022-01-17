@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
-import 'package:my_first_riverpod/widgets/add_exercise2_widget.dart';
+import 'package:my_first_riverpod/widgets/add_exercise_widget.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 
 class ExerciseListScreen extends ConsumerWidget {

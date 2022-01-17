@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:my_first_riverpod/models/workout_item_model.dart';
 
 part 'workout_model.freezed.dart';
 part 'workout_model.g.dart';
@@ -11,12 +12,10 @@ class Workout with _$Workout {
   @JsonSerializable(explicitToJson: true)
   const factory Workout({
     String? name,
-    @Default(false)bool showDetails,
+    @Default([]) List<WorkoutItem> workoutItems,
+    @Default(false) bool showDetails,
     required String uuid,
-    @Default([]) List<Exercise> exercises,
     String? description,
-    @Default(1) int dificultyLevel,
   }) = _Workout;
   factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
 }
-

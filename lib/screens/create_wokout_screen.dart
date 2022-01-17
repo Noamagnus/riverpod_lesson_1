@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
-import 'package:my_first_riverpod/providers/workout2StateNotifier.dart';
+import 'package:my_first_riverpod/providers/workoutStateNotifier.dart';
 import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/screens/addExerciseDialog.dart';
 import 'package:my_first_riverpod/screens/addRestDialog.dart';
@@ -11,14 +11,14 @@ import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 import 'package:my_first_riverpod/widgets/information_tile.dart';
 
-class CreateWorkout2Screen extends StatefulWidget {
-  const CreateWorkout2Screen({Key? key}) : super(key: key);
+class CreateWorkoutScreen extends StatefulWidget {
+  const CreateWorkoutScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateWorkout2Screen> createState() => _CreateWorkout2ScreenState();
+  State<CreateWorkoutScreen> createState() => _CreateWorkoutScreenState();
 }
 
-class _CreateWorkout2ScreenState extends State<CreateWorkout2Screen> {
+class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   bool isFabVisible = true;
 
   @override

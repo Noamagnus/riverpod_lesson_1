@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/helpers/image_picker.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';

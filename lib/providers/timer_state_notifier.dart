@@ -8,8 +8,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
-import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
-import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
+import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 
 final timerProvider = StateNotifierProvider<TimerStateNotifier, TimerModel>((ref) {
   final workout = ref.watch(selectedWorkoutNotifierProvider);
@@ -25,10 +24,10 @@ class TimerStateNotifier extends StateNotifier<TimerModel> {
   // String initial;
   TimerStateNotifier(this.workout)
       : super(TimerModel(
-          _durationString(workout.exercises[0].hangingTime),
+          _durationString(workout.workoutItems[0].exercise!.hangingTime),
           TimerState.initial,
           TimerExerciseState.hangTime,
-          workout.exercises[0].reps,
+          workout.workoutItems[0].exercise!.reps,
           0,
         ));
   Workout workout;
@@ -73,7 +72,7 @@ class TimerStateNotifier extends StateNotifier<TimerModel> {
   void _startTimer() {
     _tickerSubscription?.cancel();
 
-    Exercise exercise = workout.exercises[exerciseIndex];
+    Exercise exercise = workout.workoutItems[0].exercise!;
 
     if (state.timerExerciseState == TimerExerciseState.hangTime) {
       _tickerSubscription =
@@ -112,24 +111,24 @@ class TimerStateNotifier extends StateNotifier<TimerModel> {
         return;
       }
 
-      if (state.timerExerciseState == TimerExerciseState.restTime) {
-        state = TimerModel(state.timeLeft, TimerState.finished, TimerExerciseState.hangTime,
-            state.reps - 1, state.exerciseFromList);
-        if (state.reps > 0) {
-          _startTimer();
-        } else if (workout.exercises.length > exerciseIndex) {
-          exerciseIndex++;
-          state = TimerModel(
-              _durationString(workout.exercises[exerciseIndex].hangingTime),
-              TimerState.finished,
-              TimerExerciseState.hangTime,
-              workout.exercises[exerciseIndex].reps,
-              state.exerciseFromList + 1);
-          _startTimer();
-        } else {
-          return;
-        }
-      }
+      // if (state.timerExerciseState == TimerExerciseState.restTime) {
+      //   state = TimerModel(state.timeLeft, TimerState.finished, TimerExerciseState.hangTime,
+      //       state.reps - 1, state.exerciseFromList);
+      //   if (state.reps > 0) {
+      //     _startTimer();
+      //   } else if (workout.exercises.length > exerciseIndex) {
+      //     exerciseIndex++;
+      //     state = TimerModel(
+      //         _durationString(workout.exercises[exerciseIndex].hangingTime),
+      //         TimerState.finished,
+      //         TimerExerciseState.hangTime,
+      //         workout.exercises[exerciseIndex].reps,
+      //         state.exerciseFromList + 1);
+      //     _startTimer();
+      //   } else {
+      //     return;
+      //   }
+      // }
     });
 
     if (state.timerExerciseState == TimerExerciseState.hangTime) {
@@ -175,9 +174,9 @@ class TimerStateNotifier extends StateNotifier<TimerModel> {
   void reset() {
     _tickerSubscription?.cancel();
     exerciseIndex = 0;
-    Exercise exercise = workout.exercises[0];
+    Exercise? exercise = workout.workoutItems[0].exercise;
     state = TimerModel(
-      _durationString(exercise.hangingTime),
+      _durationString(exercise!.hangingTime),
       TimerState.initial,
       TimerExerciseState.hangTime,
       exercise.reps,

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class AddExerciseWidget extends ConsumerWidget {
-  const AddExerciseWidget({Key? key}) : super(key: key);
+class AddExercise2Widget extends ConsumerWidget {
+  const AddExercise2Widget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, ref) {
@@ -178,7 +177,7 @@ class AddExerciseWidget extends ConsumerWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  ref.read(workoutNotifierProvider.notifier).addExercise(exercise);
+                  ref.read(exerciseDAOProvider).saveExercise(exercise);
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Exercise Added'),

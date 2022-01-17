@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/timer_model.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/providers.dart';
 import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
 import 'package:my_first_riverpod/providers/timer_state_notifier.dart';
 import 'package:my_first_riverpod/widgets/buttons_container.dart';
@@ -15,7 +13,9 @@ class ActionScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final timerState = ref.watch(timerProvider);
     final workout = ref.watch(selectedWorkoutNotifierProvider);
-    final exercise = workout.exercises[timerState.exerciseFromList];
+
+    //! fix this is not working
+    final exercise = workout.workoutItems[0].exercise!;
     return Scaffold(
       body: Center(
         child: Column(

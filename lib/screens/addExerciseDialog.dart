@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/workout2StateNotifier.dart';
+import 'package:my_first_riverpod/providers/workoutStateNotifier.dart';
 import 'package:my_first_riverpod/providers/workoutItemNotifier.dart';
-import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/custom_button_widget.dart';

@@ -4,8 +4,7 @@ import 'package:my_first_riverpod/screens/analytics.dart';
 import 'package:my_first_riverpod/screens/calendar_screen.dart';
 import 'package:my_first_riverpod/screens/exercise_screen.dart';
 import 'package:my_first_riverpod/screens/home_screen.dart';
-import 'package:my_first_riverpod/screens/workout2ListScreen.dart';
-import 'package:my_first_riverpod/screens/workouts_screen.dart';
+import 'package:my_first_riverpod/screens/workoutListScreen.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   const NavigationBarWidget({Key? key}) : super(key: key);

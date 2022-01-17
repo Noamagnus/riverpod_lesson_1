@@ -1,13 +1,11 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_fixed_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/rest_model.dart';
-import 'package:my_first_riverpod/models/workout2_model.dart';
-import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
+import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:uuid/uuid.dart';
 
 //! This provider and notifirer is used when creatig WorkoutItem

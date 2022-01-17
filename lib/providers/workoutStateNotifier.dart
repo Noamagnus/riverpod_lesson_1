@@ -2,9 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/workout2_model.dart';
-import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
+import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -14,18 +13,18 @@ import 'package:uuid/uuid.dart';
 //! Rest, Exercise and ExerciseFixed
 Uuid uuid = const Uuid();
 final workout2NotifierProvider =
-    StateNotifierProvider.autoDispose<Workout2StateNotifier, Workout2>((ref) {
+    StateNotifierProvider.autoDispose<Workout2StateNotifier, Workout>((ref) {
   return Workout2StateNotifier();
 });
 
-class Workout2StateNotifier extends StateNotifier<Workout2> {
-  Workout2StateNotifier() : super(Workout2(uuid: uuid.v4()));
+class Workout2StateNotifier extends StateNotifier<Workout> {
+  Workout2StateNotifier() : super(Workout(uuid: uuid.v4()));
 
   List<WorkoutItem> showAllWorkoutItem() {
     return state.workoutItems;
   }
 
-  void selectWorkoutItemFromList(Workout2 workout) {
+  void selectWorkoutItemFromList(Workout workout) {
     state = workout;
   }
 

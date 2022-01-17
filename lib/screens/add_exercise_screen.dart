@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/custom_button_widget.dart';
@@ -68,7 +67,7 @@ class AddExerciseScreen extends ConsumerWidget {
           label: const Text('Add Exercise'),
           onPressed: () {
             print(exercise);
-            ref.read(workoutNotifierProvider.notifier).addExercise(exercise);
+            // ref.read(workoutNotifierProvider.notifier).addExercise(exercise);
             Navigator.of(context).pop();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Exercise Added'),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
-import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/repositiries/sambased.dart';
 import 'package:sembast/sembast.dart';

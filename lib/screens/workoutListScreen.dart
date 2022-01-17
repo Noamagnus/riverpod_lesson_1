@@ -3,30 +3,32 @@ import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/selectedWorkout_provider.dart';
-import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
+import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
-import 'package:my_first_riverpod/screens/create_workout_screen.dart';
+import 'package:my_first_riverpod/screens/create_wokout_screen.dart';
+import 'package:my_first_riverpod/utils/constants.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 
-class WorkoutsListScreen3 extends StatefulWidget {
-  WorkoutsListScreen3({Key? key}) : super(key: key);
+class WorkoutsListWithItems extends StatefulWidget {
+  WorkoutsListWithItems({Key? key}) : super(key: key);
 
   @override
-  _WorkoutsListScreen3State createState() => _WorkoutsListScreen3State();
+  _WorkoutsListWithItemsState createState() => _WorkoutsListWithItemsState();
 }
 
-class _WorkoutsListScreen3State extends State<WorkoutsListScreen3> {
+class _WorkoutsListWithItemsState extends State<WorkoutsListWithItems> {
   bool isFabVisible = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      // backgroundColor: Colors.grey.shade300,
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           const SliverAppBar(
+            titleTextStyle: TextStyle(color:kColorGrey ),
+            // textTheme: ,
             floating: true,
             snap: true,
             title: Text('Workouts'),
@@ -74,7 +76,7 @@ class WorkoutsList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        final workoutList = ref.watch(workoutDAOProvider).getAllWorkouts();
+        final workoutList = ref.watch(workout2DAOProvider).getAllWorkouts();
         return StreamBuilder(
           stream: workoutList,
           initialData: const [],
@@ -98,55 +100,59 @@ class WorkoutsList extends HookConsumerWidget {
                         // ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(workout);
                         // ref.read()
                       },
-                      child: BorderBox(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              key: Key('$index'),
-                              title: Text(workout.name??'No name'),
-                              
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: const FaIcon(FontAwesomeIcons.play),
-                                    onPressed: () {
-                                      ref
-                                          .read(selectedWorkoutNotifierProvider.notifier)
-                                          .selectWorkoutFromList(workout);
-                                      // ref.read(workoutDAOProvider).deleteWorkout(workout);
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => const ActionScreen()));
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const FaIcon(FontAwesomeIcons.trash),
-                                    onPressed: () {
-                                      ref.read(workoutDAOProvider).deleteWorkout(workout);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const FaIcon(FontAwesomeIcons.ellipsisV),
-                                    onPressed: () {
-                                      // ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                      ref.read(workoutDAOProvider).toggleDetails(workout);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (workout.showDetails) ...[
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: workout.exercises
-                                      .map((exercise) => Text(
-                                          'Hanging ${exercise.hangingTime} Resting ${exercise.restingTime} Reps ${exercise.reps}'))
-                                      .toList(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8,),
+                        child: BorderBox(
+                          child: Column(
+                            children: [
+                              ListTile(
+                                key: Key('$index'),
+                                title: Text(workout.name ?? 'No name'),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const FaIcon(FontAwesomeIcons.play),
+                                      onPressed: () {
+                                        // ref
+                                        // .read(selectedWorkoutNotifierProvider.notifier)
+                                        // .selectWorkoutFromList(workout);
+                                        // ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => const ActionScreen()));
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const FaIcon(FontAwesomeIcons.trash),
+                                      onPressed: () {
+                                        ref.read(workout2DAOProvider).deleteWorkout(workout);
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const FaIcon(FontAwesomeIcons.ellipsisV),
+                                      onPressed: () {
+                                        // ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                        ref.read(workout2DAOProvider).toggleDetails(workout);
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
+                              if (workout.showDetails) ...[
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    children: workout.workoutItems
+                                        .map(
+                                          (woroutItem) => Text(
+                                              'Hanging ${woroutItem.exercise?.hangingTime} Resting ${woroutItem.exercise?.restingTime} Reps ${woroutItem.exercise?.reps}'),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ],
                             ],
-                          ],
+                          ),
                         ),
                       ),
                     );
