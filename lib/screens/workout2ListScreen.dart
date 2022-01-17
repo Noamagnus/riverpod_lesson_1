@@ -10,6 +10,7 @@ import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
 import 'package:my_first_riverpod/screens/create_wokout2_screen.dart';
 import 'package:my_first_riverpod/screens/create_workout_screen.dart';
+import 'package:my_first_riverpod/utils/constants.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 
 class WorkoutsListWithItems extends StatefulWidget {
@@ -25,11 +26,13 @@ class _WorkoutsListWithItemsState extends State<WorkoutsListWithItems> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
+      // backgroundColor: Colors.grey.shade300,
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           const SliverAppBar(
+            titleTextStyle: TextStyle(color:kColorGrey ),
+            // textTheme: ,
             floating: true,
             snap: true,
             title: Text('Workouts2'),
@@ -101,56 +104,59 @@ class WorkoutsList extends HookConsumerWidget {
                         // ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(workout);
                         // ref.read()
                       },
-                      child: BorderBox(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              key: Key('$index'),
-                              title: Text(workout.name ?? 'No name'),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: const FaIcon(FontAwesomeIcons.play),
-                                    onPressed: () {
-                                      // ref
-                                      // .read(selectedWorkoutNotifierProvider.notifier)
-                                      // .selectWorkoutFromList(workout);
-                                      // ref.read(workoutDAOProvider).deleteWorkout(workout);
-                                      Navigator.of(context).push(MaterialPageRoute(
-                                          builder: (context) => const ActionScreen()));
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const FaIcon(FontAwesomeIcons.trash),
-                                    onPressed: () {
-                                      ref.read(workout2DAOProvider).deleteWorkout(workout);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const FaIcon(FontAwesomeIcons.ellipsisV),
-                                    onPressed: () {
-                                      // ref.read(exerciseNotifierProvider.notifier).showDetails();
-                                      ref.read(workout2DAOProvider).toggleDetails(workout);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (workout.showDetails) ...[
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: workout.workoutItems
-                                      .map(
-                                        (woroutItem) => Text(
-                                            'Hanging ${woroutItem.exercise?.hangingTime} Resting ${woroutItem.exercise?.restingTime} Reps ${woroutItem.exercise?.reps}'),
-                                      )
-                                      .toList(),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8,),
+                        child: BorderBox(
+                          child: Column(
+                            children: [
+                              ListTile(
+                                key: Key('$index'),
+                                title: Text(workout.name ?? 'No name'),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const FaIcon(FontAwesomeIcons.play),
+                                      onPressed: () {
+                                        // ref
+                                        // .read(selectedWorkoutNotifierProvider.notifier)
+                                        // .selectWorkoutFromList(workout);
+                                        // ref.read(workoutDAOProvider).deleteWorkout(workout);
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) => const ActionScreen()));
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const FaIcon(FontAwesomeIcons.trash),
+                                      onPressed: () {
+                                        ref.read(workout2DAOProvider).deleteWorkout(workout);
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const FaIcon(FontAwesomeIcons.ellipsisV),
+                                      onPressed: () {
+                                        // ref.read(exerciseNotifierProvider.notifier).showDetails();
+                                        ref.read(workout2DAOProvider).toggleDetails(workout);
+                                      },
+                                    ),
+                                  ],
                                 ),
                               ),
+                              if (workout.showDetails) ...[
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    children: workout.workoutItems
+                                        .map(
+                                          (woroutItem) => Text(
+                                              'Hanging ${woroutItem.exercise?.hangingTime} Resting ${woroutItem.exercise?.restingTime} Reps ${woroutItem.exercise?.reps}'),
+                                        )
+                                        .toList(),
+                                  ),
+                                ),
+                              ],
                             ],
-                          ],
+                          ),
                         ),
                       ),
                     );

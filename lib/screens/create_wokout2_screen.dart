@@ -1,23 +1,13 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
-import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/settings_state_notifier.dart';
 import 'package:my_first_riverpod/providers/workout2StateNotifier.dart';
-import 'package:my_first_riverpod/providers/workout_state_notifier.dart';
-import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
-import 'package:my_first_riverpod/repositiries/workoutDAO.dart';
 import 'package:my_first_riverpod/screens/addExerciseDialog.dart';
 import 'package:my_first_riverpod/screens/addRestDialog.dart';
-import 'package:my_first_riverpod/screens/add_exercise_screen.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
-import 'package:my_first_riverpod/widgets/add_exercise_widget.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 import 'package:my_first_riverpod/widgets/information_tile.dart';
 

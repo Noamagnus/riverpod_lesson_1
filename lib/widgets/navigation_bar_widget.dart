@@ -4,6 +4,7 @@ import 'package:my_first_riverpod/screens/analytics.dart';
 import 'package:my_first_riverpod/screens/calendar_screen.dart';
 import 'package:my_first_riverpod/screens/exercise_screen.dart';
 import 'package:my_first_riverpod/screens/home_screen.dart';
+import 'package:my_first_riverpod/screens/workout2ListScreen.dart';
 import 'package:my_first_riverpod/screens/workouts_screen.dart';
 
 class NavigationBarWidget extends StatefulWidget {
@@ -17,7 +18,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
   int index = 0;
   final screens = [
     const HomeScreen(),
-    const WorkoutsScreen(),
+    WorkoutsListWithItems(),
     const CalendarScreen(),
     const AnalyticsScreen(),
   ];

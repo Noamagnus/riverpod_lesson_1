@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
 import 'package:my_first_riverpod/screens/test_screen.dart';
-import 'package:my_first_riverpod/screens/workout_item_screen.dart';
+import 'package:my_first_riverpod/screens/workout2ListScreen.dart';
 import 'package:my_first_riverpod/screens/workouts_screen.dart';
 import 'package:my_first_riverpod/screens/workouts2Screen.dart';
 import 'package:my_first_riverpod/screens/workouts_screen3.dart';
@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: Colors.grey.shade300,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
