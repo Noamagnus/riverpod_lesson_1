@@ -17,6 +17,7 @@ class ExerciseStateNotifier extends StateNotifier<Exercise> {
           hangingTime: 7,
           restingTime: 3,
           reps: 3,
+          initialReps: 3,
           exerciseState: ExerciseState.initial,
         ));
   Ref ref; //! to be able to read imagePickerProvider
@@ -37,7 +38,7 @@ class ExerciseStateNotifier extends StateNotifier<Exercise> {
   }
 
   void setNumberOfReps(int value) {
-    state = state.copyWith(reps: value);
+    state = state.copyWith(reps: value, initialReps: value);
   }
 
   void takePicture() async {

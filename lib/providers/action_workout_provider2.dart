@@ -1,25 +1,33 @@
+import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/rest_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
-import 'package:my_first_riverpod/providers/timer2_provider.dart';
 
 import 'package:uuid/uuid.dart';
 
-
-
 Uuid uuid = const Uuid();
-final actionWorkoutProvider = StateNotifierProvider<WorkoutStateNotifier, Workout>((ref) {
+final actionWorkoutProvider2 = StateNotifierProvider<WorkoutStateNotifier, Workout>((ref) {
   return WorkoutStateNotifier(ref);
 });
 
 class WorkoutStateNotifier extends StateNotifier<Workout> {
   WorkoutStateNotifier(this.ref) : super(Workout(uuid: uuid.v4()));
 
-  Ref ref; 
+  Ref ref;
+
+  final Ticker _ticker = Ticker();
+  StreamSubscription<int>? _tickerSubscription;
+
+  @override
+  void dispose() {
+    _tickerSubscription?.cancel();
+    super.dispose();
+  }
 
   List<WorkoutItem> showAllWorkoutItems() {
     return state.workoutItems;
@@ -57,8 +65,10 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
 
   /// this one sets time for timer and starts timer
   void _setTimeAndStart(int timeToCount) {
-    ref.read(timer2Provider.notifier).setTimeToCount(timeToCount);
-    ref.read(timer2Provider.notifier).start();
+    state = state.copyWith(timerDuration: timeToCount);
+    _startTimer();
+    // ref.read(timerProvider.notifier).setTimeToCount(timeToCount);
+    // ref.read(timerProvider.notifier).start();
   }
 
 //! methods regarding Exercise
@@ -104,8 +114,8 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
 
 
   /// fires from TimerNotifier
- 
-  void onTimerFinised() {
+
+  void _onTimerFinised() {
     final step = _getWorkoutStep();
     final workoutItem = state.workoutItems[step];
     if (workoutItem.workoutItemState == WorkoutItemState.exercise) {
@@ -160,24 +170,34 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     state = state.copyWith(workoutStep: currentStep + 1);
   }
 
+//! form here all methods is related to workout controlls
+  // void startWorkout() {
+  //   _startWorkout();
+  //   state = state.copyWith(workoutState: WorkoutState.running);
+  // }
+
   void startWorkout() {
-    _startWorkout();
-    state = state.copyWith(workoutState: WorkoutState.running);
+    if (state.workoutState == WorkoutState.paused) {
+      _restartTimer();
+    } else {
+      state = state.copyWith(workoutState: WorkoutState.running);
+      _startWorkout();
+    }
   }
 
-  void restartWorkout() {
-    _startWorkout();
+  void _restartTimer() {
+    _tickerSubscription?.resume();
     state = state.copyWith(workoutState: WorkoutState.running);
   }
 
   void pauseWorkout() {
-    ref.read(timer2Provider.notifier).pause();
+     _tickerSubscription?.pause();
     state = state.copyWith(workoutState: WorkoutState.paused);
   }
 
   void resetWorkout() {
-    ref.read(timer2Provider.notifier).reset();
-    state = state.copyWith(workoutState: WorkoutState.initial);
+     _tickerSubscription?.cancel();
+    state = state.copyWith(workoutState: WorkoutState.initial,);
   }
 
   void selectWorkoutFromList(Workout workout) {
@@ -186,5 +206,46 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
 
   Workout getSelectedWorkout() {
     return state;
+  }
+
+  void _startTimer() {
+    _tickerSubscription?.cancel();
+    _tickerSubscription = _ticker.tickerClassStream(ticks: state.timerDuration).listen((duration) {
+      state = state.copyWith(timerDuration: duration, workoutState: WorkoutState.running);
+    });
+    _tickerSubscription?.onDone(() {
+      state = state.copyWith(workoutState: WorkoutState.finished);
+      if (state.timerDuration == 0) {
+        _onTimerFinised();
+      }
+    });
+  }
+
+  void finished() {
+    _tickerSubscription?.cancel();
+    state = state.copyWith(workoutState: WorkoutState.finished);
+  }
+}
+
+class Ticker {
+  var player = AudioCache();
+  Stream<int> tickerClassStream({required int ticks}) {
+    return Stream.periodic(
+      const Duration(seconds: 1),
+      (x) {
+        var timesToTick = ticks - x - 1;
+        if (timesToTick < 3 && timesToTick > 0) {
+          _playSound('pip.mp3');
+        }
+        if (timesToTick == 0) {
+          _playSound('endbeep.mp3');
+        }
+        return ticks - x - 1;
+      },
+    ).take(ticks);
+  }
+
+  void _playSound(String mp3) async {
+    await player.play(mp3, mode: PlayerMode.LOW_LATENCY);
   }
 }

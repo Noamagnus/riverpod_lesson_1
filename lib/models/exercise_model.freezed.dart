@@ -27,6 +27,7 @@ class _$ExerciseTearOff {
       required int hangingTime,
       required int restingTime,
       required int reps,
+      required int initialReps,
       required ExerciseState exerciseState,
       String? imageUrl,
       bool displayDetails = true}) {
@@ -36,6 +37,7 @@ class _$ExerciseTearOff {
       hangingTime: hangingTime,
       restingTime: restingTime,
       reps: reps,
+      initialReps: initialReps,
       exerciseState: exerciseState,
       imageUrl: imageUrl,
       displayDetails: displayDetails,
@@ -57,6 +59,7 @@ mixin _$Exercise {
   int get hangingTime => throw _privateConstructorUsedError;
   int get restingTime => throw _privateConstructorUsedError;
   int get reps => throw _privateConstructorUsedError;
+  int get initialReps => throw _privateConstructorUsedError;
   ExerciseState get exerciseState => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   bool get displayDetails => throw _privateConstructorUsedError;
@@ -77,6 +80,7 @@ abstract class $ExerciseCopyWith<$Res> {
       int hangingTime,
       int restingTime,
       int reps,
+      int initialReps,
       ExerciseState exerciseState,
       String? imageUrl,
       bool displayDetails});
@@ -97,6 +101,7 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
     Object? hangingTime = freezed,
     Object? restingTime = freezed,
     Object? reps = freezed,
+    Object? initialReps = freezed,
     Object? exerciseState = freezed,
     Object? imageUrl = freezed,
     Object? displayDetails = freezed,
@@ -121,6 +126,10 @@ class _$ExerciseCopyWithImpl<$Res> implements $ExerciseCopyWith<$Res> {
       reps: reps == freezed
           ? _value.reps
           : reps // ignore: cast_nullable_to_non_nullable
+              as int,
+      initialReps: initialReps == freezed
+          ? _value.initialReps
+          : initialReps // ignore: cast_nullable_to_non_nullable
               as int,
       exerciseState: exerciseState == freezed
           ? _value.exerciseState
@@ -149,6 +158,7 @@ abstract class _$ExerciseCopyWith<$Res> implements $ExerciseCopyWith<$Res> {
       int hangingTime,
       int restingTime,
       int reps,
+      int initialReps,
       ExerciseState exerciseState,
       String? imageUrl,
       bool displayDetails});
@@ -170,6 +180,7 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
     Object? hangingTime = freezed,
     Object? restingTime = freezed,
     Object? reps = freezed,
+    Object? initialReps = freezed,
     Object? exerciseState = freezed,
     Object? imageUrl = freezed,
     Object? displayDetails = freezed,
@@ -194,6 +205,10 @@ class __$ExerciseCopyWithImpl<$Res> extends _$ExerciseCopyWithImpl<$Res>
       reps: reps == freezed
           ? _value.reps
           : reps // ignore: cast_nullable_to_non_nullable
+              as int,
+      initialReps: initialReps == freezed
+          ? _value.initialReps
+          : initialReps // ignore: cast_nullable_to_non_nullable
               as int,
       exerciseState: exerciseState == freezed
           ? _value.exerciseState
@@ -220,6 +235,7 @@ class _$_Exercise extends _Exercise {
       required this.hangingTime,
       required this.restingTime,
       required this.reps,
+      required this.initialReps,
       required this.exerciseState,
       this.imageUrl,
       this.displayDetails = true})
@@ -239,6 +255,8 @@ class _$_Exercise extends _Exercise {
   @override
   final int reps;
   @override
+  final int initialReps;
+  @override
   final ExerciseState exerciseState;
   @override
   final String? imageUrl;
@@ -248,7 +266,7 @@ class _$_Exercise extends _Exercise {
 
   @override
   String toString() {
-    return 'Exercise(name: $name, uuid: $uuid, hangingTime: $hangingTime, restingTime: $restingTime, reps: $reps, exerciseState: $exerciseState, imageUrl: $imageUrl, displayDetails: $displayDetails)';
+    return 'Exercise(name: $name, uuid: $uuid, hangingTime: $hangingTime, restingTime: $restingTime, reps: $reps, initialReps: $initialReps, exerciseState: $exerciseState, imageUrl: $imageUrl, displayDetails: $displayDetails)';
   }
 
   @override
@@ -264,6 +282,8 @@ class _$_Exercise extends _Exercise {
                 .equals(other.restingTime, restingTime) &&
             const DeepCollectionEquality().equals(other.reps, reps) &&
             const DeepCollectionEquality()
+                .equals(other.initialReps, initialReps) &&
+            const DeepCollectionEquality()
                 .equals(other.exerciseState, exerciseState) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality()
@@ -278,6 +298,7 @@ class _$_Exercise extends _Exercise {
       const DeepCollectionEquality().hash(hangingTime),
       const DeepCollectionEquality().hash(restingTime),
       const DeepCollectionEquality().hash(reps),
+      const DeepCollectionEquality().hash(initialReps),
       const DeepCollectionEquality().hash(exerciseState),
       const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(displayDetails));
@@ -300,6 +321,7 @@ abstract class _Exercise extends Exercise {
       required int hangingTime,
       required int restingTime,
       required int reps,
+      required int initialReps,
       required ExerciseState exerciseState,
       String? imageUrl,
       bool displayDetails}) = _$_Exercise;
@@ -317,6 +339,8 @@ abstract class _Exercise extends Exercise {
   int get restingTime;
   @override
   int get reps;
+  @override
+  int get initialReps;
   @override
   ExerciseState get exerciseState;
   @override

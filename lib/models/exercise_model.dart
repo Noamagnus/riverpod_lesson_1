@@ -14,6 +14,7 @@ class Exercise with _$Exercise {
     required int hangingTime,
     required int restingTime,
     required int reps,
+    required int initialReps,
     required ExerciseState exerciseState,
     String? imageUrl,
     @Default(true) bool displayDetails,

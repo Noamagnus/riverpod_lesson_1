@@ -18,6 +18,7 @@ class Workout with _$Workout {
     required String uuid,
     String? description,
     @Default(WorkoutState.initial)WorkoutState workoutState,
+    @Default(0) int timerDuration,
   }) = _Workout;
   factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
 }

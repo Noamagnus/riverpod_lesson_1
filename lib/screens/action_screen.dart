@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/timer_model.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
+import 'package:my_first_riverpod/providers/action_workout_provider2.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
-import 'package:my_first_riverpod/providers/action_workout_provider.dart';
-import 'package:my_first_riverpod/providers/timer2_provider.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/buttons_container2.dart';
 import 'package:my_first_riverpod/widgets/timer_rest_text_widget.dart';
@@ -13,23 +11,32 @@ import 'package:my_first_riverpod/widgets/timer_rest_text_widget.dart';
 class ActionScreen extends ConsumerWidget {
   const ActionScreen({Key? key}) : super(key: key);
 
+ 
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final timerState = ref.watch(timer2Provider);
-    final workout = ref.watch(actionWorkoutProvider);
+    final workout = ref.watch(actionWorkoutProvider2);
 
     //! fix this is not working
     final workoutItems = workout.workoutItems;
     final workoutStep = workout.workoutStep;
     final exercise = workoutItems[workoutStep].exercise;
     return Scaffold(
-      body: Center(
-          child: workoutItems[workoutStep].workoutItemState == WorkoutItemState.exercise
-              ? ActionExerciseWidget(
-                  exercise: exercise,
-                  timerState: timerState,
-                )
-              : const ActionRestWidget()),
+      body: Column(
+        children: [
+          addVerticalSpace(30),
+          Text(workout.uuid),
+          
+          Center(
+              child: workoutItems[workoutStep].workoutItemState == WorkoutItemState.exercise
+                  ? ActionExerciseWidget(
+                      exercise: exercise,
+                      
+                      uuid: workout.uuid,
+                    )
+                  : const ActionRestWidget()),
+        ],
+      ),
     );
   }
 }
@@ -37,12 +44,12 @@ class ActionScreen extends ConsumerWidget {
 class ActionExerciseWidget extends StatelessWidget {
   const ActionExerciseWidget({
     Key? key,
+    required this.uuid,
     required this.exercise,
-    required this.timerState,
   }) : super(key: key);
 
   final Exercise? exercise;
-  final TimerModel timerState;
+  final String uuid;
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +59,13 @@ class ActionExerciseWidget extends StatelessWidget {
         Column(
           children: [
             Text(
-                'Hanging ${exercise!.hangingTime} Resting ${exercise!.restingTime} Reps ${exercise!.reps}'),
+                'Hanging ${exercise!.hangingTime} Resting ${exercise!.restingTime} Reps ${exercise!.initialReps}'),
             const SizedBox(
               height: 10,
             ),
-            Text('Reps ${exercise!.reps}'),
+            Text('$uuid'),
+            addVerticalSpace(30),
+            Text('Reps ${exercise!.reps}/${exercise!.initialReps}'),
             if (exercise!.exerciseState == ExerciseState.hanging) ...[const Text('Hanging Time')],
             if (exercise!.exerciseState == ExerciseState.resting) ...[
               const Text('Resting Time'),
@@ -72,7 +81,7 @@ class ActionExerciseWidget extends StatelessWidget {
             Consumer(
               builder: (context, ref, child) => TextButton(
                 onPressed: () {
-                  ref.read(actionWorkoutProvider.notifier).startWorkout();
+                  ref.read(actionWorkoutProvider2.notifier).startWorkout();
                 },
                 child: Text('Start Workout'),
               ),
@@ -81,7 +90,7 @@ class ActionExerciseWidget extends StatelessWidget {
         ),
         Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final timeLeft = ref.watch(timer2Provider);
+            final timeLeft = ref.watch(actionWorkoutProvider2).timerDuration;
             return Column(
               children: [
                 TimerTextWidget(
@@ -111,7 +120,7 @@ class ActionRestWidget extends StatelessWidget {
       children: <Widget>[
         Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final timeLeft = ref.watch(timer2Provider);
+            final timeLeft = ref.watch(actionWorkoutProvider2).timerDuration;
 
             return Column(
               children: [
@@ -130,7 +139,7 @@ class ActionRestWidget extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    ref.read(actionWorkoutProvider.notifier).startWorkout();
+                    ref.read(actionWorkoutProvider2.notifier).startWorkout();
                   },
                   child: const Text('Start Workout'),
                 ),

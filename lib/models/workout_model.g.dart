@@ -19,6 +19,7 @@ _$_Workout _$$_WorkoutFromJson(Map<String, dynamic> json) => _$_Workout(
       workoutState:
           $enumDecodeNullable(_$WorkoutStateEnumMap, json['workoutState']) ??
               WorkoutState.initial,
+      timerDuration: json['timerDuration'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$$_WorkoutToJson(_$_Workout instance) =>
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$_WorkoutToJson(_$_Workout instance) =>
       'uuid': instance.uuid,
       'description': instance.description,
       'workoutState': _$WorkoutStateEnumMap[instance.workoutState],
+      'timerDuration': instance.timerDuration,
     };
 
 const _$WorkoutStateEnumMap = {
