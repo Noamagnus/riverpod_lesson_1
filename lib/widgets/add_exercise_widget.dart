@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -9,7 +9,7 @@ class AddExercise2Widget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final exercise = ref.watch(exerciseNotifierProvider);
+    final exercise = ref.watch(exerciseProvider);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -33,12 +33,12 @@ class AddExercise2Widget extends ConsumerWidget {
                             content: Consumer(
                               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                                 return NumberPicker(
-                                  value: ref.watch(exerciseNotifierProvider).hangingTime,
+                                  value: ref.watch(exerciseProvider).hangingTime,
                                   minValue: 1,
                                   maxValue: 20,
                                   onChanged: (value) {
                                     ref
-                                        .read(exerciseNotifierProvider.notifier)
+                                        .read(exerciseProvider.notifier)
                                         .setHanginTime(value);
                                   },
                                 );
@@ -80,12 +80,12 @@ class AddExercise2Widget extends ConsumerWidget {
                             content: Consumer(
                               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                                 return NumberPicker(
-                                  value: ref.watch(exerciseNotifierProvider).restingTime,
+                                  value: ref.watch(exerciseProvider).restingTime,
                                   minValue: 1,
                                   maxValue: 10,
                                   onChanged: (value) {
                                     ref
-                                        .read(exerciseNotifierProvider.notifier)
+                                        .read(exerciseProvider.notifier)
                                         .setRestingTime(value);
                                   },
                                 );
@@ -127,12 +127,12 @@ class AddExercise2Widget extends ConsumerWidget {
                             content: Consumer(
                               builder: (BuildContext context, WidgetRef ref, Widget? child) {
                                 return NumberPicker(
-                                  value: ref.watch(exerciseNotifierProvider).reps,
+                                  value: ref.watch(exerciseProvider).reps,
                                   minValue: 1,
                                   maxValue: 10,
                                   onChanged: (value) {
                                     ref
-                                        .read(exerciseNotifierProvider.notifier)
+                                        .read(exerciseProvider.notifier)
                                         .setNumberOfReps(value);
                                   },
                                 );
@@ -165,7 +165,7 @@ class AddExercise2Widget extends ConsumerWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
             onPressed: () {
-              ref.read(exerciseNotifierProvider.notifier).takePicture();
+              ref.read(exerciseProvider.notifier).takePicture();
               //todo call add picture function
             },
           ),

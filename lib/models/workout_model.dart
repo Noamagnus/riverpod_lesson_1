@@ -14,8 +14,14 @@ class Workout with _$Workout {
     String? name,
     @Default([]) List<WorkoutItem> workoutItems,
     @Default(false) bool showDetails,
+    @Default(0) int workoutStep,
     required String uuid,
     String? description,
+    @Default(WorkoutState.initial)WorkoutState workoutState,
   }) = _Workout;
   factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
+}
+
+enum WorkoutState{
+  initial, running, paused, finished,
 }

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:my_first_riverpod/widgets/add_exercise_widget.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
@@ -15,7 +15,7 @@ class ExerciseListScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     print('build run');
     final exerciseList = ref.watch(exerciseDAOProvider).getAllExercises2();
-    final exerciseNotifier = ref.watch(exerciseNotifierProvider);
+    final exerciseNotifier = ref.watch(exerciseProvider);
 
     return Scaffold(
       body: StreamBuilder(
@@ -91,7 +91,7 @@ class ExerciseListTile extends StatelessWidget {
     return InkWell(
       key: key,
       onTap: () {
-        ref.read(exerciseNotifierProvider.notifier).selectExerciseFromList(exercise);
+        ref.read(exerciseProvider.notifier).selectExerciseFromList(exercise);
         // ref.read()
       },
       child: Padding(

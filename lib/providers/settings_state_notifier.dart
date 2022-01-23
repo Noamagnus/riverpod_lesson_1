@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/models/settings_model.dart';
 
-final settingNotifierProvider = StateNotifierProvider<SettingsStateNotifier, Settings>((ref) {
+final settingSNProvider = StateNotifierProvider<SettingsStateNotifier, Settings>((ref) {
   return SettingsStateNotifier();
 });
 

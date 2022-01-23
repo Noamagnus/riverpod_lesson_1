@@ -6,7 +6,7 @@ import 'package:uuid/uuid.dart';
 Uuid uuid = const Uuid();
 enum ExerciseState { initial, hanging, resting, finished }
 
-final exerciseNotifierProvider = StateNotifierProvider<ExerciseStateNotifier, Exercise>((ref) {
+final exerciseProvider = StateNotifierProvider<ExerciseStateNotifier, Exercise>((ref) {
   return ExerciseStateNotifier(ref);
 });
 

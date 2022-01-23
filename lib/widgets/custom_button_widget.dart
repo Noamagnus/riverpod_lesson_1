@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/restNotifierProvider.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
+import 'package:my_first_riverpod/providers/rest_provider.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class HangTimeButtonWidget extends StatelessWidget {
@@ -32,7 +32,7 @@ class HangTimeButtonWidget extends StatelessWidget {
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   return AlertDialog(
                     content: NumberPicker(
-                      value:  ref.watch(exerciseNotifierProvider).hangingTime,
+                      value:  ref.watch(exerciseProvider).hangingTime,
                       minValue: 1,
                       maxValue: 20,
                       onChanged: onChanged,
@@ -80,7 +80,7 @@ class RestTimeButtonWidget extends StatelessWidget {
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   return AlertDialog(
                     content: NumberPicker(
-                      value:  ref.watch(exerciseNotifierProvider).restingTime,
+                      value:  ref.watch(exerciseProvider).restingTime,
                       minValue: 1,
                       maxValue: 20,
                       onChanged: onChanged,
@@ -128,7 +128,7 @@ class RepsButtonWidget extends StatelessWidget {
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   return AlertDialog(
                     content: NumberPicker(
-                      value:  ref.watch(exerciseNotifierProvider).reps,
+                      value:  ref.watch(exerciseProvider).reps,
                       minValue: 1,
                       maxValue: 20,
                       onChanged: onChanged,
@@ -176,7 +176,7 @@ class RestItemButtonWidget extends StatelessWidget {
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   return AlertDialog(
                     content: NumberPicker(
-                      value:  ref.watch(restNotifierProvider).restTime,
+                      value:  ref.watch(restProvider).restTime,
                       minValue: 1,
                       maxValue: 300,
                       onChanged: onChanged,

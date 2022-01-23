@@ -1,10 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
 import 'package:uuid/uuid.dart';
 
 //! This provider and notifirer is used when creatig WorkoutItem
@@ -12,7 +8,7 @@ import 'package:uuid/uuid.dart';
 //! Workout item has 2 nullable fields that holds three different objects
 //! Rest, Exercise and ExerciseFixed
 Uuid uuid = const Uuid();
-final workout2NotifierProvider =
+final workoutProvider =
     StateNotifierProvider.autoDispose<Workout2StateNotifier, Workout>((ref) {
   return Workout2StateNotifier();
 });

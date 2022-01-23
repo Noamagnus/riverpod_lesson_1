@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_riverpod/screens/exerciselist_screen.dart';
 import 'package:my_first_riverpod/screens/test_screen.dart';
-import 'package:my_first_riverpod/screens/workoutListScreen.dart';
+import 'package:my_first_riverpod/screens/workouts_list_screen.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 

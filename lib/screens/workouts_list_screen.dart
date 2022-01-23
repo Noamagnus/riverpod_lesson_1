@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
+import 'package:my_first_riverpod/providers/action_workout_provider.dart';
 import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
 import 'package:my_first_riverpod/screens/create_wokout_screen.dart';
@@ -27,7 +29,7 @@ class _WorkoutsListWithItemsState extends State<WorkoutsListWithItems> {
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           const SliverAppBar(
-            titleTextStyle: TextStyle(color:kColorGrey ),
+            titleTextStyle: TextStyle(color: kColorGrey),
             // textTheme: ,
             floating: true,
             snap: true,
@@ -101,7 +103,10 @@ class WorkoutsList extends HookConsumerWidget {
                         // ref.read()
                       },
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8,),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
                         child: BorderBox(
                           child: Column(
                             children: [
@@ -114,9 +119,9 @@ class WorkoutsList extends HookConsumerWidget {
                                     IconButton(
                                       icon: const FaIcon(FontAwesomeIcons.play),
                                       onPressed: () {
-                                        // ref
-                                        // .read(selectedWorkoutNotifierProvider.notifier)
-                                        // .selectWorkoutFromList(workout);
+                                        ref
+                                            .read(actionWorkoutProvider.notifier)
+                                            .selectWorkoutFromList(workout);
                                         // ref.read(workoutDAOProvider).deleteWorkout(workout);
                                         Navigator.of(context).push(MaterialPageRoute(
                                             builder: (context) => const ActionScreen()));
@@ -142,12 +147,19 @@ class WorkoutsList extends HookConsumerWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Column(
-                                    children: workout.workoutItems
-                                        .map(
-                                          (woroutItem) => Text(
-                                              'Hanging ${woroutItem.exercise?.hangingTime} Resting ${woroutItem.exercise?.restingTime} Reps ${woroutItem.exercise?.reps}'),
-                                        )
-                                        .toList(),
+                                    children: workout.workoutItems.map((workoutItem) {
+                                      if (workoutItem.exercise!=null) {
+                                        return Text(
+                                            'Hanging ${workoutItem.exercise?.hangingTime} Resting ${workoutItem.exercise?.restingTime} Reps ${workoutItem.exercise?.reps}');
+                                      } else {
+                                        final rest = workoutItem.rest;
+                                        if (rest != null) {
+                                          return Text('Rest time is ${rest!.restTime} sec');
+                                        } else {
+                                          return Text('Rest is null');
+                                        }
+                                      }
+                                    }).toList(),
                                   ),
                                 ),
                               ],

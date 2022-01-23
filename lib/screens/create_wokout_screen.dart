@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
-import 'package:my_first_riverpod/providers/workoutStateNotifier.dart';
+import 'package:my_first_riverpod/providers/workout_provider.dart';
 import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
-import 'package:my_first_riverpod/screens/addExerciseDialog.dart';
-import 'package:my_first_riverpod/screens/addRestDialog.dart';
+import 'package:my_first_riverpod/widgets/add_exercise_dialog.dart';
+import 'package:my_first_riverpod/widgets/add_rest_dialog.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 import 'package:my_first_riverpod/widgets/information_tile.dart';
@@ -40,7 +40,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
         child: SafeArea(
           child: Column(
             children: [
-              const Text('Create Workout2 Screen'),
+              const Text('Create Workout Screen'),
               Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
                   return Padding(
@@ -50,7 +50,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
                           hintText: 'Enter Workout Name',
                         ),
                         onChanged: (value) {
-                          ref.watch(workout2NotifierProvider.notifier).setName(value);
+                          ref.watch(workoutProvider.notifier).setName(value);
                         }),
                   );
                 },
@@ -110,7 +110,7 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
       floatingActionButton: isFabVisible
           ? Consumer(
               builder: (context, ref, child) {
-                final workout = ref.watch(workout2NotifierProvider);
+                final workout = ref.watch(workoutProvider);
 
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -139,11 +139,11 @@ class ReordableList2 extends HookConsumerWidget {
   const ReordableList2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final workoutItem = ref.watch(workout2NotifierProvider);
+    final workoutItem = ref.watch(workoutProvider);
 
     return ReorderableListView.builder(
       onReorder: (int oldIndex, int newIndex) {
-        ref.read(workout2NotifierProvider.notifier).onReorder(oldIndex, newIndex);
+        ref.read(workoutProvider.notifier).onReorder(oldIndex, newIndex);
       },
       itemCount: workoutItem.workoutItems.length,
       itemBuilder: (BuildContext context, int index) {
@@ -208,7 +208,7 @@ class ExerciseListTile2 extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        ref.read(workout2NotifierProvider.notifier).deleteWorkoutItem(workoutItem);
+                        ref.read(workoutProvider.notifier).deleteWorkoutItem(workoutItem);
                       },
                     ),
                     IconButton(
@@ -281,7 +281,7 @@ class RestTile extends StatelessWidget {
                     IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        ref.read(workout2NotifierProvider.notifier).deleteWorkoutItem(workoutItem);
+                        ref.read(workoutProvider.notifier).deleteWorkoutItem(workoutItem);
                       },
                     ),
                     IconButton(

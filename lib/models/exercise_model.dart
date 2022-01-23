@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'exercise_model.freezed.dart';
 part 'exercise_model.g.dart';

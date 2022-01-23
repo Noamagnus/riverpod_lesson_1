@@ -25,14 +25,18 @@ class _$WorkoutTearOff {
       {String? name,
       List<WorkoutItem> workoutItems = const [],
       bool showDetails = false,
+      int workoutStep = 0,
       required String uuid,
-      String? description}) {
+      String? description,
+      WorkoutState workoutState = WorkoutState.initial}) {
     return _Workout(
       name: name,
       workoutItems: workoutItems,
       showDetails: showDetails,
+      workoutStep: workoutStep,
       uuid: uuid,
       description: description,
+      workoutState: workoutState,
     );
   }
 
@@ -49,8 +53,10 @@ mixin _$Workout {
   String? get name => throw _privateConstructorUsedError;
   List<WorkoutItem> get workoutItems => throw _privateConstructorUsedError;
   bool get showDetails => throw _privateConstructorUsedError;
+  int get workoutStep => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  WorkoutState get workoutState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -65,8 +71,10 @@ abstract class $WorkoutCopyWith<$Res> {
       {String? name,
       List<WorkoutItem> workoutItems,
       bool showDetails,
+      int workoutStep,
       String uuid,
-      String? description});
+      String? description,
+      WorkoutState workoutState});
 }
 
 /// @nodoc
@@ -82,8 +90,10 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
     Object? name = freezed,
     Object? workoutItems = freezed,
     Object? showDetails = freezed,
+    Object? workoutStep = freezed,
     Object? uuid = freezed,
     Object? description = freezed,
+    Object? workoutState = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -98,6 +108,10 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
           ? _value.showDetails
           : showDetails // ignore: cast_nullable_to_non_nullable
               as bool,
+      workoutStep: workoutStep == freezed
+          ? _value.workoutStep
+          : workoutStep // ignore: cast_nullable_to_non_nullable
+              as int,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -106,6 +120,10 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      workoutState: workoutState == freezed
+          ? _value.workoutState
+          : workoutState // ignore: cast_nullable_to_non_nullable
+              as WorkoutState,
     ));
   }
 }
@@ -119,8 +137,10 @@ abstract class _$WorkoutCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
       {String? name,
       List<WorkoutItem> workoutItems,
       bool showDetails,
+      int workoutStep,
       String uuid,
-      String? description});
+      String? description,
+      WorkoutState workoutState});
 }
 
 /// @nodoc
@@ -137,8 +157,10 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
     Object? name = freezed,
     Object? workoutItems = freezed,
     Object? showDetails = freezed,
+    Object? workoutStep = freezed,
     Object? uuid = freezed,
     Object? description = freezed,
+    Object? workoutState = freezed,
   }) {
     return _then(_Workout(
       name: name == freezed
@@ -153,6 +175,10 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
           ? _value.showDetails
           : showDetails // ignore: cast_nullable_to_non_nullable
               as bool,
+      workoutStep: workoutStep == freezed
+          ? _value.workoutStep
+          : workoutStep // ignore: cast_nullable_to_non_nullable
+              as int,
       uuid: uuid == freezed
           ? _value.uuid
           : uuid // ignore: cast_nullable_to_non_nullable
@@ -161,6 +187,10 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      workoutState: workoutState == freezed
+          ? _value.workoutState
+          : workoutState // ignore: cast_nullable_to_non_nullable
+              as WorkoutState,
     ));
   }
 }
@@ -173,8 +203,10 @@ class _$_Workout extends _Workout {
       {this.name,
       this.workoutItems = const [],
       this.showDetails = false,
+      this.workoutStep = 0,
       required this.uuid,
-      this.description})
+      this.description,
+      this.workoutState = WorkoutState.initial})
       : super._();
 
   factory _$_Workout.fromJson(Map<String, dynamic> json) =>
@@ -188,14 +220,20 @@ class _$_Workout extends _Workout {
   @JsonKey()
   @override
   final bool showDetails;
+  @JsonKey()
+  @override
+  final int workoutStep;
   @override
   final String uuid;
   @override
   final String? description;
+  @JsonKey()
+  @override
+  final WorkoutState workoutState;
 
   @override
   String toString() {
-    return 'Workout(name: $name, workoutItems: $workoutItems, showDetails: $showDetails, uuid: $uuid, description: $description)';
+    return 'Workout(name: $name, workoutItems: $workoutItems, showDetails: $showDetails, workoutStep: $workoutStep, uuid: $uuid, description: $description, workoutState: $workoutState)';
   }
 
   @override
@@ -208,9 +246,13 @@ class _$_Workout extends _Workout {
                 .equals(other.workoutItems, workoutItems) &&
             const DeepCollectionEquality()
                 .equals(other.showDetails, showDetails) &&
+            const DeepCollectionEquality()
+                .equals(other.workoutStep, workoutStep) &&
             const DeepCollectionEquality().equals(other.uuid, uuid) &&
             const DeepCollectionEquality()
-                .equals(other.description, description));
+                .equals(other.description, description) &&
+            const DeepCollectionEquality()
+                .equals(other.workoutState, workoutState));
   }
 
   @override
@@ -219,8 +261,10 @@ class _$_Workout extends _Workout {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(workoutItems),
       const DeepCollectionEquality().hash(showDetails),
+      const DeepCollectionEquality().hash(workoutStep),
       const DeepCollectionEquality().hash(uuid),
-      const DeepCollectionEquality().hash(description));
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(workoutState));
 
   @JsonKey(ignore: true)
   @override
@@ -238,8 +282,10 @@ abstract class _Workout extends Workout {
       {String? name,
       List<WorkoutItem> workoutItems,
       bool showDetails,
+      int workoutStep,
       required String uuid,
-      String? description}) = _$_Workout;
+      String? description,
+      WorkoutState workoutState}) = _$_Workout;
   const _Workout._() : super._();
 
   factory _Workout.fromJson(Map<String, dynamic> json) = _$_Workout.fromJson;
@@ -251,9 +297,13 @@ abstract class _Workout extends Workout {
   @override
   bool get showDetails;
   @override
+  int get workoutStep;
+  @override
   String get uuid;
   @override
   String? get description;
+  @override
+  WorkoutState get workoutState;
   @override
   @JsonKey(ignore: true)
   _$WorkoutCopyWith<_Workout> get copyWith =>

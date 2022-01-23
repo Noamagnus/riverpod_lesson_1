@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
-import 'package:my_first_riverpod/providers/timer_state_notifier.dart';
-import 'package:my_first_riverpod/models/timer_model.dart';
+import 'package:my_first_riverpod/models/workout_model.dart';
+import 'package:my_first_riverpod/providers/action_workout_provider.dart';
 
-class ButtonsContainer extends HookConsumerWidget {
-  const ButtonsContainer({Key? key}) : super(key: key);
+
+class ButtonsContainer2 extends HookConsumerWidget {
+  const ButtonsContainer2({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(timerProvider);
+    final state = ref.watch(actionWorkoutProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (state.buttonState == TimerState.initial) ...[
+        if (state.workoutState == WorkoutState.initial) ...[
           const StartButton(),
         ],
-        if (state.buttonState == TimerState.started) ...[
+        if (state.workoutState == WorkoutState.running) ...[
           const PauseButton(),
           const SizedBox(width: 20),
           const ResetButton(),
         ],
-        if (state.buttonState == TimerState.paused) ...[
+        if (state.workoutState == WorkoutState.paused) ...[
           const StartButton(),
           const SizedBox(width: 20),
           const ResetButton(),
         ],
-        if (state.buttonState == TimerState.finished) ...[
+        if (state.workoutState == WorkoutState.finished) ...[
           const ResetButton(),
         ],
       ],
@@ -38,9 +38,9 @@ class StartButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return FloatingActionButton(
+      heroTag: 'Start',
       onPressed: () {
-        
-        ref.read(timerProvider.notifier).start();
+        ref.read(actionWorkoutProvider.notifier).startWorkout();
       },
       child: const Icon(Icons.play_arrow),
     );
@@ -52,8 +52,9 @@ class PauseButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return FloatingActionButton(
+      heroTag: 'Pause',
       onPressed: () {
-        ref.read(timerProvider.notifier).pause();
+        ref.read(actionWorkoutProvider.notifier).pauseWorkout();
       },
       child: const Icon(Icons.pause),
     );
@@ -65,8 +66,9 @@ class ResetButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return FloatingActionButton(
+      heroTag: 'Reset',
       onPressed: () {
-        ref.read(timerProvider.notifier).reset();
+        ref.read(actionWorkoutProvider.notifier).resetWorkout();
       },
       child: const Icon(Icons.replay),
     );

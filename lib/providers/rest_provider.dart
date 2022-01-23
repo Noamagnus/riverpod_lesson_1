@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 
 Uuid uuid = const Uuid();
 
-final restNotifierProvider = StateNotifierProvider<RestStateNotifier, Rest>((ref) {
+final restProvider = StateNotifierProvider<RestStateNotifier, Rest>((ref) {
   return RestStateNotifier();
 });
 
@@ -14,6 +14,10 @@ class RestStateNotifier extends StateNotifier<Rest> {
           uuid: uuid.v4(),
           restTime: 10,
         ));
+
+  Rest getRestState() {
+    return state;
+  }
 
   void selectRestFromList(Rest rest) {
     state = rest;

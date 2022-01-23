@@ -13,8 +13,12 @@ _$_Workout _$$_WorkoutFromJson(Map<String, dynamic> json) => _$_Workout(
               .toList() ??
           const [],
       showDetails: json['showDetails'] as bool? ?? false,
+      workoutStep: json['workoutStep'] as int? ?? 0,
       uuid: json['uuid'] as String,
       description: json['description'] as String?,
+      workoutState:
+          $enumDecodeNullable(_$WorkoutStateEnumMap, json['workoutState']) ??
+              WorkoutState.initial,
     );
 
 Map<String, dynamic> _$$_WorkoutToJson(_$_Workout instance) =>
@@ -22,6 +26,15 @@ Map<String, dynamic> _$$_WorkoutToJson(_$_Workout instance) =>
       'name': instance.name,
       'workoutItems': instance.workoutItems.map((e) => e.toJson()).toList(),
       'showDetails': instance.showDetails,
+      'workoutStep': instance.workoutStep,
       'uuid': instance.uuid,
       'description': instance.description,
+      'workoutState': _$WorkoutStateEnumMap[instance.workoutState],
     };
+
+const _$WorkoutStateEnumMap = {
+  WorkoutState.initial: 'initial',
+  WorkoutState.running: 'running',
+  WorkoutState.paused: 'paused',
+  WorkoutState.finished: 'finished',
+};

@@ -10,10 +10,10 @@ import 'package:uuid/uuid.dart';
 
 //! This provider and notifirer is used when creatig WorkoutItem
 //! and is cached in memory and only saved to storage when clicked save button
-//! Workout item has 2 nullable fields that holds three different objects
+//! Workout item has 3 nullable fields that holds three different objects
 //! Rest, Exercise and ExerciseFixed
 Uuid uuid = const Uuid();
-final workoutItemNotifierProvider =
+final workoutItemProvider =
     StateNotifierProvider.autoDispose<WorkoutItemStateNotifier, WorkoutItem>((ref) {
   return WorkoutItemStateNotifier();
 });

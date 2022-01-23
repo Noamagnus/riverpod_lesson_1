@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/helpers/image_picker.dart';
-import 'package:my_first_riverpod/providers/exerciseNotifierProvider.dart';
+import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -11,7 +11,7 @@ class ExerciseScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final exercise = ref.watch(exerciseNotifierProvider);
+    final exercise = ref.watch(exerciseProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -49,12 +49,12 @@ class ExerciseScreen extends HookConsumerWidget {
                                 content: Consumer(
                                   builder: (BuildContext context, WidgetRef ref, Widget? child) {
                                     return NumberPicker(
-                                      value: ref.watch(exerciseNotifierProvider).hangingTime,
+                                      value: ref.watch(exerciseProvider).hangingTime,
                                       minValue: 1,
                                       maxValue: 20,
                                       onChanged: (value) {
                                         ref
-                                            .read(exerciseNotifierProvider.notifier)
+                                            .read(exerciseProvider.notifier)
                                             .setHanginTime(value);
                                       },
                                     );
@@ -96,12 +96,12 @@ class ExerciseScreen extends HookConsumerWidget {
                                 content: Consumer(
                                   builder: (BuildContext context, WidgetRef ref, Widget? child) {
                                     return NumberPicker(
-                                      value: ref.watch(exerciseNotifierProvider).restingTime,
+                                      value: ref.watch(exerciseProvider).restingTime,
                                       minValue: 1,
                                       maxValue: 10,
                                       onChanged: (value) {
                                         ref
-                                            .read(exerciseNotifierProvider.notifier)
+                                            .read(exerciseProvider.notifier)
                                             .setRestingTime(value);
                                       },
                                     );
@@ -143,12 +143,12 @@ class ExerciseScreen extends HookConsumerWidget {
                                 content: Consumer(
                                   builder: (BuildContext context, WidgetRef ref, Widget? child) {
                                     return NumberPicker(
-                                      value: ref.watch(exerciseNotifierProvider).reps,
+                                      value: ref.watch(exerciseProvider).reps,
                                       minValue: 1,
                                       maxValue: 10,
                                       onChanged: (value) {
                                         ref
-                                            .read(exerciseNotifierProvider.notifier)
+                                            .read(exerciseProvider.notifier)
                                             .setNumberOfReps(value);
                                       },
                                     );
@@ -181,7 +181,7 @@ class ExerciseScreen extends HookConsumerWidget {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 onPressed: () {
-                  ref.read(exerciseNotifierProvider.notifier).takePicture();
+                  ref.read(exerciseProvider.notifier).takePicture();
                   //todo call add picture function
                 },
               ),
