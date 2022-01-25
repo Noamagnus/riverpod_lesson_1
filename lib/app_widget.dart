@@ -19,6 +19,7 @@ class AppWidget extends ConsumerWidget {
     double screenWidth = window.physicalSize.width;
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme:  ThemeData(
         primaryColor: kColorWhite,
         accentColor: kColorDarkBlue,

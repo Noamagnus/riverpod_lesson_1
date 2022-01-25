@@ -22,17 +22,21 @@ class _$ExerciseFixedTearOff {
   const _$ExerciseFixedTearOff();
 
   _BreakBetweenExercises call(
-      {required String name,
+      {String? name,
       required int estimatedTime,
+      bool continueOnFinish = false,
       int? numberOfReps,
       String? imageUrl,
-      String? props}) {
+      String? props,
+      bool displayDetails = true}) {
     return _BreakBetweenExercises(
       name: name,
       estimatedTime: estimatedTime,
+      continueOnFinish: continueOnFinish,
       numberOfReps: numberOfReps,
       imageUrl: imageUrl,
       props: props,
+      displayDetails: displayDetails,
     );
   }
 
@@ -46,11 +50,13 @@ const $ExerciseFixed = _$ExerciseFixedTearOff();
 
 /// @nodoc
 mixin _$ExerciseFixed {
-  String get name => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
   int get estimatedTime => throw _privateConstructorUsedError;
+  bool get continueOnFinish => throw _privateConstructorUsedError;
   int? get numberOfReps => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get props => throw _privateConstructorUsedError;
+  bool get displayDetails => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,11 +70,13 @@ abstract class $ExerciseFixedCopyWith<$Res> {
           ExerciseFixed value, $Res Function(ExerciseFixed) then) =
       _$ExerciseFixedCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {String? name,
       int estimatedTime,
+      bool continueOnFinish,
       int? numberOfReps,
       String? imageUrl,
-      String? props});
+      String? props,
+      bool displayDetails});
 }
 
 /// @nodoc
@@ -84,19 +92,25 @@ class _$ExerciseFixedCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? estimatedTime = freezed,
+    Object? continueOnFinish = freezed,
     Object? numberOfReps = freezed,
     Object? imageUrl = freezed,
     Object? props = freezed,
+    Object? displayDetails = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       estimatedTime: estimatedTime == freezed
           ? _value.estimatedTime
           : estimatedTime // ignore: cast_nullable_to_non_nullable
               as int,
+      continueOnFinish: continueOnFinish == freezed
+          ? _value.continueOnFinish
+          : continueOnFinish // ignore: cast_nullable_to_non_nullable
+              as bool,
       numberOfReps: numberOfReps == freezed
           ? _value.numberOfReps
           : numberOfReps // ignore: cast_nullable_to_non_nullable
@@ -109,6 +123,10 @@ class _$ExerciseFixedCopyWithImpl<$Res>
           ? _value.props
           : props // ignore: cast_nullable_to_non_nullable
               as String?,
+      displayDetails: displayDetails == freezed
+          ? _value.displayDetails
+          : displayDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -121,11 +139,13 @@ abstract class _$BreakBetweenExercisesCopyWith<$Res>
       __$BreakBetweenExercisesCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {String? name,
       int estimatedTime,
+      bool continueOnFinish,
       int? numberOfReps,
       String? imageUrl,
-      String? props});
+      String? props,
+      bool displayDetails});
 }
 
 /// @nodoc
@@ -143,19 +163,25 @@ class __$BreakBetweenExercisesCopyWithImpl<$Res>
   $Res call({
     Object? name = freezed,
     Object? estimatedTime = freezed,
+    Object? continueOnFinish = freezed,
     Object? numberOfReps = freezed,
     Object? imageUrl = freezed,
     Object? props = freezed,
+    Object? displayDetails = freezed,
   }) {
     return _then(_BreakBetweenExercises(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       estimatedTime: estimatedTime == freezed
           ? _value.estimatedTime
           : estimatedTime // ignore: cast_nullable_to_non_nullable
               as int,
+      continueOnFinish: continueOnFinish == freezed
+          ? _value.continueOnFinish
+          : continueOnFinish // ignore: cast_nullable_to_non_nullable
+              as bool,
       numberOfReps: numberOfReps == freezed
           ? _value.numberOfReps
           : numberOfReps // ignore: cast_nullable_to_non_nullable
@@ -168,6 +194,10 @@ class __$BreakBetweenExercisesCopyWithImpl<$Res>
           ? _value.props
           : props // ignore: cast_nullable_to_non_nullable
               as String?,
+      displayDetails: displayDetails == freezed
+          ? _value.displayDetails
+          : displayDetails // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -176,30 +206,38 @@ class __$BreakBetweenExercisesCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_BreakBetweenExercises extends _BreakBetweenExercises {
   const _$_BreakBetweenExercises(
-      {required this.name,
+      {this.name,
       required this.estimatedTime,
+      this.continueOnFinish = false,
       this.numberOfReps,
       this.imageUrl,
-      this.props})
+      this.props,
+      this.displayDetails = true})
       : super._();
 
   factory _$_BreakBetweenExercises.fromJson(Map<String, dynamic> json) =>
       _$$_BreakBetweenExercisesFromJson(json);
 
   @override
-  final String name;
+  final String? name;
   @override
   final int estimatedTime;
+  @JsonKey()
+  @override
+  final bool continueOnFinish;
   @override
   final int? numberOfReps;
   @override
   final String? imageUrl;
   @override
   final String? props;
+  @JsonKey()
+  @override
+  final bool displayDetails;
 
   @override
   String toString() {
-    return 'ExerciseFixed(name: $name, estimatedTime: $estimatedTime, numberOfReps: $numberOfReps, imageUrl: $imageUrl, props: $props)';
+    return 'ExerciseFixed(name: $name, estimatedTime: $estimatedTime, continueOnFinish: $continueOnFinish, numberOfReps: $numberOfReps, imageUrl: $imageUrl, props: $props, displayDetails: $displayDetails)';
   }
 
   @override
@@ -211,9 +249,13 @@ class _$_BreakBetweenExercises extends _BreakBetweenExercises {
             const DeepCollectionEquality()
                 .equals(other.estimatedTime, estimatedTime) &&
             const DeepCollectionEquality()
+                .equals(other.continueOnFinish, continueOnFinish) &&
+            const DeepCollectionEquality()
                 .equals(other.numberOfReps, numberOfReps) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
-            const DeepCollectionEquality().equals(other.props, props));
+            const DeepCollectionEquality().equals(other.props, props) &&
+            const DeepCollectionEquality()
+                .equals(other.displayDetails, displayDetails));
   }
 
   @override
@@ -221,9 +263,11 @@ class _$_BreakBetweenExercises extends _BreakBetweenExercises {
       runtimeType,
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(estimatedTime),
+      const DeepCollectionEquality().hash(continueOnFinish),
       const DeepCollectionEquality().hash(numberOfReps),
       const DeepCollectionEquality().hash(imageUrl),
-      const DeepCollectionEquality().hash(props));
+      const DeepCollectionEquality().hash(props),
+      const DeepCollectionEquality().hash(displayDetails));
 
   @JsonKey(ignore: true)
   @override
@@ -239,26 +283,32 @@ class _$_BreakBetweenExercises extends _BreakBetweenExercises {
 
 abstract class _BreakBetweenExercises extends ExerciseFixed {
   const factory _BreakBetweenExercises(
-      {required String name,
+      {String? name,
       required int estimatedTime,
+      bool continueOnFinish,
       int? numberOfReps,
       String? imageUrl,
-      String? props}) = _$_BreakBetweenExercises;
+      String? props,
+      bool displayDetails}) = _$_BreakBetweenExercises;
   const _BreakBetweenExercises._() : super._();
 
   factory _BreakBetweenExercises.fromJson(Map<String, dynamic> json) =
       _$_BreakBetweenExercises.fromJson;
 
   @override
-  String get name;
+  String? get name;
   @override
   int get estimatedTime;
+  @override
+  bool get continueOnFinish;
   @override
   int? get numberOfReps;
   @override
   String? get imageUrl;
   @override
   String? get props;
+  @override
+  bool get displayDetails;
   @override
   @JsonKey(ignore: true)
   _$BreakBetweenExercisesCopyWith<_BreakBetweenExercises> get copyWith =>

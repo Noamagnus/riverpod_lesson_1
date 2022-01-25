@@ -16,7 +16,7 @@ class CalendarScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.lightGreen.shade200,
       body: Center(child: Text('Calendar'),),
     );
   }

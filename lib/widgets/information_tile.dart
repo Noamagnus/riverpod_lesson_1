@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
 
@@ -6,8 +7,7 @@ class InformationTile extends StatelessWidget {
   final String content;
   final String name;
 
-  const InformationTile({Key? key, required this.content, required this.name})
-      : super(key: key);
+  const InformationTile({Key? key, required this.content, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,42 @@ class InformationTile extends StatelessWidget {
             name,
             style: themeData.textTheme.headline6,
           )
+        ],
+      ),
+    );
+  }
+}
+
+class DynamicInformationTile extends StatelessWidget {
+  final String content;
+  // final double width;
+
+  const DynamicInformationTile({
+    Key? key,
+    required this.content,
+    // required this.width,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final ThemeData themeData = Theme.of(context);
+    final Size size = MediaQuery.of(context).size;
+    final double tileSize = size.width * 0.20;
+    return Container(
+      margin: const EdgeInsets.only(left: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          BorderBox(
+              // width: width,
+              height: tileSize,
+              child: Expanded(
+                child: Text(
+                  content,
+                  style: themeData.textTheme.headline3,
+                ),
+              )),
+         
         ],
       ),
     );

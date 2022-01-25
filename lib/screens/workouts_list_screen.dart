@@ -24,7 +24,7 @@ class _WorkoutsListWithItemsState extends State<WorkoutsListWithItems> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.grey.shade300,
+      backgroundColor: Colors.lightGreen.shade100,
       body: NestedScrollView(
         floatHeaderSlivers: true,
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
@@ -182,3 +182,5 @@ class WorkoutsList extends HookConsumerWidget {
     );
   }
 }
+
+

@@ -4,8 +4,8 @@ import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/action_workout_provider2.dart';
 
 
-class ButtonsContainer2 extends HookConsumerWidget {
-  const ButtonsContainer2({Key? key}) : super(key: key);
+class ButtonsContainer extends HookConsumerWidget {
+  const ButtonsContainer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, ref) {
     final state = ref.watch(actionWorkoutProvider2);

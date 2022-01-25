@@ -6,6 +6,7 @@ import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/rest_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
+import 'package:my_first_riverpod/providers/workout_provider.dart';
 import 'package:uuid/uuid.dart';
 
 //! This provider and notifirer is used when creatig WorkoutItem
@@ -15,34 +16,39 @@ import 'package:uuid/uuid.dart';
 Uuid uuid = const Uuid();
 final workoutItemProvider =
     StateNotifierProvider.autoDispose<WorkoutItemStateNotifier, WorkoutItem>((ref) {
-  return WorkoutItemStateNotifier();
+  return WorkoutItemStateNotifier(ref);
 });
 
 class WorkoutItemStateNotifier extends StateNotifier<WorkoutItem> {
-  WorkoutItemStateNotifier() : super(WorkoutItem(uuid: uuid.v4()));
-
+  WorkoutItemStateNotifier(this.ref) : super(WorkoutItem(uuid: uuid.v4()));
+  Ref ref;
   WorkoutItem getWorkoutItem() {
     return state;
   }
-
+// This sets WorkoutItem as a Rest and saves it to workoutProviders list
   void setRest(Rest rest) {
     state = state.copyWith(
       rest: rest,
       workoutItemState: WorkoutItemState.rest,
     );
+    ref.read(workoutProvider.notifier).addWorkoutItem(state);
   }
+// This sets WorkoutItem as a ExerciseFixed and saves it to workoutProviders list
 
-  void setExerciseFixed(ExerciseFixed exerciseFixed) {
+  void setAndAddExerciseFixed(ExerciseFixed exerciseFixed) {
     state = state.copyWith(
       exerciseFixed: exerciseFixed,
       workoutItemState: WorkoutItemState.exerciseFixed,
     );
+    ref.read(workoutProvider.notifier).addWorkoutItem(state);
   }
+// This sets WorkoutItem as a Exercise and saves it to workoutProviders list
 
-  void setExercise(Exercise exercise) {
+  void setAndAddExercise(Exercise exercise) {
     state = state.copyWith(
       exercise: exercise,
       workoutItemState: WorkoutItemState.exercise,
     );
+    ref.read(workoutProvider.notifier).addWorkoutItem(state); // adds it to workoutProvider
   }
 }

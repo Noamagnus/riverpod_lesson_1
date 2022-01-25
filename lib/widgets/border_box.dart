@@ -6,9 +6,9 @@ class BorderBox extends StatelessWidget {
   final EdgeInsets? padding;
   final double? width;
   final double? height;
+  final Color backGroundColor;
 
-  const BorderBox(
-      {Key? key, this.padding, this.width, this.height, required this.child})
+  const BorderBox({Key? key, this.padding, this.width, this.height, required this.child,this.backGroundColor=kColorWhite})
       : super(key: key);
 
   @override
@@ -17,7 +17,7 @@ class BorderBox extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: kColorWhite,
+        color: backGroundColor,
         borderRadius: BorderRadius.circular(15),
         border: Border.all(
           color: kColorGrey.withAlpha(40),
