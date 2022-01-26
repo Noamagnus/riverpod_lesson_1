@@ -14,28 +14,30 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ExerciseFixed _$ExerciseFixedFromJson(Map<String, dynamic> json) {
-  return _BreakBetweenExercises.fromJson(json);
+  return _ExerciseFixed.fromJson(json);
 }
 
 /// @nodoc
 class _$ExerciseFixedTearOff {
   const _$ExerciseFixedTearOff();
 
-  _BreakBetweenExercises call(
+  _ExerciseFixed call(
       {String? name,
       required int estimatedTime,
       bool continueOnFinish = false,
-      int? numberOfReps,
+      int? reps,
       String? imageUrl,
       String? props,
+      ExerciseFixedState exerciseFixedState = ExerciseFixedState.stop,
       bool displayDetails = true}) {
-    return _BreakBetweenExercises(
+    return _ExerciseFixed(
       name: name,
       estimatedTime: estimatedTime,
       continueOnFinish: continueOnFinish,
-      numberOfReps: numberOfReps,
+      reps: reps,
       imageUrl: imageUrl,
       props: props,
+      exerciseFixedState: exerciseFixedState,
       displayDetails: displayDetails,
     );
   }
@@ -53,9 +55,11 @@ mixin _$ExerciseFixed {
   String? get name => throw _privateConstructorUsedError;
   int get estimatedTime => throw _privateConstructorUsedError;
   bool get continueOnFinish => throw _privateConstructorUsedError;
-  int? get numberOfReps => throw _privateConstructorUsedError;
+  int? get reps => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
   String? get props => throw _privateConstructorUsedError;
+  ExerciseFixedState get exerciseFixedState =>
+      throw _privateConstructorUsedError;
   bool get displayDetails => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -73,9 +77,10 @@ abstract class $ExerciseFixedCopyWith<$Res> {
       {String? name,
       int estimatedTime,
       bool continueOnFinish,
-      int? numberOfReps,
+      int? reps,
       String? imageUrl,
       String? props,
+      ExerciseFixedState exerciseFixedState,
       bool displayDetails});
 }
 
@@ -93,9 +98,10 @@ class _$ExerciseFixedCopyWithImpl<$Res>
     Object? name = freezed,
     Object? estimatedTime = freezed,
     Object? continueOnFinish = freezed,
-    Object? numberOfReps = freezed,
+    Object? reps = freezed,
     Object? imageUrl = freezed,
     Object? props = freezed,
+    Object? exerciseFixedState = freezed,
     Object? displayDetails = freezed,
   }) {
     return _then(_value.copyWith(
@@ -111,9 +117,9 @@ class _$ExerciseFixedCopyWithImpl<$Res>
           ? _value.continueOnFinish
           : continueOnFinish // ignore: cast_nullable_to_non_nullable
               as bool,
-      numberOfReps: numberOfReps == freezed
-          ? _value.numberOfReps
-          : numberOfReps // ignore: cast_nullable_to_non_nullable
+      reps: reps == freezed
+          ? _value.reps
+          : reps // ignore: cast_nullable_to_non_nullable
               as int?,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
@@ -123,6 +129,10 @@ class _$ExerciseFixedCopyWithImpl<$Res>
           ? _value.props
           : props // ignore: cast_nullable_to_non_nullable
               as String?,
+      exerciseFixedState: exerciseFixedState == freezed
+          ? _value.exerciseFixedState
+          : exerciseFixedState // ignore: cast_nullable_to_non_nullable
+              as ExerciseFixedState,
       displayDetails: displayDetails == freezed
           ? _value.displayDetails
           : displayDetails // ignore: cast_nullable_to_non_nullable
@@ -132,44 +142,46 @@ class _$ExerciseFixedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$BreakBetweenExercisesCopyWith<$Res>
+abstract class _$ExerciseFixedCopyWith<$Res>
     implements $ExerciseFixedCopyWith<$Res> {
-  factory _$BreakBetweenExercisesCopyWith(_BreakBetweenExercises value,
-          $Res Function(_BreakBetweenExercises) then) =
-      __$BreakBetweenExercisesCopyWithImpl<$Res>;
+  factory _$ExerciseFixedCopyWith(
+          _ExerciseFixed value, $Res Function(_ExerciseFixed) then) =
+      __$ExerciseFixedCopyWithImpl<$Res>;
   @override
   $Res call(
       {String? name,
       int estimatedTime,
       bool continueOnFinish,
-      int? numberOfReps,
+      int? reps,
       String? imageUrl,
       String? props,
+      ExerciseFixedState exerciseFixedState,
       bool displayDetails});
 }
 
 /// @nodoc
-class __$BreakBetweenExercisesCopyWithImpl<$Res>
+class __$ExerciseFixedCopyWithImpl<$Res>
     extends _$ExerciseFixedCopyWithImpl<$Res>
-    implements _$BreakBetweenExercisesCopyWith<$Res> {
-  __$BreakBetweenExercisesCopyWithImpl(_BreakBetweenExercises _value,
-      $Res Function(_BreakBetweenExercises) _then)
-      : super(_value, (v) => _then(v as _BreakBetweenExercises));
+    implements _$ExerciseFixedCopyWith<$Res> {
+  __$ExerciseFixedCopyWithImpl(
+      _ExerciseFixed _value, $Res Function(_ExerciseFixed) _then)
+      : super(_value, (v) => _then(v as _ExerciseFixed));
 
   @override
-  _BreakBetweenExercises get _value => super._value as _BreakBetweenExercises;
+  _ExerciseFixed get _value => super._value as _ExerciseFixed;
 
   @override
   $Res call({
     Object? name = freezed,
     Object? estimatedTime = freezed,
     Object? continueOnFinish = freezed,
-    Object? numberOfReps = freezed,
+    Object? reps = freezed,
     Object? imageUrl = freezed,
     Object? props = freezed,
+    Object? exerciseFixedState = freezed,
     Object? displayDetails = freezed,
   }) {
-    return _then(_BreakBetweenExercises(
+    return _then(_ExerciseFixed(
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -182,9 +194,9 @@ class __$BreakBetweenExercisesCopyWithImpl<$Res>
           ? _value.continueOnFinish
           : continueOnFinish // ignore: cast_nullable_to_non_nullable
               as bool,
-      numberOfReps: numberOfReps == freezed
-          ? _value.numberOfReps
-          : numberOfReps // ignore: cast_nullable_to_non_nullable
+      reps: reps == freezed
+          ? _value.reps
+          : reps // ignore: cast_nullable_to_non_nullable
               as int?,
       imageUrl: imageUrl == freezed
           ? _value.imageUrl
@@ -194,6 +206,10 @@ class __$BreakBetweenExercisesCopyWithImpl<$Res>
           ? _value.props
           : props // ignore: cast_nullable_to_non_nullable
               as String?,
+      exerciseFixedState: exerciseFixedState == freezed
+          ? _value.exerciseFixedState
+          : exerciseFixedState // ignore: cast_nullable_to_non_nullable
+              as ExerciseFixedState,
       displayDetails: displayDetails == freezed
           ? _value.displayDetails
           : displayDetails // ignore: cast_nullable_to_non_nullable
@@ -204,19 +220,20 @@ class __$BreakBetweenExercisesCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_BreakBetweenExercises extends _BreakBetweenExercises {
-  const _$_BreakBetweenExercises(
+class _$_ExerciseFixed extends _ExerciseFixed {
+  const _$_ExerciseFixed(
       {this.name,
       required this.estimatedTime,
       this.continueOnFinish = false,
-      this.numberOfReps,
+      this.reps,
       this.imageUrl,
       this.props,
+      this.exerciseFixedState = ExerciseFixedState.stop,
       this.displayDetails = true})
       : super._();
 
-  factory _$_BreakBetweenExercises.fromJson(Map<String, dynamic> json) =>
-      _$$_BreakBetweenExercisesFromJson(json);
+  factory _$_ExerciseFixed.fromJson(Map<String, dynamic> json) =>
+      _$$_ExerciseFixedFromJson(json);
 
   @override
   final String? name;
@@ -226,34 +243,38 @@ class _$_BreakBetweenExercises extends _BreakBetweenExercises {
   @override
   final bool continueOnFinish;
   @override
-  final int? numberOfReps;
+  final int? reps;
   @override
   final String? imageUrl;
   @override
   final String? props;
   @JsonKey()
   @override
+  final ExerciseFixedState exerciseFixedState;
+  @JsonKey()
+  @override
   final bool displayDetails;
 
   @override
   String toString() {
-    return 'ExerciseFixed(name: $name, estimatedTime: $estimatedTime, continueOnFinish: $continueOnFinish, numberOfReps: $numberOfReps, imageUrl: $imageUrl, props: $props, displayDetails: $displayDetails)';
+    return 'ExerciseFixed(name: $name, estimatedTime: $estimatedTime, continueOnFinish: $continueOnFinish, reps: $reps, imageUrl: $imageUrl, props: $props, exerciseFixedState: $exerciseFixedState, displayDetails: $displayDetails)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _BreakBetweenExercises &&
+            other is _ExerciseFixed &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.estimatedTime, estimatedTime) &&
             const DeepCollectionEquality()
                 .equals(other.continueOnFinish, continueOnFinish) &&
-            const DeepCollectionEquality()
-                .equals(other.numberOfReps, numberOfReps) &&
+            const DeepCollectionEquality().equals(other.reps, reps) &&
             const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
             const DeepCollectionEquality().equals(other.props, props) &&
+            const DeepCollectionEquality()
+                .equals(other.exerciseFixedState, exerciseFixedState) &&
             const DeepCollectionEquality()
                 .equals(other.displayDetails, displayDetails));
   }
@@ -264,36 +285,37 @@ class _$_BreakBetweenExercises extends _BreakBetweenExercises {
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(estimatedTime),
       const DeepCollectionEquality().hash(continueOnFinish),
-      const DeepCollectionEquality().hash(numberOfReps),
+      const DeepCollectionEquality().hash(reps),
       const DeepCollectionEquality().hash(imageUrl),
       const DeepCollectionEquality().hash(props),
+      const DeepCollectionEquality().hash(exerciseFixedState),
       const DeepCollectionEquality().hash(displayDetails));
 
   @JsonKey(ignore: true)
   @override
-  _$BreakBetweenExercisesCopyWith<_BreakBetweenExercises> get copyWith =>
-      __$BreakBetweenExercisesCopyWithImpl<_BreakBetweenExercises>(
-          this, _$identity);
+  _$ExerciseFixedCopyWith<_ExerciseFixed> get copyWith =>
+      __$ExerciseFixedCopyWithImpl<_ExerciseFixed>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_BreakBetweenExercisesToJson(this);
+    return _$$_ExerciseFixedToJson(this);
   }
 }
 
-abstract class _BreakBetweenExercises extends ExerciseFixed {
-  const factory _BreakBetweenExercises(
+abstract class _ExerciseFixed extends ExerciseFixed {
+  const factory _ExerciseFixed(
       {String? name,
       required int estimatedTime,
       bool continueOnFinish,
-      int? numberOfReps,
+      int? reps,
       String? imageUrl,
       String? props,
-      bool displayDetails}) = _$_BreakBetweenExercises;
-  const _BreakBetweenExercises._() : super._();
+      ExerciseFixedState exerciseFixedState,
+      bool displayDetails}) = _$_ExerciseFixed;
+  const _ExerciseFixed._() : super._();
 
-  factory _BreakBetweenExercises.fromJson(Map<String, dynamic> json) =
-      _$_BreakBetweenExercises.fromJson;
+  factory _ExerciseFixed.fromJson(Map<String, dynamic> json) =
+      _$_ExerciseFixed.fromJson;
 
   @override
   String? get name;
@@ -302,15 +324,17 @@ abstract class _BreakBetweenExercises extends ExerciseFixed {
   @override
   bool get continueOnFinish;
   @override
-  int? get numberOfReps;
+  int? get reps;
   @override
   String? get imageUrl;
   @override
   String? get props;
   @override
+  ExerciseFixedState get exerciseFixedState;
+  @override
   bool get displayDetails;
   @override
   @JsonKey(ignore: true)
-  _$BreakBetweenExercisesCopyWith<_BreakBetweenExercises> get copyWith =>
+  _$ExerciseFixedCopyWith<_ExerciseFixed> get copyWith =>
       throw _privateConstructorUsedError;
 }

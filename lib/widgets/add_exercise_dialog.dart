@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/workout_item_provider.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
+import 'package:my_first_riverpod/widgets/image_preview.dart';
 import 'package:my_first_riverpod/widgets/test_button_widget.dart';
 
 class AddExerciseDialog extends ConsumerWidget {
@@ -23,7 +26,7 @@ class AddExerciseDialog extends ConsumerWidget {
             onChanged: (value) {
               ref.watch(exerciseProvider.notifier).setName(value);
             }),
-        TestButtonWidget(
+        ItemsButtonWidget(
           title: 'Hang Time ${exercise.hangingTime}',
           pickerType: PickerType.exerciseHangTime,
           onChanged: (value) {
@@ -31,7 +34,7 @@ class AddExerciseDialog extends ConsumerWidget {
           },
           onPressed: () => Navigator.of(context).pop(),
         ),
-        TestButtonWidget(
+        ItemsButtonWidget(
           title: 'Rest Time ${exercise.restingTime}',
           pickerType: PickerType.exerciseRestTime,
           onChanged: (value) {
@@ -39,7 +42,7 @@ class AddExerciseDialog extends ConsumerWidget {
           },
           onPressed: () => Navigator.of(context).pop(),
         ),
-        TestButtonWidget(
+        ItemsButtonWidget(
           title: 'Reps ${exercise.reps}',
           pickerType: PickerType.exerciseReps,
           onChanged: (value) {
@@ -58,6 +61,8 @@ class AddExerciseDialog extends ConsumerWidget {
             //todo call add picture function
           },
         ),
+        if(exercise.imageUrl!=null)
+        ImagePreview(path: exercise.imageUrl!,),
         Expanded(
           child: Container(),
         ),

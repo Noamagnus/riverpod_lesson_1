@@ -39,4 +39,5 @@ const _$WorkoutStateEnumMap = {
   WorkoutState.running: 'running',
   WorkoutState.paused: 'paused',
   WorkoutState.finished: 'finished',
+  WorkoutState.pausedAfterExerciseFixed: 'pausedAfterExerciseFixed',
 };

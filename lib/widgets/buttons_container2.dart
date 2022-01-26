@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/action_workout_provider2.dart';
+import 'package:my_first_riverpod/providers/action_workout_provider.dart';
 
 
 class ButtonsContainer extends HookConsumerWidget {
   const ButtonsContainer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(actionWorkoutProvider2);
+    final state = ref.watch(actionWorkoutProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -40,7 +40,7 @@ class StartButton extends HookConsumerWidget {
     return FloatingActionButton(
       heroTag: 'Start',
       onPressed: () {
-        ref.read(actionWorkoutProvider2.notifier).startWorkout();
+        ref.read(actionWorkoutProvider.notifier).startWorkout();
       },
       child: const Icon(Icons.play_arrow),
     );
@@ -54,7 +54,7 @@ class PauseButton extends HookConsumerWidget {
     return FloatingActionButton(
       heroTag: 'Pause',
       onPressed: () {
-        ref.read(actionWorkoutProvider2.notifier).pauseWorkout();
+        ref.read(actionWorkoutProvider.notifier).pauseWorkout();
       },
       child: const Icon(Icons.pause),
     );
@@ -68,7 +68,7 @@ class ResetButton extends HookConsumerWidget {
     return FloatingActionButton(
       heroTag: 'Reset',
       onPressed: () {
-        ref.read(actionWorkoutProvider2.notifier).resetWorkout();
+        ref.read(actionWorkoutProvider.notifier).resetWorkout();
       },
       child: const Icon(Icons.replay),
     );

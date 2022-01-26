@@ -6,12 +6,12 @@ import 'package:my_first_riverpod/providers/exercise_fixed_provider.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/rest_provider.dart';
 
-class TestButtonWidget extends StatelessWidget {
+class ItemsButtonWidget extends StatelessWidget {
   final String title;
   final PickerType pickerType;
   final void Function(int) onChanged;
   final void Function() onPressed;
-  const TestButtonWidget({
+  const ItemsButtonWidget({
     Key? key,
     required this.title,
     required this.pickerType,
@@ -73,7 +73,7 @@ Widget _pickerSelector(PickerType type, WidgetRef ref, Function(int) onChanged) 
       );
     case PickerType.exerciseFixedReps:
       return NumberPicker(
-        value: ref.watch(exerciseFixedProvider).numberOfReps ?? 0,
+        value: ref.watch(exerciseFixedProvider).reps ?? 0,
         minValue: 1,
         maxValue: 20,
         onChanged: onChanged,

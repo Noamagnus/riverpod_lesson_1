@@ -13,9 +13,9 @@ final exerciseFixedProvider = StateNotifierProvider<ExerciseStateNotifier, Exerc
 
 class ExerciseStateNotifier extends StateNotifier<ExerciseFixed> {
   ExerciseStateNotifier(this.ref)
-      : super(ExerciseFixed(
+      : super(const ExerciseFixed(
           estimatedTime: 1,
-          numberOfReps: 1,
+          reps: 1,
         ));
   Ref ref; //! to be able to read imagePickerProvider
 
@@ -37,7 +37,7 @@ class ExerciseStateNotifier extends StateNotifier<ExerciseFixed> {
 
   void setNumberOfReps(int value) {
     state = state.copyWith(
-      numberOfReps: value,
+      reps: value,
     );
   }
 

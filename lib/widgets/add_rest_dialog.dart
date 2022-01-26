@@ -14,7 +14,7 @@ class AddRestDialog extends ConsumerWidget {
     final rest = ref.watch(restProvider);
     return Column(
       children: [
-        TestButtonWidget(
+        ItemsButtonWidget(
           title: 'Rest Time ${rest.restTime} sec',
           pickerType: PickerType.rest,
           onChanged: (value) {

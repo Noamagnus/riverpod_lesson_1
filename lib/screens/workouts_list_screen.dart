@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/providers/action_workout_provider2.dart';
+import 'package:my_first_riverpod/providers/action_workout_provider.dart';
 import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
 import 'package:my_first_riverpod/screens/create_wokout_screen.dart';
@@ -120,7 +120,7 @@ class WorkoutsList extends HookConsumerWidget {
                                       icon: const FaIcon(FontAwesomeIcons.play),
                                       onPressed: () {
                                         ref
-                                            .read(actionWorkoutProvider2.notifier)
+                                            .read(actionWorkoutProvider.notifier)
                                             .selectWorkoutFromList(workout);
                                         // ref.read(workoutDAOProvider).deleteWorkout(workout);
                                         Navigator.of(context).push(MaterialPageRoute(

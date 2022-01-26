@@ -9,6 +9,7 @@ import 'package:my_first_riverpod/widgets/add_exercise_fixed_dialog.dart';
 import 'package:my_first_riverpod/widgets/add_rest_dialog.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
+import 'package:my_first_riverpod/widgets/horizontal_item_selector.dart';
 import 'package:my_first_riverpod/widgets/information_tile.dart';
 import 'package:my_first_riverpod/widgets/workout_tile_header.dart';
 
@@ -91,71 +92,6 @@ class _CreateWorkoutScreenState extends State<CreateWorkoutScreen> {
   }
 }
 
-class HorizontalItemsSelector extends StatelessWidget {
-  const HorizontalItemsSelector({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      child: AddExerciseDialog(),
-                    );
-                  });
-            },
-            child: const DynamicInformationTile(
-              content: "Exercise",
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      child: AddRestDialog(),
-                    );
-                  });
-            },
-            child: const DynamicInformationTile(
-              content: "Rest",
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Dialog(
-                      child: AddExerciseFixedDialog(),
-                    );
-                  });
-            },
-            child: const DynamicInformationTile(
-              content: "ExerciseFixed",
-            ),
-          ),
-          InformationTile(
-            content: "${["garage"]}",
-            name: "Other",
-          ),
-          addHorizontalSpace(25),
-        ],
-      ),
-    );
-  }
-}
-
 class ReordableList extends HookConsumerWidget {
   const ReordableList({Key? key}) : super(key: key);
   @override
@@ -170,7 +106,6 @@ class ReordableList extends HookConsumerWidget {
       itemBuilder: (BuildContext context, int index) {
         final item = workoutItem.workoutItems[index];
         return _workoutItemSelector(item, index, ref);
-        
       },
     );
   }
@@ -239,7 +174,7 @@ class ExerciseListTile extends StatelessWidget {
               ListTile(
                 title: Text('${exercise?.name}'),
                 subtitle: Text(
-                    'Hanging ${exercise?.hangingTime} Resting ${exercise?.restingTime} Reps ${exercise?.reps} ${workoutItem?.uuid}'),
+                    'Hanging ${exercise?.hangingTime} Resting ${exercise?.restingTime} Reps ${exercise?.reps} '),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -358,7 +293,7 @@ class ExerciseFixedListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final exercise = workoutItem.exerciseFixed;
+    final exerciseFixed = workoutItem.exerciseFixed;
     return InkWell(
       key: key,
       onTap: () {
@@ -370,15 +305,23 @@ class ExerciseFixedListTile extends StatelessWidget {
           vertical: 4,
         ),
         child: BorderBox(
+          padding: EdgeInsets.only(top: 0),
           child: Column(
             children: [
               const WorkoutTileHeader(
                 title: 'ExerciseFixed',
               ),
               ListTile(
-                title: Text('${exercise?.name}'),
-                subtitle: Text(
-                    'Hanging ${exercise?.name} Resting ${exercise?.name} Reps ${exercise?.name} ${workoutItem?.uuid}'),
+                title: Text('${exerciseFixed?.name}'),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        'Estimated time ${exerciseFixed!.estimatedTime}'),
+                  Text('Continue on finish ${exerciseFixed.continueOnFinish}'),
+                  Text('Repetitions ${exerciseFixed.reps}')
+                  ],
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -398,7 +341,7 @@ class ExerciseFixedListTile extends StatelessWidget {
                   ],
                 ),
               ),
-              if (exercise?.imageUrl != null && exercise?.displayDetails == true) ...[
+              if (exerciseFixed?.imageUrl != null && exerciseFixed?.displayDetails == true) ...[
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   //todo fix this sizedBox

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exercise_fixed_provider.dart';
 import 'package:my_first_riverpod/providers/workout_item_provider.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
+import 'package:my_first_riverpod/widgets/image_preview.dart';
 import 'package:my_first_riverpod/widgets/test_button_widget.dart';
 
 class AddExerciseFixedDialog extends ConsumerWidget {
@@ -15,7 +16,7 @@ class AddExerciseFixedDialog extends ConsumerWidget {
       children: [
         addVerticalSpace(5),
         const Text('Add Estimated Time'),
-        TestButtonWidget(
+        ItemsButtonWidget(
           pickerType: PickerType.exerciseFixedEstimatedTime,
           title: 'Estimated Time ${exerciseFixed.estimatedTime} sec',
           onChanged: (value) {
@@ -37,8 +38,8 @@ class AddExerciseFixedDialog extends ConsumerWidget {
           ],
         ),
         addVerticalSpace(10),
-        TestButtonWidget(
-          title: 'Reps ${exerciseFixed.numberOfReps}',
+        ItemsButtonWidget(
+          title: 'Reps ${exerciseFixed.reps}',
           pickerType: PickerType.exerciseFixedReps,
           onChanged: (value) {
             ref.read(exerciseFixedProvider.notifier).setNumberOfReps(value);
@@ -58,6 +59,10 @@ class AddExerciseFixedDialog extends ConsumerWidget {
             //todo call add picture function
           },
         ),
+        if (exerciseFixed.imageUrl != null)
+          ImagePreview(
+            path: exerciseFixed.imageUrl!,
+          ),
         Expanded(
           child: Container(),
         ),

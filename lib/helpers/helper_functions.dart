@@ -1,3 +1,4 @@
+import 'package:my_first_riverpod/models/exercise_fixed_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
@@ -12,6 +13,11 @@ Exercise? getExerciseFromWorkout(Workout workout) {
   final workoutItems = workout.workoutItems;
   final workoutStep = workout.workoutStep;
   return workoutItems[workoutStep].exercise;
+}
+ExerciseFixed? getExerciseFixedFromWorkout(Workout workout) {
+  final workoutItems = workout.workoutItems;
+  final workoutStep = workout.workoutStep;
+  return workoutItems[workoutStep].exerciseFixed;
 }
 
 WorkoutItem getWorkoutItemFromWorkout(Workout workout) {

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_first_riverpod/models/exercise_fixed_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/rest_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
@@ -11,7 +12,7 @@ import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:uuid/uuid.dart';
 
 Uuid uuid = const Uuid();
-final actionWorkoutProvider2 = StateNotifierProvider<WorkoutStateNotifier, Workout>((ref) {
+final actionWorkoutProvider = StateNotifierProvider<WorkoutStateNotifier, Workout>((ref) {
   return WorkoutStateNotifier(ref);
 });
 
@@ -37,10 +38,17 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     final workoutStep = _getWorkoutStep();
     final workoutItemsList = state.workoutItems;
     final workoutItem = workoutItemsList[workoutStep];
-    if (workoutItem.workoutItemState == WorkoutItemState.exercise) {
-      _startExercise(workoutItem.exercise);
-    } else {
-      _startRest(workoutItem.rest);
+    _workoutItemStateCheck(workoutItem);
+  }
+
+  void _workoutItemStateCheck(WorkoutItem workoutItem) {
+    switch (workoutItem.workoutItemState) {
+      case WorkoutItemState.exercise:
+        return _startExercise(workoutItem.exercise);
+      case WorkoutItemState.rest:
+        return _startRest(workoutItem.rest);
+      case WorkoutItemState.exerciseFixed:
+        return _startExerciseFixed(workoutItem.exerciseFixed);
     }
   }
 
@@ -57,6 +65,12 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     }
   }
 
+  ///Fires when WorkoutItem is ExerciseFixed
+  void _startExerciseFixed(ExerciseFixed? exerciseFixed) {
+    final timeToCount = exerciseFixed!.estimatedTime;
+    _setTimeAndStart(timeToCount);
+  }
+
   /// Fires if WorkoutItem is Rest
   void _startRest(Rest? rest) {
     final timeToCount = rest!.restTime;
@@ -67,16 +81,18 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
   void _setTimeAndStart(int timeToCount) {
     state = state.copyWith(timerDuration: timeToCount);
     _startTimer();
-    // ref.read(timerProvider.notifier).setTimeToCount(timeToCount);
-    // ref.read(timerProvider.notifier).start();
   }
 
 //! methods regarding Exercise
-  ExerciseState _getExerciseState() {
+  Exercise? _getExerciseFromWorkout() {
     final workoutStep = _getWorkoutStep();
     final workoutItemsList = state.workoutItems;
     final workoutItem = workoutItemsList[workoutStep];
-    final exercise = workoutItem.exercise;
+    return workoutItem.exercise;
+  }
+
+  ExerciseState _getExerciseState() {
+    final exercise = _getExerciseFromWorkout();
     return exercise!.exerciseState;
   }
 
@@ -112,19 +128,48 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     state = state.copyWith(workoutItems: workoutItemsList);
   }
 
+//! Methotd regarding ExerciseFixed
+  ExerciseFixed? getExerciseFixedFromWorkout() {
+    final workoutStep = _getWorkoutStep();
+    final workoutItemsList = state.workoutItems;
+    final workoutItem = workoutItemsList[workoutStep];
+    return workoutItem.exerciseFixed;
+  }
+
+  bool _getToStopOrNot() {
+    final exerciseFixed = getExerciseFixedFromWorkout();
+    return exerciseFixed!.continueOnFinish;
+  }
+
+  void toggleExerciseFixedOnFinish() {
+    final workoutStep = _getWorkoutStep();
+    final workoutItemsList = state.workoutItems;
+    final workoutItem = workoutItemsList[workoutStep];
+    final exerciseFixed = workoutItem.exerciseFixed;
+    final newExerciseFixed =
+        exerciseFixed!.copyWith(continueOnFinish: !exerciseFixed.continueOnFinish);
+    final newWorkoutItem = workoutItem.copyWith(exerciseFixed: newExerciseFixed);
+    workoutItemsList.removeAt(workoutStep);
+    workoutItemsList.insert(workoutStep, newWorkoutItem);
+    state = state.copyWith(workoutItems: workoutItemsList);
+  }
 
   /// fires from TimerNotifier
 
   void _onTimerFinised() {
     final step = _getWorkoutStep();
     final workoutItem = state.workoutItems[step];
-    if (workoutItem.workoutItemState == WorkoutItemState.exercise) {
-      _workoutItemIsExercise();
-    } else {
-      _workoutItemIsRest();
+    switch (workoutItem.workoutItemState) {
+      case WorkoutItemState.exercise:
+        return _workoutItemIsExercise();
+      case WorkoutItemState.rest:
+        return _workoutItemIsRest();
+      case WorkoutItemState.exerciseFixed:
+        return _workoutItemIsExerciseFixed();
     }
   }
 
+// Fires after timer is finished and WorkoutItem is Exercise
   void _workoutItemIsExercise() {
     final exerciseState = _getExerciseState();
     final currentReps = _getExerciseReps();
@@ -145,12 +190,22 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     }
   }
 
-  bool _isEnd() {
-    final workoutStep = _getWorkoutStep();
-    final listOfWorkoutItems = state.workoutItems.length;
-    return (listOfWorkoutItems - 1 == workoutStep);
+  // Fires after timer is finished and WorkoutItem is ExerciseFixed
+  void _workoutItemIsExerciseFixed() {
+    if (_isEnd()) {
+      pauseWorkout();
+    } else {
+      if (_getToStopOrNot()) {
+        pauseWorkout();
+        state = state.copyWith(workoutState: WorkoutState.pausedAfterExerciseFixed);
+      } else {
+        _addWorkoutStep();
+        _startWorkout();
+      }
+    }
   }
 
+// Fires after timer is finished and WorkoutItem is Rest
   void _workoutItemIsRest() {
     if (_isEnd()) {
       pauseWorkout();
@@ -158,6 +213,12 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
       _addWorkoutStep();
       _startWorkout();
     }
+  }
+
+  bool _isEnd() {
+    final workoutStep = _getWorkoutStep();
+    final listOfWorkoutItems = state.workoutItems.length;
+    return (listOfWorkoutItems - 1 == workoutStep);
   }
 
   //! Workout related methods
@@ -185,19 +246,26 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     }
   }
 
+  void resumeWorkoutAfterExerciseFixed() {
+    _addWorkoutStep();
+    _startWorkout();
+  }
+
   void _restartTimer() {
     _tickerSubscription?.resume();
     state = state.copyWith(workoutState: WorkoutState.running);
   }
 
   void pauseWorkout() {
-     _tickerSubscription?.pause();
+    _tickerSubscription?.pause();
     state = state.copyWith(workoutState: WorkoutState.paused);
   }
 
   void resetWorkout() {
-     _tickerSubscription?.cancel();
-    state = state.copyWith(workoutState: WorkoutState.initial,);
+    _tickerSubscription?.cancel();
+    state = state.copyWith(
+      workoutState: WorkoutState.initial,
+    );
   }
 
   void selectWorkoutFromList(Workout workout) {

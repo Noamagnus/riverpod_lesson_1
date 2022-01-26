@@ -17,12 +17,16 @@ class Workout with _$Workout {
     @Default(0) int workoutStep,
     required String uuid,
     String? description,
-    @Default(WorkoutState.initial)WorkoutState workoutState,
+    @Default(WorkoutState.initial) WorkoutState workoutState,
     @Default(0) int timerDuration,
   }) = _Workout;
   factory Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
 }
 
-enum WorkoutState{
-  initial, running, paused, finished,
+enum WorkoutState {
+  initial,
+  running,
+  paused,
+  finished,
+  pausedAfterExerciseFixed,
 }

@@ -9,10 +9,13 @@ class ExerciseFixed with _$ExerciseFixed {
     String? name,
     required int estimatedTime,
     @Default(false) bool continueOnFinish,
-    int? numberOfReps,
+    int? reps,
     String? imageUrl,
     String? props,
+    @Default(ExerciseFixedState.stop)ExerciseFixedState exerciseFixedState,
     @Default(true) bool displayDetails,
-  }) = _BreakBetweenExercises;
+  }) = _ExerciseFixed;
   factory ExerciseFixed.fromJson(Map<String, dynamic> json) => _$ExerciseFixedFromJson(json);
 }
+
+enum ExerciseFixedState{keepRunning, stop}
