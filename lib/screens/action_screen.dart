@@ -9,6 +9,7 @@ import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/action_workout_provider.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/utils/constants.dart';
+import 'package:my_first_riverpod/utils/dimensions.dart';
 import 'package:my_first_riverpod/utils/easy_text.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
 import 'package:my_first_riverpod/widgets/buttons_container2.dart';
@@ -163,11 +164,11 @@ class ActionRestWidget extends StatelessWidget {
       children: <Widget>[
         Container(
           width: double.infinity,
-          height: 40,
+          height: Dimensions.height45,
           child: const Center(child: Text('Rest')),
           color: Colors.black12,
         ),
-        addVerticalSpace(20),
+        addVerticalSpace(Dimensions.height20),
         Text(
           'Resting ',
           style: Theme.of(context).textTheme.headline3,

@@ -7,6 +7,7 @@ import 'package:my_first_riverpod/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/action_workout_provider.dart';
 import 'package:my_first_riverpod/repositiries/workout2DAO.dart';
 import 'package:my_first_riverpod/screens/action_screen.dart';
+import 'package:my_first_riverpod/screens/action_screen2.dart';
 import 'package:my_first_riverpod/screens/create_wokout_screen.dart';
 import 'package:my_first_riverpod/utils/constants.dart';
 import 'package:my_first_riverpod/widgets/border_box.dart';
@@ -124,7 +125,7 @@ class WorkoutsList extends HookConsumerWidget {
                                             .selectWorkoutFromList(workout);
                                         // ref.read(workoutDAOProvider).deleteWorkout(workout);
                                         Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) => const ActionScreen()));
+                                            builder: (context) => const ActionScreen2()));
                                       } ,
                                     ),
                                     IconButton(

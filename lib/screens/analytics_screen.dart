@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_riverpod/widgets/calendar_widget.dart';
+import 'package:my_first_riverpod/widgets/page_view.dart';
 
 class AnalyticsScreen extends StatelessWidget {
   const AnalyticsScreen({Key? key}) : super(key: key);
@@ -6,7 +8,7 @@ class AnalyticsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         title: const Text('Analytics'),
         centerTitle: true,
         leading: IconButton(
@@ -16,8 +18,8 @@ class AnalyticsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      backgroundColor: Colors.grey.shade300,
-      body: Center(child: Text('Calendar'),),
+      backgroundColor: Colors.white70,
+      body: PageViewWidget(),
     );
   }
 }

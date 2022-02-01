@@ -128,7 +128,7 @@ class WorkoutStateNotifier extends StateNotifier<Workout> {
     state = state.copyWith(workoutItems: workoutItemsList);
   }
 
-//! Methotd regarding ExerciseFixed
+//! Method regarding ExerciseFixed
   ExerciseFixed? getExerciseFixedFromWorkout() {
     final workoutStep = _getWorkoutStep();
     final workoutItemsList = state.workoutItems;

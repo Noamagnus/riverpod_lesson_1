@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_riverpod/widgets/calendar_widget.dart';
 
 class CalendarScreen extends StatelessWidget {
   const CalendarScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class CalendarScreen extends StatelessWidget {
         elevation: 0,
       ),
       backgroundColor: Colors.lightGreen.shade200,
-      body: Center(child: Text('Calendar'),),
+      body: SingleChildScrollView(child: CalendarWidget()),
     );
   }
 }
