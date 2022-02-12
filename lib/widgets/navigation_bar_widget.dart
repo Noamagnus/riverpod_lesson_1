@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:my_first_riverpod/screens/analytics_screen.dart';
-import 'package:my_first_riverpod/screens/calendar_screen.dart';
-import 'package:my_first_riverpod/screens/exercise_screen.dart';
-import 'package:my_first_riverpod/screens/home_screen.dart';
-import 'package:my_first_riverpod/screens/workouts_list_screen.dart';
+import 'package:my_first_riverpod/screens/analytics_screen/analytics_screen.dart';
+import 'package:my_first_riverpod/screens/calendar_screen/calendar_screen.dart';
+import 'package:my_first_riverpod/screens/home_screen/home_screen.dart';
+import 'package:my_first_riverpod/screens/workouts_screen/workouts_list_screen.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   const NavigationBarWidget({Key? key}) : super(key: key);

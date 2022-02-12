@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "993151512908",
+    "project_id": "climbingbandits-9a19e",
+    "storage_bucket": "climbingbandits-9a19e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993151512908:android:8eab96afcb503da9d2dfe9",
+        "android_client_info": {
+          "package_name": "com.example.my_first_riverpod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "993151512908-toqfrha8ihlqee0cojismlni3bt7k179.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.my_first_riverpod",
+            "certificate_hash": "31e8e09326c068710989ac004508a4fb0da11a3b"
+          }
+        },
+        {
+          "client_id": "993151512908-3uc8ijp0qttvgu5qqmhk8oorvloqaepn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj8ggxsxBrPeyb5v_qErUFaxzDOpfr_Fs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993151512908-3uc8ijp0qttvgu5qqmhk8oorvloqaepn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

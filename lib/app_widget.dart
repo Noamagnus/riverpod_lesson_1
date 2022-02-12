@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +15,6 @@ class AppWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     ref.listen(initializationProvider, (_, b) {});
-    double screenWidth = window.physicalSize.width;
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,

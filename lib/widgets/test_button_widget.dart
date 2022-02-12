@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-import 'package:my_first_riverpod/providers/exercise_fixed_provider.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
-import 'package:my_first_riverpod/providers/rest_provider.dart';
 
 class ItemsButtonWidget extends StatelessWidget {
   final String title;
@@ -48,9 +46,11 @@ class ItemsButtonWidget extends StatelessWidget {
 
 enum PickerType {
   rest,
+  exercisePrepareTime,
   exerciseRestTime,
   exerciseHangTime,
   exerciseReps,
+  exerciseRestAfter,
   exerciseFixedEstimatedTime,
   exerciseFixedReps,
 }
@@ -59,43 +59,57 @@ Widget _pickerSelector(PickerType type, WidgetRef ref, Function(int) onChanged) 
   switch (type) {
     case PickerType.rest:
       return NumberPicker(
-        value: ref.watch(restProvider).restTime,
-        minValue: 1,
+        value: ref.watch(exerciseProvider).restingTime,
+        minValue: 0,
         maxValue: 20,
         onChanged: onChanged,
       );
     case PickerType.exerciseFixedEstimatedTime:
       return NumberPicker(
-        value: ref.watch(exerciseFixedProvider).estimatedTime,
-        minValue: 1,
+        value: ref.watch(exerciseProvider).estimatedTime,
+        minValue: 0,
         maxValue: 20,
         onChanged: onChanged,
       );
     case PickerType.exerciseFixedReps:
       return NumberPicker(
-        value: ref.watch(exerciseFixedProvider).reps ?? 0,
-        minValue: 1,
+        value: ref.watch(exerciseProvider).reps,
+        minValue: 0,
+        maxValue: 20,
+        onChanged: onChanged,
+      );
+      case PickerType.exercisePrepareTime:
+      return NumberPicker(
+        value: ref.watch(exerciseProvider).prepareTime,
+        minValue: 0,
         maxValue: 20,
         onChanged: onChanged,
       );
       case PickerType.exerciseHangTime:
       return NumberPicker(
         value: ref.watch(exerciseProvider).hangingTime,
-        minValue: 1,
+        minValue: 0,
         maxValue: 20,
         onChanged: onChanged,
       );
       case PickerType.exerciseRestTime:
       return NumberPicker(
         value: ref.watch(exerciseProvider).restingTime,
-        minValue: 1,
+        minValue: 0,
         maxValue: 20,
         onChanged: onChanged,
       );
       case PickerType.exerciseReps:
       return NumberPicker(
         value: ref.watch(exerciseProvider).reps,
-        minValue: 1,
+        minValue: 0,
+        maxValue: 20,
+        onChanged: onChanged,
+      );
+      case PickerType.exerciseRestAfter:
+      return NumberPicker(
+        value: ref.watch(exerciseProvider).restAfterExercise,
+        minValue: 0,
         maxValue: 20,
         onChanged: onChanged,
       );

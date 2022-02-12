@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:my_first_riverpod/utils/easy_text.dart';
+import 'package:my_first_riverpod/widgets/easy_text.dart';
 
 class TimerTextWidget extends HookConsumerWidget {
   const TimerTextWidget({Key? key,required this.timeLeft}) : super(key: key);
@@ -8,7 +8,7 @@ class TimerTextWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return EasyText(
-      durationString(timeLeft) ?? 'Jebi ga',
+      durationString(timeLeft),
       fontSize: 100,
     );
   }

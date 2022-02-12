@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_first_riverpod/models/exercise_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
-import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:uuid/uuid.dart';
 
 //! This provider and notifirer is used when creatig WorkoutItem
@@ -9,72 +9,62 @@ import 'package:uuid/uuid.dart';
 //! Rest, Exercise and ExerciseFixed
 Uuid uuid = const Uuid();
 final workoutProvider =
-    StateNotifierProvider.autoDispose<Workout2StateNotifier, Workout>((ref) {
-  return Workout2StateNotifier();
+    StateNotifierProvider.autoDispose<WorkoutStateNotifier, Workout>((ref) {
+  return WorkoutStateNotifier();
 });
 
-class Workout2StateNotifier extends StateNotifier<Workout> {
-  Workout2StateNotifier() : super(Workout(uuid: uuid.v4()));
+class WorkoutStateNotifier extends StateNotifier<Workout> {
+  WorkoutStateNotifier() : super(Workout(uuid: uuid.v4()));
 
-  List<WorkoutItem> showAllWorkoutItem() {
-    return state.workoutItems;
+  List<Exercise> showAllExercises() {
+    return state.listOfExercises;
   }
 
-  void selectWorkoutItemFromList(Workout workout) {
+  void selectExerciseFromList(Workout workout) {
     state = workout;
   }
 
   void setName(String value) {
     state = state.copyWith(name: value);
   }
-  void deleteWorkoutItem(WorkoutItem workoutItem){
-        final actualList = state.workoutItems;
-    final itemToBeDeleted = actualList.firstWhere((ex) => ex.uuid == workoutItem.uuid);
+
+  //!check!!!!!!!!
+  void deleteExercise(Exercise exercise){
+        final actualList = state.listOfExercises;
+    final itemToBeDeleted = actualList.firstWhere((ex) => ex.uuid == exercise.uuid);
     final index = actualList.indexOf(itemToBeDeleted);
     actualList.removeAt(index);
-    state = state.copyWith(workoutItems: actualList);
-
-
+    state = state.copyWith(listOfExercises: actualList);
   }
 
-  WorkoutItem startWorkoutItem(WorkoutItem workout) {
+  Exercise startExercise(Exercise workout) {
     return workout;
   }
 
-  void toggleWorkoutItemDetails(WorkoutItem workoutItem) {
-    final actualList = state.workoutItems;
+  void toggleExerciseDetails(Exercise workoutItem) {
+    final actualList = state.listOfExercises;
     final itemToBeUpdated = actualList.firstWhere((ex) => ex.uuid == workoutItem.uuid);
     final index = actualList.indexOf(itemToBeUpdated);
     final updatedItem = itemToBeUpdated.copyWith(showDetails: !workoutItem.showDetails);
     actualList.removeAt(index);
     actualList.insert(index, updatedItem);
 
-    state = state.copyWith(workoutItems: actualList);
+    state = state.copyWith(listOfExercises: actualList);
 
-    // for (var exerciseFromList in state.exercises) {
-    //   if (exercise.uuid == exerciseFromList.uuid) {
-    //     final nesto =exerciseFromList.copyWith(displayDetails: !exercise.displayDetails);
-    //   }
-    // }
+    
   }
-  // void addItemAsExercise(Exercise exercise){
-  //   state=state.copyWith(workoutItems: )
-  // }
-
-  void addWorkoutItem(WorkoutItem workoutItem) {
-    state = state.copyWith(workoutItems: [
-      ...state.workoutItems,
-      WorkoutItem(
-        name: workoutItem.name,
-        workoutItemState: workoutItem.workoutItemState,
-        rest: workoutItem.rest,
-        exercise: workoutItem.exercise,
-        exerciseFixed: workoutItem.exerciseFixed,
-        showDetails: workoutItem.showDetails,
-        uuid: uuid.v4(),
-      )
+  void addExerciseRepeatersType(Exercise exercise){
+    state = state.copyWith(listOfExercises: [
+      ...state.listOfExercises, exercise.copyWith(exerciseType: ExerciseType.repeaters,)
+    
     ]);
-    // state.exercises.add(exercise);
+  }
+
+  void addExerciseFixedTimeType(Exercise exercise) {
+    state = state.copyWith(listOfExercises: [
+      ...state.listOfExercises, exercise.copyWith(exerciseType: ExerciseType.fixedTime,)
+    
+    ]);
   }
 
   void onReorder(
@@ -82,9 +72,9 @@ class Workout2StateNotifier extends StateNotifier<Workout> {
     int newIndex,
   ) {
     final newIdx = newIndex > oldIndex ? newIndex - 1 : newIndex;
-    final newList = state.workoutItems;
-    final item = newList.removeAt(oldIndex);
-    newList.insert(newIdx, item);
-    state = state.copyWith(workoutItems: newList);
+    final newList = state.listOfExercises;
+    final exercise = newList.removeAt(oldIndex);
+    newList.insert(newIdx, exercise);
+    state = state.copyWith(listOfExercises: newList);
   }
 }

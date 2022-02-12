@@ -1,6 +1,4 @@
-import 'package:my_first_riverpod/models/exercise_fixed_model.dart';
 import 'package:my_first_riverpod/models/exercise_model.dart';
-import 'package:my_first_riverpod/models/workout_item_model.dart';
 import 'package:my_first_riverpod/models/workout_model.dart';
 
 String durationString(int duration) {
@@ -10,21 +8,11 @@ String durationString(int duration) {
 }
 
 Exercise? getExerciseFromWorkout(Workout workout) {
-  final workoutItems = workout.workoutItems;
+  final exercise = workout.listOfExercises;
   final workoutStep = workout.workoutStep;
-  return workoutItems[workoutStep].exercise;
-}
-ExerciseFixed? getExerciseFixedFromWorkout(Workout workout) {
-  final workoutItems = workout.workoutItems;
-  final workoutStep = workout.workoutStep;
-  return workoutItems[workoutStep].exerciseFixed;
+  return exercise[workoutStep];
 }
 
-WorkoutItem getWorkoutItemFromWorkout(Workout workout) {
-  final workoutItems = workout.workoutItems;
-  final workoutStep = workout.workoutStep;
-  return workoutItems[workoutStep];
-}
 
 int getWorkoutItemIndex(Workout workout) {
   final workoutStep = workout.workoutStep;

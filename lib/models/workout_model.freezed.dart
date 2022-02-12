@@ -23,7 +23,7 @@ class _$WorkoutTearOff {
 
   _Workout call(
       {String? name,
-      List<WorkoutItem> workoutItems = const [],
+      List<Exercise> listOfExercises = const [],
       bool showDetails = false,
       int workoutStep = 0,
       required String uuid,
@@ -32,7 +32,7 @@ class _$WorkoutTearOff {
       int timerDuration = 0}) {
     return _Workout(
       name: name,
-      workoutItems: workoutItems,
+      listOfExercises: listOfExercises,
       showDetails: showDetails,
       workoutStep: workoutStep,
       uuid: uuid,
@@ -53,7 +53,7 @@ const $Workout = _$WorkoutTearOff();
 /// @nodoc
 mixin _$Workout {
   String? get name => throw _privateConstructorUsedError;
-  List<WorkoutItem> get workoutItems => throw _privateConstructorUsedError;
+  List<Exercise> get listOfExercises => throw _privateConstructorUsedError;
   bool get showDetails => throw _privateConstructorUsedError;
   int get workoutStep => throw _privateConstructorUsedError;
   String get uuid => throw _privateConstructorUsedError;
@@ -72,7 +72,7 @@ abstract class $WorkoutCopyWith<$Res> {
       _$WorkoutCopyWithImpl<$Res>;
   $Res call(
       {String? name,
-      List<WorkoutItem> workoutItems,
+      List<Exercise> listOfExercises,
       bool showDetails,
       int workoutStep,
       String uuid,
@@ -92,7 +92,7 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
   @override
   $Res call({
     Object? name = freezed,
-    Object? workoutItems = freezed,
+    Object? listOfExercises = freezed,
     Object? showDetails = freezed,
     Object? workoutStep = freezed,
     Object? uuid = freezed,
@@ -105,10 +105,10 @@ class _$WorkoutCopyWithImpl<$Res> implements $WorkoutCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      workoutItems: workoutItems == freezed
-          ? _value.workoutItems
-          : workoutItems // ignore: cast_nullable_to_non_nullable
-              as List<WorkoutItem>,
+      listOfExercises: listOfExercises == freezed
+          ? _value.listOfExercises
+          : listOfExercises // ignore: cast_nullable_to_non_nullable
+              as List<Exercise>,
       showDetails: showDetails == freezed
           ? _value.showDetails
           : showDetails // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ abstract class _$WorkoutCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
   @override
   $Res call(
       {String? name,
-      List<WorkoutItem> workoutItems,
+      List<Exercise> listOfExercises,
       bool showDetails,
       int workoutStep,
       String uuid,
@@ -165,7 +165,7 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = freezed,
-    Object? workoutItems = freezed,
+    Object? listOfExercises = freezed,
     Object? showDetails = freezed,
     Object? workoutStep = freezed,
     Object? uuid = freezed,
@@ -178,10 +178,10 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      workoutItems: workoutItems == freezed
-          ? _value.workoutItems
-          : workoutItems // ignore: cast_nullable_to_non_nullable
-              as List<WorkoutItem>,
+      listOfExercises: listOfExercises == freezed
+          ? _value.listOfExercises
+          : listOfExercises // ignore: cast_nullable_to_non_nullable
+              as List<Exercise>,
       showDetails: showDetails == freezed
           ? _value.showDetails
           : showDetails // ignore: cast_nullable_to_non_nullable
@@ -216,7 +216,7 @@ class __$WorkoutCopyWithImpl<$Res> extends _$WorkoutCopyWithImpl<$Res>
 class _$_Workout extends _Workout {
   const _$_Workout(
       {this.name,
-      this.workoutItems = const [],
+      this.listOfExercises = const [],
       this.showDetails = false,
       this.workoutStep = 0,
       required this.uuid,
@@ -232,7 +232,7 @@ class _$_Workout extends _Workout {
   final String? name;
   @JsonKey()
   @override
-  final List<WorkoutItem> workoutItems;
+  final List<Exercise> listOfExercises;
   @JsonKey()
   @override
   final bool showDetails;
@@ -252,7 +252,7 @@ class _$_Workout extends _Workout {
 
   @override
   String toString() {
-    return 'Workout(name: $name, workoutItems: $workoutItems, showDetails: $showDetails, workoutStep: $workoutStep, uuid: $uuid, description: $description, workoutState: $workoutState, timerDuration: $timerDuration)';
+    return 'Workout(name: $name, listOfExercises: $listOfExercises, showDetails: $showDetails, workoutStep: $workoutStep, uuid: $uuid, description: $description, workoutState: $workoutState, timerDuration: $timerDuration)';
   }
 
   @override
@@ -262,7 +262,7 @@ class _$_Workout extends _Workout {
             other is _Workout &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
-                .equals(other.workoutItems, workoutItems) &&
+                .equals(other.listOfExercises, listOfExercises) &&
             const DeepCollectionEquality()
                 .equals(other.showDetails, showDetails) &&
             const DeepCollectionEquality()
@@ -280,7 +280,7 @@ class _$_Workout extends _Workout {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(workoutItems),
+      const DeepCollectionEquality().hash(listOfExercises),
       const DeepCollectionEquality().hash(showDetails),
       const DeepCollectionEquality().hash(workoutStep),
       const DeepCollectionEquality().hash(uuid),
@@ -302,7 +302,7 @@ class _$_Workout extends _Workout {
 abstract class _Workout extends Workout {
   const factory _Workout(
       {String? name,
-      List<WorkoutItem> workoutItems,
+      List<Exercise> listOfExercises,
       bool showDetails,
       int workoutStep,
       required String uuid,
@@ -316,7 +316,7 @@ abstract class _Workout extends Workout {
   @override
   String? get name;
   @override
-  List<WorkoutItem> get workoutItems;
+  List<Exercise> get listOfExercises;
   @override
   bool get showDetails;
   @override

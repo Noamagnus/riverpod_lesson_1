@@ -39,11 +39,13 @@ class Dimensions {
   static double imageActionScreen = logicalHeight / 3;
 
 // Dynamic height
+  static double height5 = logicalHeight / 168.8; //844/5
   static double height10 = logicalHeight / 84.4; //844/10
   static double height15 = logicalHeight / 56.27; //844/15
   static double height20 = logicalHeight / 42.2;
   static double height25 = logicalHeight / 33.76;
   static double height30 = logicalHeight / 28.13;
+  static double height40 = logicalHeight / 21.1;
   static double height45 = logicalHeight / 18.76;
 // Dynamic width
   static double width10 = logicalWidth / 84.4; //844/10

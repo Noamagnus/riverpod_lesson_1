@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
-import 'package:my_first_riverpod/repositiries/exerciseDAO.dart';
+import 'package:my_first_riverpod/repositories/exerciseDAO.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class AddExercise2Widget extends ConsumerWidget {
