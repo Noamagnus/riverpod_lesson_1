@@ -7,5 +7,5 @@ import 'package:my_first_riverpod/core/widgets/app_widget.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const ProviderScope(child: AppWidget2()));
+  runApp(const ProviderScope(child: AppWidget()));
 }

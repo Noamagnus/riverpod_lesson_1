@@ -59,10 +59,7 @@ class HorizontalItemsSelector extends StatelessWidget {
               content: "ExerciseFixed",
             ),
           ),
-          InformationTile(
-            content: "${["garage"]}",
-            name: "Other",
-          ),
+          
           addHorizontalSpace(25),
         ],
       ),

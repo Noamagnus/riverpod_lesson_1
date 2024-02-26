@@ -18,7 +18,7 @@ class SembastDatabase {
     // In case that dbDirectory doesn't exist we need to create it
     // and if it already exist than nothing will happen
     dbDirectory.create(recursive: true);
-    final dbPath = join(dbDirectory.path, 'db.bandits');
+    final dbPath = join(dbDirectory.path, 'db.MyGarage');
     //Finally we're opening database
     _instance = await databaseFactoryIo.openDatabase(dbPath);
   }

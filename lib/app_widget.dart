@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
@@ -18,12 +17,10 @@ class AppWidget extends ConsumerWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme:  ThemeData(
-        primaryColor: kColorWhite,
-        accentColor: kColorDarkBlue,
-         textTheme: kTextThemeLarge 
-        // textTheme: screenWidth < 500 ? kTextThemeDefault : kTextThemeSmall,
-      ),
+      theme: ThemeData(
+          primaryColor: kColorWhite, accentColor: kColorDarkBlue, textTheme: kTextThemeLarge
+          // textTheme: screenWidth < 500 ? kTextThemeDefault : kTextThemeSmall,
+          ),
       home: const NavigationBarWidget(),
       // home: const MyHomePage(title: 'Riverpod'),
     );
