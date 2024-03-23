@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:my_first_riverpod/screens/analytics_screen/analytics_screen.dart';
-import 'package:my_first_riverpod/screens/calendar_screen/calendar_screen.dart';
-import 'package:my_first_riverpod/screens/home_screen/home_screen.dart';
-import 'package:my_first_riverpod/screens/workouts_screen/workouts_list_screen.dart';
+import 'package:my_first_riverpod/ui/calendar_page/calendar_screen.dart';
+import 'package:my_first_riverpod/ui/home_page/home_page.dart';
+import 'package:my_first_riverpod/ui/workouts_page/workout_page.dart';
+
+import '../ui/analytics_page/analytics_page.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   const NavigationBarWidget({Key? key}) : super(key: key);
@@ -15,10 +16,10 @@ class NavigationBarWidget extends StatefulWidget {
 class _NavigationBarWidgetState extends State<NavigationBarWidget> {
   int index = 0;
   final screens = [
-    const HomeScreen(),
-    WorkoutsListWithItems(),
-    const CalendarScreen(),
-    const AnalyticsScreen(),
+    const HomePage(),
+    const WorkoutsPage(),
+    const CalendarPage(),
+    const AnalyticsPage(),
   ];
   @override
   Widget build(BuildContext context) {

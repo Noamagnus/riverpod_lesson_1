@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:my_first_riverpod/utils/dimensions.dart';
 import 'dart:developer';
 
 class PageViewWidget extends StatefulWidget {
-  const PageViewWidget({Key? key}) : super(key: key);
+  const PageViewWidget({super.key});
 
   @override
   State<PageViewWidget> createState() => _PageViewWidgetState();
@@ -16,7 +15,8 @@ class _PageViewWidgetState extends State<PageViewWidget> {
   );
   var _currentPageValue = 0.0;
   double _scaleFactor = 0.8;
-  double _height = Dimensions.pageViewContainer;
+  // double _height = Dimensions.pageViewContainer;
+  double _height = 200;
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
     return Column(
       children: [
         Container(
-          height: Dimensions.pageView,
+          height: MediaQuery.of(context).size.height * 0.5,
           child: PageView.builder(
               itemCount: 5,
               controller: pageController,
@@ -50,7 +50,7 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         ),
         DotsIndicator(
           dotsCount: 5,
-          position: _currentPageValue,
+          position: _currentPageValue.toInt(),
           decorator: DotsDecorator(
             size: const Size.square(9.0),
             activeSize: const Size(18.0, 9.0),
@@ -60,7 +60,6 @@ class _PageViewWidgetState extends State<PageViewWidget> {
         TextButton(
           child: Text('hit me'),
           onPressed: () {
-            log(Dimensions.screenHeight.toString());
           },
         )
       ],
@@ -99,28 +98,34 @@ class _PageViewWidgetState extends State<PageViewWidget> {
       child: Stack(
         children: [
           Container(
-            height: Dimensions.pageViewContainer,
+            // height: Dimensions.pageViewContainer,
+            // height: Dimensions.pageViewContainer,
+            height: 200,
             margin: EdgeInsets.only(
-              left: Dimensions.width10,
-              right: Dimensions.width10,
+              left: 10,
+              right: 10,
             ),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius30),
+                borderRadius: BorderRadius.circular(30),
                 image: const DecorationImage(
                     fit: BoxFit.cover, image: AssetImage('images/Cerro-Torre.jpeg'))),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: Dimensions.pageViewTextContainer,
-              margin: EdgeInsets.only(
-                left: Dimensions.width40,
-                right: Dimensions.width40,
-                bottom: Dimensions.height20,
+              // height: Dimensions.pageViewTextContainer,
+              height: 200,
+              margin: const EdgeInsets.only(
+                // left: Dimensions.width40,
+                left: 40,
+                // right: Dimensions.width40,
+                right: 40,
+                // bottom: Dimensions.height20,
+                bottom: 20,
               ),
               decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(color: Color(0xFFe8e8e8), blurRadius: 5, offset: Offset(0, 5)),
                     BoxShadow(color: Colors.white, offset: Offset(-5, 0)),

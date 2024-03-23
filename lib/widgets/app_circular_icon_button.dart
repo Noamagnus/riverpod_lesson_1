@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_riverpod/utils/dimensions.dart';
 
 
 // Circular shape icon
@@ -27,7 +26,7 @@ class AppCirularIconButton extends StatelessWidget {
       child: Icon(
         icon,
         color: iconColor,
-        size: Dimensions.icon16,
+        size: 16,
       ),
     );
   }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/providers/exercise_provider.dart';
-import 'package:my_first_riverpod/repositories/exerciseDAO.dart';
+import 'package:my_first_riverpod/data/models/exercise_model.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class AddExercise2Widget extends ConsumerWidget {
-  const AddExercise2Widget({Key? key}) : super(key: key);
+class NewExercisePage extends StatelessWidget {
+  const NewExercisePage({super.key});
 
   @override
-  Widget build(BuildContext context, ref) {
-    final exercise = ref.watch(exerciseProvider);
+  Widget build(BuildContext context) {
+    final exercise = ExerciseRepeaters.initial();
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -30,18 +28,15 @@ class AddExercise2Widget extends ConsumerWidget {
                         builder: (BuildContext context) {
                           // final _value = ref.watch(exerciseProvider).hangingTime;
                           return AlertDialog(
-                            content: Consumer(
-                              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                                return NumberPicker(
-                                  value: ref.watch(exerciseProvider).hangingTime,
-                                  minValue: 1,
-                                  maxValue: 20,
-                                  onChanged: (value) {
-                                    ref
-                                        .read(exerciseProvider.notifier)
-                                        .setHanginTime(value);
-                                  },
-                                );
+                            content: NumberPicker(
+                              // value: ref.watch(exerciseProvider).hangingTime,
+                              value: 2,
+                              minValue: 1,
+                              maxValue: 20,
+                              onChanged: (value) {
+                                // ref
+                                //     .read(exerciseProvider.notifier)
+                                //     .setHanginTime(value);
                               },
                             ),
                             actions: [
@@ -77,18 +72,15 @@ class AddExercise2Widget extends ConsumerWidget {
                         builder: (BuildContext context) {
                           // final _value = ref.watch(exerciseProvider).hangingTime;
                           return AlertDialog(
-                            content: Consumer(
-                              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                                return NumberPicker(
-                                  value: ref.watch(exerciseProvider).restingTime,
-                                  minValue: 1,
-                                  maxValue: 10,
-                                  onChanged: (value) {
-                                    ref
-                                        .read(exerciseProvider.notifier)
-                                        .setRestingTime(value);
-                                  },
-                                );
+                            content: NumberPicker(
+                              // value: ref.watch(exerciseProvider).restingTime,
+                              value: 2,
+                              minValue: 1,
+                              maxValue: 10,
+                              onChanged: (value) {
+                                // ref
+                                //     .read(exerciseProvider.notifier)
+                                //     .setRestingTime(value);
                               },
                             ),
                             actions: [
@@ -124,18 +116,15 @@ class AddExercise2Widget extends ConsumerWidget {
                         builder: (BuildContext context) {
                           // final _value = ref.watch(exerciseProvider).hangingTime;
                           return AlertDialog(
-                            content: Consumer(
-                              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                                return NumberPicker(
-                                  value: ref.watch(exerciseProvider).reps,
-                                  minValue: 1,
-                                  maxValue: 10,
-                                  onChanged: (value) {
-                                    ref
-                                        .read(exerciseProvider.notifier)
-                                        .setNumberOfReps(value);
-                                  },
-                                );
+                            content: NumberPicker(
+                              // value: ref.watch(exerciseProvider).reps,
+                              value: 2,
+                              minValue: 1,
+                              maxValue: 10,
+                              onChanged: (value) {
+                                // ref
+                                //     .read(exerciseProvider.notifier)
+                                //     .setNumberOfReps(value);
                               },
                             ),
                             actions: [
@@ -165,7 +154,7 @@ class AddExercise2Widget extends ConsumerWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
             onPressed: () {
-              ref.read(exerciseProvider.notifier).takePicture();
+              // ref.read(exerciseProvider.notifier).takePicture();
               //todo call add picture function
             },
           ),
@@ -177,7 +166,7 @@ class AddExercise2Widget extends ConsumerWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  ref.read(exerciseDAOProvider).saveExercise(exercise);
+                  // ref.read(exerciseDAOProvider).saveExercise(exercise);
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Exercise Added'),

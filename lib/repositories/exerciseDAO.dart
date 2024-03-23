@@ -1,19 +1,19 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/models/exercise_model.dart';
+import 'package:my_first_riverpod/data/models/exercise_model.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/repositories/sambased.dart';
 import 'package:sembast/sembast.dart';
 import 'package:uuid/uuid.dart';
 
-final exerciseDAOProvider = StateNotifierProvider<ExerciseDAONotifier, ExerciseDAO>((ref) {
-  final db = ref.watch(sembastProvider);
-
-  return ExerciseDAONotifier(db);
-});
-
-class ExerciseDAONotifier extends StateNotifier<ExerciseDAO> {
-  ExerciseDAONotifier(db) : super(ExerciseDAO(db));
-}
+// final exerciseDAOProvider = StateNotifierProvider<ExerciseDAONotifier, ExerciseDAO>((ref) {
+//   final db = ref.watch(sembastProvider);
+//
+//   return ExerciseDAONotifier(db);
+// });
+//
+// class ExerciseDAONotifier extends StateNotifier<ExerciseDAO> {
+//   ExerciseDAONotifier(db) : super(ExerciseDAO(db));
+// }
 
 Uuid _uuid = const Uuid();
 
@@ -24,17 +24,18 @@ class ExerciseDAO {
     this._db,
   );
   Future<void> saveExercise(Exercise exercise) async {
-    final newExercise = exercise.copyWith(uuid: _uuid.v4());
-    await _store.add(_db.instance, newExercise.toJson());
+    final newExercise = (exercise as ExerciseRepeaters).copyWith(uuid: _uuid.v4());
+    // await _store.add(_db.instance, newExercise.toMap());
   }
 
-  Stream<List<Exercise>> getAllExercises2() {
+  Stream<List<Exercise>> getExerciseListFromDB() {
     var _finder = Finder(sortOrders: [SortOrder(Field.key)]);
     return _store
         .query(finder: _finder)
         .onSnapshots(_db.instance)
         .map((records) => records.map((snapshot) {
-              final exercise = Exercise.fromJson(snapshot.value);
+              // final exercise = Exercise.fromMap(snapshot.value);
+              final exercise = ExerciseRepeaters.fromMap(snapshot.value);
               return exercise;
             }).toList());
   }
@@ -47,13 +48,13 @@ class ExerciseDAO {
   //Changes only displayDetails property
   Future<void> toggleDetails(Exercise exercise) async {
     final finder = Finder(filter: Filter.equals('uuid', exercise.uuid));
-    final newExercise = exercise.copyWith(showDetails: !exercise.showDetails);
-    await _store.update(_db.instance, newExercise.toJson(), finder: finder);
+    final newExercise = (exercise as ExerciseRepeaters).copyWith(showDetails: !exercise.showDetails);
+    await _store.update(_db.instance, newExercise.toMap(), finder: finder);
   }
 
   Future<void> updateExercise(Exercise exercise) async {
     final finder = Finder(filter: Filter.byKey(exercise.uuid)); //old code
-    await _store.update(_db.instance, exercise.toJson(), finder: finder);
+    await _store.update(_db.instance, (exercise as ExerciseRepeaters).toMap(), finder: finder);
   }
 
   Future<void> onReorder(int oldIndex, int newIndex,) async {
@@ -63,13 +64,13 @@ class ExerciseDAO {
 // This list should have the same index as the one from ReordableListView because
 // its sorted by keys in ascending orders
     var listFromDatabase = recordSnapshot.map((snapshot) {
-      final exercise = Exercise.fromJson(snapshot.value);
+      final exercise = ExerciseRepeaters.fromMap(snapshot.value);
       return exercise;
     }).toList();
     final newIdx = newIndex > oldIndex ? newIndex - 1 : newIndex;
     final item = listFromDatabase.removeAt(oldIndex);
     listFromDatabase.insert(newIdx, item);
-    final listOfMaps = listFromDatabase.map((exercise) => exercise.toJson()).toList();
+    final listOfMaps = listFromDatabase.map((exercise) => exercise.toMap()).toList();
     // Now deleting previous records and adding reordered
     await _store.delete(_db.instance);
     await _store.addAll(_db.instance, listOfMaps);
@@ -85,7 +86,7 @@ class ExerciseDAO {
     var record2 = await _store.findFirst(_db.instance, finder: finder2);
 
     var newList = (await _store.find(_db.instance)).map((snapshot) {});
-    
+
 
     if (record1 != null && record2 != null) {
       var oldKey = record1.key;
@@ -93,8 +94,8 @@ class ExerciseDAO {
       if (newKey > oldKey) {}
       await _store.delete(_db.instance, finder: finder1);
       await _store.delete(_db.instance, finder: finder2);
-      await _store.record(record2.key).add(_db.instance, oldExercise.toJson());
-      await _store.record(record1.key).add(_db.instance, newExercise.toJson());
+      await _store.record(record2.key).add(_db.instance, (oldExercise as ExerciseRepeaters).toMap());
+      await _store.record(record1.key).add(_db.instance, (newExercise as ExerciseRepeaters).toMap());
     }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_first_riverpod/models/workout_model.dart';
+import 'package:my_first_riverpod/data/models/workout_model.dart';
 import 'package:my_first_riverpod/providers/sambast_database_provider.dart';
 import 'package:my_first_riverpod/repositories/sambased.dart';
 import 'package:sembast/sembast.dart';
@@ -26,7 +26,7 @@ class Workout2DAO {
   );
   Future<void> saveWorkout(Workout workout) async {
     final newWorkout = workout.copyWith(uuid: _uuid.v4());
-    await _store.add(_db.instance, newWorkout.toJson());
+    await _store.add(_db.instance, newWorkout.toMap());
   }
 
   Stream<List<Workout>> getAllWorkouts() {
@@ -35,7 +35,7 @@ class Workout2DAO {
         .query(finder: _finder)
         .onSnapshots(_db.instance)
         .map((records) => records.map((snapshot) {
-              final workout = Workout.fromJson(snapshot.value);
+              final workout = Workout.fromMap(snapshot.value);
               return workout;
             }).toList());
   }
@@ -48,7 +48,7 @@ class Workout2DAO {
 
   Future<void> updateWorkout(Workout workout) async {
     final finder = Finder(filter: Filter.byKey(workout.uuid)); //old code
-    await _store.update(_db.instance, workout.toJson(), finder: finder);
+    await _store.update(_db.instance, workout.toMap(), finder: finder);
   }
   //!Not sure if this is right
   Future<void> getWorkout(Workout workout) async {
@@ -60,7 +60,7 @@ class Workout2DAO {
   Future<void> toggleDetails(Workout workout) async {
     final finder = Finder(filter: Filter.equals('uuid', workout.uuid));
     final newWorkout = workout.copyWith(showDetails: !workout.showDetails);
-    await _store.update(_db.instance, newWorkout.toJson(), finder: finder);
+    await _store.update(_db.instance, newWorkout.toMap(), finder: finder);
   }
 
   Future<void> onReorder(
@@ -70,13 +70,13 @@ class Workout2DAO {
     var _finder = Finder(sortOrders: [SortOrder(Field.key)]);
     final recordSnapshot = await _store.find(_db.instance, finder: _finder);
     var listFromDatabase = recordSnapshot.map((snapshot) {
-      final workout = Workout.fromJson(snapshot.value);
+      final workout = Workout.fromMap(snapshot.value);
       return workout;
     }).toList();
     final newIdx = newIndex > oldIndex ? newIndex - 1 : newIndex;
     final item = listFromDatabase.removeAt(oldIndex);
     listFromDatabase.insert(newIdx, item);
-    final listOfMaps = listFromDatabase.map((exercise) => exercise.toJson()).toList();
+    final listOfMaps = listFromDatabase.map((exercise) => exercise.toMap()).toList();
     await _store.delete(_db.instance);
     await _store.addAll(_db.instance, listOfMaps);
   }

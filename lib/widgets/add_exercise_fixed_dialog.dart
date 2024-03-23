@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_first_riverpod/data/models/exercise_model.dart';
 import 'package:my_first_riverpod/providers/exercise_provider.dart';
 import 'package:my_first_riverpod/providers/workout_provider.dart';
 import 'package:my_first_riverpod/utils/widget_functions.dart';
@@ -11,7 +12,8 @@ class AddExerciseFixedDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final exercise = ref.watch(exerciseProvider);
+    final exercise = ExerciseRepeaters.initial();
+
     return Column(
       children: [
         addVerticalSpace(5),
@@ -20,7 +22,7 @@ class AddExerciseFixedDialog extends ConsumerWidget {
           pickerType: PickerType.exerciseFixedEstimatedTime,
           title: 'Estimated Time ${exercise.estimatedTime} sec',
           onChanged: (value) {
-            ref.read(exerciseProvider.notifier).setEstimatedTime(value);
+            // ref.read(exerciseProvider.notifier).setEstimatedTime(value);
           },
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -30,9 +32,10 @@ class AddExerciseFixedDialog extends ConsumerWidget {
           children: [
             const Text('Continue after estimate'),
             Switch(
-              value: ref.watch(exerciseProvider).startAfterFinish,
+              // value: ref.watch(exerciseProvider).startAfterFinish,
+              value: false,
               onChanged: (value) {
-                ref.read(exerciseProvider.notifier).setContinueOnFinish(value);
+                // ref.read(exerciseProvider.notifier).setContinueOnFinish(value);
               },
             ),
           ],
@@ -42,7 +45,7 @@ class AddExerciseFixedDialog extends ConsumerWidget {
           title: 'Reps ${exercise.reps}',
           pickerType: PickerType.exerciseFixedReps,
           onChanged: (value) {
-            ref.read(exerciseProvider.notifier).setNumberOfReps(value);
+            // ref.read(exerciseProvider.notifier).setNumberOfReps(value);
           },
           onPressed: () => Navigator.of(context).pop(),
         ),
@@ -55,21 +58,21 @@ class AddExerciseFixedDialog extends ConsumerWidget {
             style: Theme.of(context).textTheme.headline5,
           ),
           onPressed: () {
-            ref.read(exerciseProvider.notifier).takePicture();
+            // ref.read(exerciseProvider.notifier).takePicture();
             //todo call add picture function
           },
         ),
-        if (exercise.imageUrl != null)
-          ImagePreview(
-            path: exercise.imageUrl!,
-          ),
+        // if (exercise.imageUrl != null)
+        //   ImagePreview(
+        //     path: exercise.imageUrl!,
+        //   ),
         Expanded(
           child: Container(),
         ),
         FloatingActionButton.extended(
           label: const Text('Add Exercise'),
           onPressed: () {
-            ref.read(workoutProvider.notifier).addExerciseFixedTimeType(exercise);
+            // ref.read(workoutProvider.notifier).addExerciseFixedTimeType(exercise);
             Navigator.of(context).pop();
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Exercise Added'),

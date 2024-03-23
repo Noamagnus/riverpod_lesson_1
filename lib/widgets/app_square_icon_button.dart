@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_riverpod/utils/dimensions.dart';
 
 class AppSquareIconButton extends StatelessWidget {
   const AppSquareIconButton(
@@ -26,7 +25,7 @@ class AppSquareIconButton extends StatelessWidget {
         height: size,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(Dimensions.radius10), // to make it circle
+          borderRadius: BorderRadius.circular(10), // to make it circle
         ),
         child: Icon(
           icon,

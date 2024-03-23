@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_first_riverpod/utils/dimensions.dart';
 
 
 
@@ -15,7 +14,8 @@ class ExpandableText extends StatefulWidget {
 late String firstHalf;
 late String secondHalf;
 bool hiddenText = true;
-double textHeight = Dimensions.screenHeight / 5.63; //You can choose whatever you want
+///double textHeight = Dimensions.screenHeight / 5.63; //You can choose whatever you want
+double textHeight = 16; //You can choose whatever you want
 
 class _ExpandableTextState extends State<ExpandableText> {
   @override
